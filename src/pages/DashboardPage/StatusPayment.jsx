@@ -1,6 +1,5 @@
 import Navbar from "../../components/Header/Desktop";
-import Data from "../../data/InfoData";
-import User from "../../assets/user.svg";
+
 import FilterIcon from "../../assets/Live_Area.svg";
 import SearchIcon from "../../assets/search.svg";
 // import AdminSearch from "../../assets/search_admin.svg";
