@@ -1,0 +1,56 @@
+const Pembayaran = [
+  {
+    id: 1,
+    name: "Arwin Marinta",
+    Kategori: "UI/EX Design",
+    KelasPremium: "Belajar Web design dengan figma",
+    Status: "Sudah bayar",
+    Metode: "credit Card",
+    tanggal: "12 Desember 2023",
+  },
+  {
+    id: 2,
+    name: "Arwin Marinta",
+    Kategori: "UI/EX Design",
+    KelasPremium: "Belajar Web design dengan figma",
+    Status: "Belum Bayar",
+    Metode: "credit Card",
+    tanggal: "12 Desember 2023",
+  },
+  {
+    id: 3,
+    name: "Arwin Marinta",
+    Kategori: "UI/EX Design",
+    KelasPremium: "Belajar Web design dengan figma",
+    Status: "Sudah bayar",
+    Metode: "credit Card",
+  },
+  {
+    id: 4,
+    name: "Arwin Marinta",
+    Kategori: "UI/EX Design",
+    KelasPremium: "Belajar Web design dengan figma",
+    Status: "Sudah bayar",
+    Metode: "credit Card",
+    tanggal: "12 Desember 2023",
+  },
+  {
+    id: 5,
+    name: "Arwin Marinta",
+    Kategori: "UI/EX Design",
+    KelasPremium: "Belajar Web design dengan figma",
+    Status: "Sudah bayar",
+    Metode: "Belum Bayar",
+  },
+  {
+    id: 6,
+    name: "Arwin Marinta",
+    Kategori: "UI/EX Design",
+    KelasPremium: "Belajar Web design dengan figma",
+    Status: "belum bayar",
+    Metode: "credit Card",
+    tanggal: "12 Desember 2023",
+  },
+];
+
+export default Pembayaran;
