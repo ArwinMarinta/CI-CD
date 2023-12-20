@@ -19,7 +19,7 @@ const ManageCourse = () => {
   const [pages, setPages] = useState(1);
 
   const [activeModal, setActiveModal] = useState(null);
-  const [courseId, setCourseId] = useState(null);
+  const [courseId, setCourseId] = useState("");
 
   const { courses } = useSelector((state) => state.course);
 
@@ -151,10 +151,6 @@ const ManageCourse = () => {
                         >
                           Ubah
                         </button>
-                        {/* <EditeCourse
-                          editeCourse={activeModal === "editeCourse"}
-                          setEditeCourse={handleCloseModal}
-                        /> */}
                       </div>
                       <button className="p-1 bg-red-600 rounded-xl">
                         Hapus

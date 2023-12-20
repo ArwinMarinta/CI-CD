@@ -14,7 +14,7 @@ const EditeModule = ({ editeModule, setEditeModule, moduleId, courseId }) => {
   const { editeModules } = useSelector((state) => state.edite);
 
   useEffect(() => {
-    dispatch(updateModuleById(courseId, moduleId));
+    courseId && moduleId && dispatch(updateModuleById(courseId, moduleId));
   }, [dispatch, courseId, moduleId]);
 
   useEffect(() => {
