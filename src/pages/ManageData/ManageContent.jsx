@@ -3,7 +3,7 @@ import Navbar from "../../components/Header/Desktop";
 import AddIcon from "../../assets/add.svg";
 import { useParams } from "react-router-dom";
 import HeadContent from "../../data/HeadContents";
-import AddContent from "../../components/Modal/addContent";
+import AddContent from "../../components/Modal/AddContent";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -48,7 +48,7 @@ const ManageContent = () => {
         <div className="flex flex-col justify-center items-center container mt-16 mx-auto">
           <div className="flex flex-row justify-between w-full mb-4 items-center">
             <div className="font-bold font-Montserrat text-xl  ">
-              Data Konten Kelas
+              Data Konten
             </div>
             <div className="flex flex-row gap-3">
               <button
