@@ -14,7 +14,7 @@ const EditeLevel = ({ editeLevels, setEditeLevels, levelId }) => {
   const { editeLevel } = useSelector((state) => state.edite);
 
   useEffect(() => {
-    dispatch(updateLevelById(levelId));
+    levelId && dispatch(updateLevelById(levelId));
   }, [dispatch, levelId]);
 
   useEffect(() => {

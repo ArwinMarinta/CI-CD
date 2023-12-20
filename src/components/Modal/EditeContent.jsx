@@ -23,7 +23,10 @@ const EditeContent = ({
   const { editeContent } = useSelector((state) => state.edite);
 
   useEffect(() => {
-    dispatch(editeContentById(courseId, modulesId, contentId));
+    courseId &&
+      modulesId &&
+      contentId &&
+      dispatch(editeContentById(courseId, modulesId, contentId));
   }, [dispatch, contentId, modulesId, courseId]);
 
   useEffect(() => {

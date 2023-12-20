@@ -113,7 +113,6 @@ const StatusPayment = () => {
               </tbody>
             </table>
           </div>
-          <input type="number" />
         </div>
       </div>
     </div>

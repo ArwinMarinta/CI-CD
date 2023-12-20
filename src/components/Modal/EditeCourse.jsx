@@ -32,7 +32,9 @@ const EditeCourse = ({ editeCourse, setEditeCourse, id }) => {
     dispatch(getKategori());
     dispatch(getLevel());
     dispatch(getType());
-    dispatch(getDetailCourse(id));
+    if (id) {
+      dispatch(getDetailCourse(id));
+    }
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -254,7 +256,7 @@ const EditeCourse = ({ editeCourse, setEditeCourse, id }) => {
 EditeCourse.propTypes = {
   editeCourse: PropTypes.bool,
   setEditeCourse: PropTypes.func,
-  id: PropTypes.number,
+  id: PropTypes.string,
 };
 
 export default EditeCourse;
