@@ -13,6 +13,7 @@ import AddIcon from "../../assets/add.svg";
 import AddCourse from "../../components/Modal/AddCourse";
 import EditeCourse from "../../components/Modal/EditeCourse";
 import NavDide from "../../components/Header/Side";
+import Filter from "../../components/Modal/Filter";
 
 const ManageCourse = () => {
   const dispatch = useDispatch();
@@ -20,12 +21,24 @@ const ManageCourse = () => {
 
   const [activeModal, setActiveModal] = useState(null);
   const [courseId, setCourseId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [typeCourse, setTypeCourse] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [save, setSave] = useState(false);
 
   const { courses } = useSelector((state) => state.course);
 
   useEffect(() => {
-    dispatch(getCourse(pages));
-  }, [dispatch, pages]);
+    if (save == true) {
+      dispatch(getCourse(pages, typeCourse, category));
+    }
+    if (typeCourse.length == 0 && category.length == 0) {
+      dispatch(getCourse(pages));
+    }
+    if (showModal == true) {
+      setSave(false);
+    }
+  }, [dispatch, pages, typeCourse, category, save, showModal]);
 
   const handleOpenModal = (modalType, courseId) => {
     setActiveModal(modalType);
@@ -75,12 +88,24 @@ const ManageCourse = () => {
                 />
               </div>
 
-              <button className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center">
+              <button
+                className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center"
+                onClick={() => setShowModal(true)}
+              >
                 <img src={FilterIcon} />
                 <p className="text-base font-Montserrat text-DARKBLUE05 font-bold">
                   Filter
                 </p>
               </button>
+              <Filter
+                showModal={showModal}
+                setShowModal={setShowModal}
+                setCategory={setCategory}
+                setTypeCourse={setTypeCourse}
+                category={category}
+                typeCourse={typeCourse}
+                setSave={setSave}
+              />
               <form className="relative">
                 <div className="flex flex-row">
                   <input

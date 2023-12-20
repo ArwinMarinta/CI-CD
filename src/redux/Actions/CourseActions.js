@@ -5,12 +5,19 @@ import {
   setPayment,
   setModules,
   setContents,
+  setFilter,
 } from "../Reducers/CourseReducers";
 
-export const getCourse = (pages) => async (dispatch) => {
+export const getCourse = (pages, typeCourse, category) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `${VITE_API_URL}/courses?limit=20&page=${pages}`
+      `${VITE_API_URL}/courses?limit=20&page=${pages}`,
+      {
+        params: {
+          category: category,
+          type: typeCourse,
+        },
+      }
     );
 
     const { data } = response;
@@ -117,3 +124,63 @@ export const deleteContent = (contentId) => async (_, getState) => {
     console.log(error);
   }
 };
+
+export const filterData = () => async (dispatch) => {
+  try {
+    const response = await axios.get(`${VITE_API_URL}/course-categories`);
+    const { data } = response;
+    dispatch(setFilter(data.value));
+  } catch (error) {
+    alert(error?.message);
+  }
+};
+export const addedCourse =
+  (
+    picture,
+    kategoriValue,
+    titleValue,
+    typeValue,
+    priceValue,
+    instructure,
+    published,
+    requirement,
+    desc,
+    levelValue
+  ) =>
+  async (dispatch, getState) => {
+    try {
+      console.log(token);
+      let { token } = getState().auth;
+
+      const response = await axios.post(
+        `${VITE_API_URL}/courses`,
+        {
+          title: titleValue,
+          courseCategoryId: kategoriValue,
+          courseTypeId: typeValue,
+          courseLevelId: levelValue,
+          price: priceValue,
+          courseInstructorId: instructure,
+          description: desc,
+          isPublished: published,
+          courseImage: picture,
+          requirements: requirement,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+        );
+
+      const { data } = response;
+      if (data.status === "success") {
+        console.log("success");
+      } else {
+        console.log(response.message);
+      }
+    } catch (error) {
+      alert(error?.message);
+    }
+  };

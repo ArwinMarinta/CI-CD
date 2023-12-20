@@ -10,10 +10,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPayment } from "../../redux/Actions/CourseActions";
 import NavSide from "../../components/Header/Side";
+import Filter from "../../components/Modal/Filter";
 
 const StatusPayment = () => {
   const dispatch = useDispatch();
   const [pages, setPages] = useState(1);
+  const [showModal, setShowModal] = useState(false);
 
   const { payment } = useSelector((state) => state.course);
 
@@ -44,12 +46,16 @@ const StatusPayment = () => {
               />
             </div>
             <div className="flex flex-row gap-3">
-              <button className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center">
+              <button
+                className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center"
+                onClick={() => setShowModal(true)}
+              >
                 <img src={FilterIcon} />
                 <p className="text-base font-Montserrat text-DARKBLUE05 font-bold">
                   Filter
                 </p>
               </button>
+              <Filter showModal={showModal} setShowModal={setShowModal} />
               <form className="relative">
                 <div className="flex flex-row">
                   <input
