@@ -6,10 +6,13 @@ import { useEffect, useState } from "react";
 import { getType } from "../../redux/Actions/AddCourses";
 import AddIcon from "../../assets/add.svg";
 import AddType from "../../components/Modal/AddType";
+import { deleteDataType } from "../../redux/Actions/CourseActions";
+import EditeType from "../../components/Modal/EditeType";
 
 const ManageType = () => {
   const dispatch = useDispatch();
   const [activeModal, setActiveModal] = useState(null);
+  const [typeId, setTypeId] = useState(null);
 
   const { type } = useSelector((state) => state.select);
 
@@ -17,14 +20,18 @@ const ManageType = () => {
     dispatch(getType());
   }, [dispatch]);
 
-  const handleOpenModal = (modalType) => {
+  const handleOpenModal = (modalType, typeId) => {
     setActiveModal(modalType);
-    // setCourseId(courseId);
+    setTypeId(typeId);
   };
 
   const handleCloseModal = () => {
     setActiveModal(null);
-    // setCourseId(null);
+    setTypeId(null);
+  };
+
+  const handleDelete = (typeId) => {
+    dispatch(deleteDataType(typeId));
   };
 
   return (
@@ -79,17 +86,16 @@ const ManageType = () => {
                     <div className="flex flex-row gap-2 font-bold text-white">
                       <div>
                         <button
-                          // onClick={() => handleOpenModal("editeCourse")}
+                          onClick={() => handleOpenModal("editeType", data.id)}
                           className="p-1 bg-DARKBLUE05 rounded-xl "
                         >
                           Ubah
                         </button>
-                        {/* <EditeCourse
-                          editeCourse={activeModal === "editeCourse"}
-                          setEditeCourse={handleCloseModal}
-                        /> */}
                       </div>
-                      <button className="p-1 bg-red-600 rounded-xl">
+                      <button
+                        onClick={() => handleDelete(data.id)}
+                        className="p-1 bg-red-600 rounded-xl"
+                      >
                         Hapus
                       </button>
                     </div>
@@ -98,10 +104,11 @@ const ManageType = () => {
               ))}
             </tbody>
           </table>
-          {/* <EditeCourse
-            editeCourse={activeModal === "editeCourse"}
-            setEditeCourse={handleCloseModal}
-          /> */}
+          <EditeType
+            editeTypes={activeModal === "editeType"}
+            setEditeTypes={handleCloseModal}
+            typeId={typeId}
+          />
         </div>
       </div>
     </div>

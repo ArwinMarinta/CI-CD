@@ -101,7 +101,7 @@ const ManageCourse = () => {
             </div>
           </div>
 
-          <table className="table table-striped w-full text-left">
+          <table className="table table-striped w-full text-left ">
             <thead className="font-Montserrat text-base">
               <tr>
                 {Tabel.map((data) => (

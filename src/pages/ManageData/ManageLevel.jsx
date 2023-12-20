@@ -2,17 +2,17 @@ import NavSide from "../../components/Header/Side";
 import Navbar from "../../components/Header/Desktop";
 import HeadType from "../../data/HeadType";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getLevel } from "../../redux/Actions/AddCourses";
-
 import AddIcon from "../../assets/add.svg";
-
 import AddLevel from "../../components/Modal/AddLevel";
-import { useState } from "react";
+import { deleteDataLevel } from "../../redux/Actions/CourseActions";
+import EditeLevel from "../../components/Modal/EditeLevel";
 
 const ManageLevel = () => {
   const dispatch = useDispatch();
   const [activeModal, setActiveModal] = useState(null);
+  const [levelId, setLevelId] = useState();
 
   const { level } = useSelector((state) => state.select);
 
@@ -20,14 +20,18 @@ const ManageLevel = () => {
     dispatch(getLevel());
   }, [dispatch]);
 
-  const handleOpenModal = (modalType) => {
+  const handleOpenModal = (modalType, levelId) => {
     setActiveModal(modalType);
-    // setCourseId(courseId);
+    setLevelId(levelId);
   };
 
   const handleCloseModal = () => {
     setActiveModal(null);
-    // setCourseId(null);
+    setLevelId(null);
+  };
+
+  const handleClick = (levelId) => {
+    dispatch(deleteDataLevel(levelId));
   };
 
   return (
@@ -82,17 +86,16 @@ const ManageLevel = () => {
                     <div className="flex flex-row gap-2 font-bold text-white">
                       <div>
                         <button
-                          // onClick={() => handleOpenModal("editeCourse")}
+                          onClick={() => handleOpenModal("editeLevel", data.id)}
                           className="p-1 bg-DARKBLUE05 rounded-xl "
                         >
                           Ubah
                         </button>
-                        {/* <EditeCourse
-                          editeCourse={activeModal === "editeCourse"}
-                          setEditeCourse={handleCloseModal}
-                        /> */}
                       </div>
-                      <button className="p-1 bg-red-600 rounded-xl">
+                      <button
+                        onClick={() => handleClick(data.id)}
+                        className="p-1 bg-red-600 rounded-xl"
+                      >
                         Hapus
                       </button>
                     </div>
@@ -101,10 +104,11 @@ const ManageLevel = () => {
               ))}
             </tbody>
           </table>
-          {/* <EditeCourse
-            editeCourse={activeModal === "editeCourse"}
-            setEditeCourse={handleCloseModal}
-          /> */}
+          <EditeLevel
+            editeLevels={activeModal === "editeLevel"}
+            setEditeLevels={handleCloseModal}
+            levelId={levelId}
+          />
         </div>
       </div>
     </div>
