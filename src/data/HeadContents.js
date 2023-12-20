@@ -9,6 +9,14 @@ const HeadContents = [
   },
   {
     id: 3,
+    name: "Video",
+  },
+  {
+    id: 4,
+    name: "Durasi",
+  },
+  {
+    id: 5,
     name: "Aksi",
   },
 ];

@@ -1,34 +1,44 @@
 import NavSide from "../../components/Header/Side";
 import Navbar from "../../components/Header/Desktop";
-import FilterIcon from "../../assets/Live_Area.svg";
-import SearchIcon from "../../assets/search.svg";
+
 import AddIcon from "../../assets/add.svg";
 import { Link, useParams } from "react-router-dom";
 import HeadContent from "../../data/HeadModules";
-
-import { useEffect } from "react";
+import AddModule from "../../components/Modal/AddModule";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getModuleById } from "../../redux/Actions/CourseActions";
+import {
+  deleteDataModule,
+  getModuleById,
+} from "../../redux/Actions/CourseActions";
+import EditeModule from "../../components/Modal/EditeModule";
 
-const ManageContent = () => {
+const ManageModules = () => {
   const { courseId } = useParams();
   const dispatch = useDispatch();
 
-  // const [activeModal, setActiveModal] = useState(null);
+  const [activeModal, setActiveModal] = useState(null);
+  const [moduleId, setModuleId] = useState(null);
 
   const { modules } = useSelector((state) => state.course);
 
   useEffect(() => {
     dispatch(getModuleById(courseId));
-  }, [dispatch]);
+  }, [dispatch, courseId]);
 
-  // const handleOpenModal = (modalType) => {
-  //   setActiveModal(modalType);
-  // };
+  const handleOpenModal = (modalType, moduleId) => {
+    setActiveModal(modalType);
+    setModuleId(moduleId);
+  };
 
-  // const handleCloseModal = () => {
-  //   setActiveModal(null);
-  // };
+  const handleCloseModal = () => {
+    setActiveModal(null);
+    setModuleId(null);
+  };
+
+  const handleDelete = (moduleId) => {
+    dispatch(deleteDataModule(moduleId));
+  };
   return (
     <div className="flex  ">
       <NavSide />
@@ -42,43 +52,18 @@ const ManageContent = () => {
               Data Module Kelas
             </div>
             <div className="flex flex-row gap-3">
-              <div>
-                <button
-                  // onClick={() => handleOpenModal("addCategori")}
-                  className="bg-DARKBLUE05 flex flex-row justify-center items-center p-[6px] rounded-2xl gap-1 text-white font-bold font-Montserrat"
-                >
-                  <img src={AddIcon} />
-                  <p>Tambah</p>
-                </button>
-                {/* <AddContent
-                  addContent={activeModal === "addContent"}
-                  setAddContent={handleCloseModal}
-                /> */}
-              </div>
-
-              <button className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center">
-                <img src={FilterIcon} />
-                <p className="text-base font-Montserrat text-DARKBLUE05 font-bold">
-                  Filter
-                </p>
+              <button
+                onClick={() => handleOpenModal("addModule")}
+                className="bg-DARKBLUE05 flex flex-row justify-center items-center p-[6px] rounded-2xl gap-1 text-white font-bold font-Montserrat"
+              >
+                <img src={AddIcon} />
+                <p>Tambah</p>
               </button>
-              <form className="relative">
-                <div className="flex flex-row">
-                  <input
-                    type="search"
-                    placeholder="Cari"
-                    className="w-full outline-none  px-4 py-[6px] border-2 rounded-2xl border-[#6148FF]"
-                    //   value={searchTerm}
-                    //   onChange={handleInputChange}
-                  />
-                  <button
-                    type="submit"
-                    className="absolute bottom-1/2 right-2 translate-y-1/2 rounded-lg bg-[#6148FF] p-[2px]"
-                  >
-                    <img src={SearchIcon} />
-                  </button>
-                </div>
-              </form>
+              <AddModule
+                addModules={activeModal === "addModule"}
+                setAddModule={handleCloseModal}
+                courseId={courseId}
+              />
             </div>
           </div>
 
@@ -95,36 +80,38 @@ const ManageContent = () => {
             <tbody className="text-left ">
               {modules.map((data) => (
                 <tr
-                  key={data.id}
+                  key={data.moduleId}
                   className="bg-white border-b font-Montserrat text-xs "
                 >
                   <td scope="row" className=" py-4 pl-4">
-                    {data.id}
+                    {data.moduleId}
                   </td>
                   <td className=" py-4 ">{data.title ?? "-"}</td>
+                  <td className=" py-4 ">{data.totalContent ?? "-"}</td>
 
                   <td className="pr-4">
                     <div className="flex flex-row gap-2 font-bold text-white">
                       <Link
                         as={Link}
-                        to={`/manage-content/${courseId}/modules/${data.id}`}
+                        to={`/manage-content/${courseId}/modules/${data.moduleId}`}
                         className="p-1 bg-DARKBLUE05 rounded-xl "
                       >
                         Kelola
                       </Link>
                       <div>
                         <button
-                          // onClick={() => handleOpenModal("editeCourse")}
+                          onClick={() =>
+                            handleOpenModal("editeModule", data.moduleId)
+                          }
                           className="p-1 bg-DARKBLUE05 rounded-xl "
                         >
                           Ubah
                         </button>
-                        {/* <EditeCourse
-                          editeCourse={activeModal === "editeCourse"}
-                          setEditeCourse={handleCloseModal}
-                        /> */}
                       </div>
-                      <button className="p-1 bg-red-600 rounded-xl">
+                      <button
+                        onClick={() => handleDelete(data.moduleId)}
+                        className="p-1 bg-red-600 rounded-xl"
+                      >
                         Hapus
                       </button>
                     </div>
@@ -133,14 +120,16 @@ const ManageContent = () => {
               ))}
             </tbody>
           </table>
-          {/* <EditeCourse
-            editeCourse={activeModal === "editeCourse"}
-            setEditeCourse={handleCloseModal}
-          /> */}
+          <EditeModule
+            editeModule={activeModal === "editeModule"}
+            setEditeModule={handleCloseModal}
+            moduleId={moduleId}
+            courseId={courseId}
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default ManageContent;
+export default ManageModules;

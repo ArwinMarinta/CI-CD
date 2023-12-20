@@ -5,7 +5,7 @@ const HeadType = [
   },
   {
     id: 2,
-    name: "Type",
+    name: "Nama",
   },
   {
     id: 3,
