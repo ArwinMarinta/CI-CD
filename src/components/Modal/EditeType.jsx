@@ -13,7 +13,7 @@ const EditeType = ({ editeTypes, setEditeTypes, typeId }) => {
   const { editeType } = useSelector((state) => state.edite);
 
   useEffect(() => {
-    dispatch(updateTypeById(typeId));
+    typeId && dispatch(updateTypeById(typeId));
   }, [dispatch, typeId]);
 
   useEffect(() => {
