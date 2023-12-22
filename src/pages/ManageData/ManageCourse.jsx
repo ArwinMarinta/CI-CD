@@ -44,7 +44,7 @@ const ManageCourse = () => {
         <div className="w-full ">
           <Navbar />
         </div>
-        <div className="flex flex-col justify-center items-center container mt-16 mx-auto">
+        <div className="flex flex-col justify-center items-center container mt-10 mx-auto">
           <div className="font-bold font-Montserrat text-xl w-full mb-2">
             Data Kelas
           </div>
@@ -100,72 +100,84 @@ const ManageCourse = () => {
               </form>
             </div>
           </div>
-
-          <table className="table table-striped w-full text-left ">
-            <thead className="font-Montserrat text-base">
-              <tr>
-                {Tabel.map((data) => (
-                  <th key={data.id} scope="col" className="bg-LightBlue5 py-4">
-                    {data.name}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="text-left ">
-              {courses.map((data) => (
-                <tr
-                  key={data.id}
-                  className="bg-white border-b font-Montserrat text-xs "
-                >
-                  <td scope="row" className=" py-4 pl-4">
-                    {data.id}
-                  </td>
-                  <td className=" py-4 ">{data.category ?? "-"}</td>
-                  <td className=" py-4 font-bold">{data.title ?? "-"}</td>
-                  <td
-                    className={`py-4 ${
-                      data.type === "Free"
-                        ? "text-green-500 font-bold"
-                        : "text-red-700 font-bold"
-                    }`}
+          <div className="overflow-x-auto w-full">
+            <table className="table table-striped w-full text-left ">
+              <thead className="font-Montserrat text-base text-left whitespace-nowrap">
+                <tr>
+                  {Tabel.map((data) => (
+                    <th
+                      key={data.id}
+                      scope="col"
+                      className="bg-LightBlue5 py-4 px-2 md:px-4"
+                    >
+                      {data.name}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="text-left  px-2 md:px-4 ">
+                {courses.map((data) => (
+                  <tr
+                    key={data.id}
+                    className="bg-white border-b font-Montserrat text-xs "
                   >
-                    {data.type ?? "-"}
-                  </td>
-                  <td className=" py-4">{data.level ?? "-"}</td>
-                  <td className=" py-4">{data.totalPrice ?? "-"}</td>
-                  <td className="pr-4">
-                    <div className="flex flex-row gap-2 font-bold text-white">
-                      <Link
-                        as={Link}
-                        to={`/manage-modules/${data.id}`}
-                        className="p-1 bg-DARKBLUE05 rounded-xl "
-                      >
-                        Kelola
-                      </Link>
-                      <div>
-                        <button
-                          onClick={() =>
-                            handleOpenModal("editeCourse", data.id)
-                          }
-                          className="p-1 bg-DARKBLUE05 rounded-xl "
+                    <td scope="row" className="pl-2 md:pl-4">
+                      {data.code}
+                    </td>
+                    <td className=" py-4 whitespace-nowrap ">
+                      {data.category ?? "-"}
+                    </td>
+                    <td className=" py-4 font-bold whitespace-nowrap">
+                      {data.title ?? "-"}
+                    </td>
+                    <td
+                      className={`py-4 ${
+                        data.type === "Free"
+                          ? "text-green-500 font-bold"
+                          : "text-red-700 font-bold"
+                      }`}
+                    >
+                      {data.type ?? "-"}
+                    </td>
+                    <td className=" py-4">{data.level ?? "-"}</td>
+                    <td className=" py-4">{data.totalPrice ?? "-"}</td>
+                    <td className="pr-4">
+                      <div className="flex flex-row gap-2 font-bold text-white">
+                        <Link
+                          as={Link}
+                          to={`/manage-modules/${data.id}`}
+                          className="p-1 bg-DARKBLUE05 rounded-md "
                         >
-                          Ubah
+                          Kelola
+                        </Link>
+                        <div>
+                          <button
+                            onClick={() =>
+                              handleOpenModal("editeCourse", data.id)
+                            }
+                            className="p-1 bg-DARKBLUE05 rounded-md "
+                          >
+                            Ubah
+                          </button>
+                        </div>
+                        <button className="p-1 bg-DARKBLUE05 rounded-md">
+                          Detail
+                        </button>
+                        <button className="p-1 bg-red-600 rounded-md">
+                          Hapus
                         </button>
                       </div>
-                      <button className="p-1 bg-red-600 rounded-xl">
-                        Hapus
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <EditeCourse
-            editeCourse={activeModal === "editeCourse"}
-            setEditeCourse={handleCloseModal}
-            id={courseId}
-          />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <EditeCourse
+              editeCourse={activeModal === "editeCourse"}
+              setEditeCourse={handleCloseModal}
+              id={courseId}
+            />
+          </div>
         </div>
       </div>
     </div>

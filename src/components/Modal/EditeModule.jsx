@@ -27,7 +27,7 @@ const EditeModule = ({ editeModule, setEditeModule, moduleId, courseId }) => {
 
   return (
     <Modal show={editeModule} onClose={() => setEditeModule(false)}>
-      <Modal.Header>Edite Data Module</Modal.Header>
+      <Modal.Header>Ubah Module Kelas</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
           <div className="flex flex-col">
@@ -45,7 +45,7 @@ const EditeModule = ({ editeModule, setEditeModule, moduleId, courseId }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleClick}>Edite</Button>
+        <Button onClick={handleClick}>Ubah</Button>
       </Modal.Footer>
     </Modal>
   );

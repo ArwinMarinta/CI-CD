@@ -5,7 +5,9 @@ import {
   setPayment,
   setModules,
   setContents,
+  setInstructor,
 } from "../Reducers/CourseReducers";
+import { useSelector } from "react-redux";
 
 export const getCourse = (pages) => async (dispatch) => {
   try {
@@ -20,10 +22,16 @@ export const getCourse = (pages) => async (dispatch) => {
   }
 };
 
-export const getPayment = (pages) => async (dispatch) => {
+export const getPayment = (pages) => async (dispatch, getState) => {
   try {
+    let { token } = getState().auth;
     const response = await axios.get(
-      `${VITE_API_URL}/orders/all?limit=15&page=${pages}`
+      `${VITE_API_URL}/orders/all?limit=15&page=${pages}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     const { data } = response;
@@ -33,38 +41,40 @@ export const getPayment = (pages) => async (dispatch) => {
   }
 };
 
-export const addDataCategory = (picture, category) => async () => {
-  try {
-    const data = true;
-    const formData = new FormData();
-    formData.append("name", category);
-    formData.append("isPublished", data);
-    formData.append("photoCategory", picture);
-    // console.log(formData);
+export const addDataCategory =
+  (name, isPublished, photoCategory) => async (_, getState) => {
+    try {
+      let { token } = getState().auth;
 
-    console.log(category);
-    console.log(picture);
-    console.log(data);
-    await axios.post(
-      `${VITE_API_URL}/course-categories`,
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("isPublished", isPublished);
+      formData.append("photoCategory", photoCategory);
+      // console.log(formData);
 
-      {
-        name: category,
-        isPublished: data,
-        photoCategory: picture,
-      },
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      console.log(name, isPublished, photoCategory);
+
+      await axios.post(
+        `${VITE_API_URL}/course-categories`,
+
+        {
+          name,
+          isPublished,
+          photoCategory,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-    console.log(formData);
-  } catch (error) {
-    console.log(error);
-  }
-};
+      window.location.reload();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
 export const addDataType = (type) => async (_, getState) => {
   try {
@@ -249,3 +259,127 @@ export const deleteDataLevel = (levelId) => async (_, getState) => {
     console.log(error.message);
   }
 };
+
+export const getDataInstructor = () => async (dispatch, getState) => {
+  try {
+    let { token } = getState().auth;
+    const response = await axios.get(`${VITE_API_URL}/course-instructors`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const { data } = response;
+    dispatch(setInstructor(data.value));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const deleteDataInstructor = (instructorId) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.delete(`${VITE_API_URL}/course-instructors/${instructorId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    window.location.reload();
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const AddDataInstructor = (name) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.post(
+      `${VITE_API_URL}/course-instructors`,
+      {
+        name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    window.location.reload();
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const deleteDataCategory = (categoryId) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.delete(`${VITE_API_URL}/course-categories/${categoryId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    window.location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addDataCourse =
+  (
+    title,
+    courseCategoryId,
+    courseTypeId,
+    courseLevelId,
+    price,
+    courseInstructorId,
+    description,
+    isPublished,
+    courseImage,
+    requirements
+  ) =>
+  async (_, getState) => {
+    try {
+      let { token } = getState().auth;
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("courseCategoryId", courseCategoryId);
+      formData.append("courseTypeId", courseTypeId);
+      formData.append("courseLevelId", courseLevelId);
+      formData.append("price", price);
+      formData.append("courseInstructorId", courseInstructorId);
+      formData.append("description", description);
+      formData.append("isPublished", isPublished);
+      formData.append("courseImage", courseImage);
+      formData.append(" requirements", requirements);
+
+      console.log(courseImage);
+      await axios.post(
+        `${VITE_API_URL}/courses`,
+        {
+          title,
+          courseCategoryId,
+          courseTypeId,
+          courseLevelId,
+          price,
+          courseInstructorId,
+          description,
+          isPublished,
+          courseImage,
+          requirements,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };

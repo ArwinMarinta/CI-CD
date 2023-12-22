@@ -18,7 +18,7 @@ const AddContent = ({ addContent, setAddContent, moduleId }) => {
 
   return (
     <Modal show={addContent} onClose={() => setAddContent(false)}>
-      <Modal.Header>Tambah Konten</Modal.Header>
+      <Modal.Header>Tambah Konten Module</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
           <div className="flex flex-col">

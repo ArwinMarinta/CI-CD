@@ -28,13 +28,14 @@ const StatusPayment = () => {
         <div className="w-full ">
           <Navbar />
         </div>
-        <div className="flex flex-col justify-center items-center container mt-16 mx-auto w-full ">
+        <div className="flex flex-col justify-center items-center container mt-10 mx-auto w-full ">
           <div className="font-bold font-Montserrat text-xl flex w-full text-start ">
             Status Pembayaran
           </div>
-          <div className="flex flex-row justify-between w-full mb-4 items-center">
-            <div className="font-bold font-Montserrat text-base  flex flex-row gap-4 text-DARKBLUE05">
-              <p>Pages</p>
+
+          <div className="flex sm:flex-row flex-col gap-3 sm:justify-between w-full  mb-4 items-center mt-5">
+            <div className=" font-bold font-Montserrat text-base justify-start self-start flex flex-row gap-4 text-DARKBLUE05">
+              <p className="text-center">Pages</p>
               <input
                 type="number"
                 className="border-2 w-14 border-black rounded-lg text-center text-base overflow-hidden"
@@ -43,7 +44,7 @@ const StatusPayment = () => {
                 onChange={(e) => setPages(e.target.value)}
               />
             </div>
-            <div className="flex flex-row gap-3">
+            <div className="flex flex-row gap-3 self-start">
               <button className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center">
                 <img src={FilterIcon} />
                 <p className="text-base font-Montserrat text-DARKBLUE05 font-bold">
@@ -70,31 +71,31 @@ const StatusPayment = () => {
             </div>
           </div>
           <div className="overflow-x-auto w-full ">
-            <table className="table table-striped w-full text-left ">
-              <thead className="font-Montserrat text-base text-left">
+            <table className="table table-striped w-full text-left">
+              <thead className="font-Montserrat text-base text-left whitespace-nowrap">
                 <tr>
                   {Tabel.map((data) => (
                     <th
                       key={data.id}
-                      scope="col"
-                      className="bg-LightBlue5 py-4"
+                      scope="row"
+                      className="bg-LightBlue5 py-4 px-2 md:px-4"
                     >
                       {data.name}
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="text-left overflow-y-auto">
+              <tbody className="text-left">
                 {payment.map((data) => (
                   <tr
                     key={data.id}
-                    className="bg-white border-b font-Montserrat text-xs "
+                    className="bg-white border-b font-Montserrat text-xs sm:text-sm md:text-base"
                   >
-                    <td scope="row" className=" py-4 pl-4 ">
+                    <td scope="row" className="py-4 pl-4 whitespace-nowrap">
                       {data.id}
                     </td>
-                    <td className=" py-4 ">{data.Kategori ?? "-"}</td>
-                    <td className=" py-4 font-bold">
+                    <td className="py-4"> {data.Kategori ?? "-"} </td>
+                    <td className="py-4 font-bold">
                       {data.KelasPremium ?? "-"}
                     </td>
                     <td
@@ -106,8 +107,8 @@ const StatusPayment = () => {
                     >
                       {data.status ?? "-"}
                     </td>
-                    <td className=" py-4">{data.paymentMethod ?? "-"}</td>
-                    <td className=" py-4 pr-4">{data.createdAt ?? "-"}</td>
+                    <td className="py-4"> {data.paymentMethod ?? "-"} </td>
+                    <td className="py-4 pr-4"> {data.createdAt ?? "-"} </td>
                   </tr>
                 ))}
               </tbody>

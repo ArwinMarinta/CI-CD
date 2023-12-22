@@ -10,23 +10,102 @@ import ManageLevel from "./pages/ManageData/ManageLevel";
 import ManagePromo from "./pages/ManageData/ManagePromo";
 import ManageType from "./pages/ManageData/ManageType";
 import ManageContent from "./pages/ManageData/ManageContent";
+import ManageInstructor from "./pages/ManageData/ManageInstructor";
+import Protected from "./components/Midlleware/Protecd";
+import ProtecdToken from "./components/Midlleware/NoAccessToken";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<DashboardClass />} />
-        <Route path="/data-payment" element={<StatusPayment />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/manage-course" element={<ManageCourse />} />
-        <Route path="/manage-modules/:courseId" element={<ManageModules />} />
-        <Route path="/manage-category" element={<ManageCategory />} />
-        <Route path="/manage-level" element={<ManageLevel />} />
-        <Route path="/manage-promo" element={<ManagePromo />} />
-        <Route path="/manage-type" element={<ManageType />} />
+        <Route
+          path="/"
+          element={
+            <Protected>
+              <DashboardClass />
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/data-payment"
+          element={
+            <Protected>
+              <StatusPayment />
+            </Protected>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <ProtecdToken>
+              <LoginPage />
+            </ProtecdToken>
+          }
+        />
+        <Route
+          path="/manage-course"
+          element={
+            <Protected>
+              <ManageCourse />
+            </Protected>
+          }
+        />
+        <Route
+          path="/manage-modules/:courseId"
+          element={
+            <Protected>
+              <ManageModules />
+            </Protected>
+          }
+        />
+        <Route
+          path="/manage-category"
+          element={
+            <Protected>
+              <ManageCategory />
+            </Protected>
+          }
+        />
+        <Route
+          path="/manage-level"
+          element={
+            <Protected>
+              <ManageLevel />
+            </Protected>
+          }
+        />
+        <Route
+          path="/manage-promo"
+          element={
+            <Protected>
+              <ManagePromo />
+            </Protected>
+          }
+        />
+        <Route
+          path="/manage-type"
+          element={
+            <Protected>
+              <ManageType />
+            </Protected>
+          }
+        />
+        <Route
+          path="/manage-instructor"
+          element={
+            <Protected>
+              <ManageInstructor />
+            </Protected>
+          }
+        />
         <Route
           path="/manage-content/:courseId/modules/:modulesId"
-          element={<ManageContent />}
+          element={
+            <Protected>
+              <ManageContent />
+            </Protected>
+          }
         />
       </Routes>
     </BrowserRouter>

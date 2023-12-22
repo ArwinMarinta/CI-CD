@@ -5,6 +5,7 @@ const initialState = {
   payment: [],
   modules: [],
   contents: [],
+  instructor: [],
 };
 
 const courseSlice = createSlice({
@@ -23,10 +24,13 @@ const courseSlice = createSlice({
     setContents: (state, action) => {
       state.contents = action.payload;
     },
+    setInstructor: (state, action) => {
+      state.instructor = action.payload;
+    },
   },
 });
 
-export const { setCourse, setPayment, setModules, setContents } =
+export const { setCourse, setPayment, setModules, setContents, setInstructor } =
   courseSlice.actions;
 
 export default courseSlice.reducer;

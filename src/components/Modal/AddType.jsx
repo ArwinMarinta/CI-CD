@@ -13,7 +13,7 @@ const AddType = ({ addType, setAddType }) => {
   };
   return (
     <Modal show={addType} onClose={() => setAddType(false)}>
-      <Modal.Header>Tambahkan Type Kelas</Modal.Header>
+      <Modal.Header>Tambah Type Kelas</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
           <div className="flex flex-col">
