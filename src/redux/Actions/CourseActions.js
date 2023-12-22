@@ -5,12 +5,19 @@ import {
   setPayment,
   setModules,
   setContents,
+  setFilter,
 } from "../Reducers/CourseReducers";
 
-export const getCourse = (pages) => async (dispatch) => {
+export const getCourse = (pages, typeCourse, category) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `${VITE_API_URL}/courses?limit=20&page=${pages}`
+      `${VITE_API_URL}/courses?limit=20&page=${pages}`,
+      {
+        params: {
+          category: category,
+          type: typeCourse,
+        },
+      }
     );
 
     const { data } = response;
@@ -20,10 +27,16 @@ export const getCourse = (pages) => async (dispatch) => {
   }
 };
 
-export const getPayment = (pages) => async (dispatch) => {
+export const getPayment = (pages, status) => async (dispatch, getState) => {
   try {
+    let { token } = getState().auth;
     const response = await axios.get(
-      `${VITE_API_URL}/orders/all?limit=15&page=${pages}`
+      `${VITE_API_URL}/orders/all?limit=15&page=${pages}&status=${status}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     const { data } = response;
@@ -129,7 +142,15 @@ export const deleteContent = (contentId) => async (_, getState) => {
     console.log(error);
   }
 };
-
+export const filterData = () => async (dispatch) => {
+  try {
+    const response = await axios.get(`${VITE_API_URL}/course-categories`);
+    const { data } = response;
+    dispatch(setFilter(data.value));
+  } catch (error) {
+    alert(error?.message);
+  }
+};
 export const addDataContent =
   (title, videoUrl, duration, isDemo, moduleId) => async (_, getState) => {
     try {

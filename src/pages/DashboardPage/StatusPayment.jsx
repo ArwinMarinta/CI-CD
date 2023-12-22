@@ -10,16 +10,34 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPayment } from "../../redux/Actions/CourseActions";
 import NavSide from "../../components/Header/Side";
+import FilterPayment from "../../components/Modal/FilterPayment";
 
 const StatusPayment = () => {
   const dispatch = useDispatch();
   const [pages, setPages] = useState(1);
+  const [showModal, setShowModal] = useState(false);
 
   const { payment } = useSelector((state) => state.course);
+  const [save, setSave] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [status, setStatus] = useState([]);
 
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+    setSearchTerm(value);
+  };
   useEffect(() => {
-    dispatch(getPayment(pages));
-  }, [dispatch, pages]);
+    if (status.length === 0) {
+      dispatch(getPayment(pages));
+    }
+    if (save === true) {
+      dispatch(getPayment(pages, status));
+      // console.log("berhasil");
+    }
+    if (showModal === true) {
+      setSave(false);
+    }
+  }, [dispatch, pages, status, showModal]);
 
   return (
     <div className="flex  ">
@@ -44,20 +62,30 @@ const StatusPayment = () => {
               />
             </div>
             <div className="flex flex-row gap-3">
-              <button className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center">
+              <button
+                className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center"
+                onClick={() => setShowModal(true)}
+              >
                 <img src={FilterIcon} />
                 <p className="text-base font-Montserrat text-DARKBLUE05 font-bold">
                   Filter
                 </p>
               </button>
+              <FilterPayment
+                showModal={showModal}
+                setShowModal={setShowModal}
+                setSave={setSave}
+                setStatus={setStatus}
+                status={status}
+              />
               <form className="relative">
                 <div className="flex flex-row">
                   <input
                     type="search"
-                    placeholder="Cari"
+                    placeholder="Cari Pembayaran"
                     className="w-full outline-none  px-4 py-[6px] border-2 rounded-2xl border-[#6148FF]"
-                    //   value={searchTerm}
-                    //   onChange={handleInputChange}
+                    value={searchTerm}
+                    onChange={handleInputChange}
                   />
                   <button
                     type="submit"
@@ -85,31 +113,43 @@ const StatusPayment = () => {
                 </tr>
               </thead>
               <tbody className="text-left overflow-y-auto">
-                {payment.map((data) => (
-                  <tr
-                    key={data.id}
-                    className="bg-white border-b font-Montserrat text-xs "
-                  >
-                    <td scope="row" className=" py-4 pl-4 ">
-                      {data.id}
-                    </td>
-                    <td className=" py-4 ">{data.Kategori ?? "-"}</td>
-                    <td className=" py-4 font-bold">
-                      {data.KelasPremium ?? "-"}
-                    </td>
-                    <td
-                      className={`py-4 ${
-                        data.status === "Success"
-                          ? "text-green-500 font-bold"
-                          : "text-red-700 font-bold"
-                      }`}
+                {payment
+                  .filter((item) => {
+                    if (searchTerm === "") {
+                      return item;
+                    } else if (
+                      item.paymentMethod
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase())
+                    ) {
+                      return item;
+                    }
+                  })
+                  .map((data) => (
+                    <tr
+                      key={data.id}
+                      className="bg-white border-b font-Montserrat text-xs "
                     >
-                      {data.status ?? "-"}
-                    </td>
-                    <td className=" py-4">{data.paymentMethod ?? "-"}</td>
-                    <td className=" py-4 pr-4">{data.createdAt ?? "-"}</td>
-                  </tr>
-                ))}
+                      <td scope="row" className=" py-4 pl-4 ">
+                        {data.id}
+                      </td>
+                      <td className=" py-4 ">{data.Kategori ?? "-"}</td>
+                      <td className=" py-4 font-bold">
+                        {data.KelasPremium ?? "-"}
+                      </td>
+                      <td
+                        className={`py-4 ${
+                          data.status === "Success"
+                            ? "text-green-500 font-bold"
+                            : "text-red-700 font-bold"
+                        }`}
+                      >
+                        {data.status ?? "-"}
+                      </td>
+                      <td className=" py-4">{data.paymentMethod ?? "-"}</td>
+                      <td className=" py-4 pr-4">{data.createdAt ?? "-"}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

@@ -5,26 +5,73 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import ExitIcon from "../../assets/exit.svg";
 import { getKategori, getLevel, getType } from "../../redux/Actions/AddCourses";
+import { filterData } from "../../redux/Actions/CourseActions";
 
 const AddCourse = ({ addCourse, setAddCourse }) => {
   const dispatch = useDispatch();
   const [kategoriValue, setKategoriValue] = useState("");
   const [typeValue, setTypeValue] = useState("");
+  const [priceValue, setPriceValue] = useState("");
+  const [instructure, setInstructure] = useState();
+  const [published, setPublised] = useState();
+  const [requirement, setRequirement] = useState("");
+  const [desc, setDesc] = useState("");
   const [levelValue, setLevelValue] = useState("");
   const [picture, setPicture] = useState("");
   const fileInputRef = useRef(null);
+
+  const [titleValue, setTitleValue] = useState("");
+  const [save, setSave] = useState(false);
+
+  const handleSimpan = () => {
+    setAddCourse(false);
+    setSave(true);
+  };
 
   const handleChooseFileClick = () => {
     fileInputRef.current.click();
   };
 
-  const { kategori, type, level } = useSelector((state) => state.detail);
+  const { type, level } = useSelector((state) => state.select);
+  const { filter } = useSelector((state) => state.course);
 
   useEffect(() => {
     dispatch(getKategori());
+    dispatch(filterData());
     dispatch(getLevel());
     dispatch(getType());
-  }, [dispatch]);
+    // // if (save == true) {
+    // //   dispatch(
+    // //     addedCourse(
+    // //       picture,
+    // //       kategoriValue,
+    // //       titleValue,
+    // //       typeValue,
+    // //       priceValue,
+    // //       instructure,
+    // //       published,
+    // //       requirement,
+    // //       desc,
+    // //       levelValue
+    // //     )
+    // //   );
+    // }
+    if (addCourse == true) {
+      setSave(false);
+    }
+  }, [
+    dispatch,
+    picture,
+    kategoriValue,
+    titleValue,
+    typeValue,
+    priceValue,
+    instructure,
+    published,
+    requirement,
+    desc,
+    levelValue,
+  ]);
 
   // console.log(kategoriValue);
   // console.log(levelValue);
@@ -73,25 +120,23 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
               <label className="font-Poppins text-[15px] mb-[4px]">
                 Kategori
               </label>
-              <div className=" w-full">
-                <div className=" inset-y-0 right-0 flex items-center  w-full">
+              <div className="w-full">
+                <div className="inset-y-0 right-0 flex items-center w-full">
                   <div className="relative w-full border rounded-2xl">
                     <select
-                      className="appearance-none h-full w-full rounded-2xl bg-transparent  text-gray-700 py-3"
+                      className="appearance-none h-full w-full rounded-2xl bg-transparent text-gray-700 py-3"
                       value={kategoriValue}
                       onChange={(e) => setKategoriValue(e.target.value)}
                     >
                       <option value="" disabled hidden>
                         Pilih
                       </option>
-                      {kategori &&
-                        kategori.map((category) => (
-                          <>
-                            <option key={category.id} value={category.id}>
-                              {category.name}
-                            </option>
-                          </>
-                        ))}
+                      {filter.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
+                      {/* Additional options can be added here if needed */}
                     </select>
                   </div>
                 </div>
@@ -106,8 +151,8 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 type="text"
                 className="border w-full py-3 px-4 rounded-2xl"
                 placeholder="Text"
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
+                value={titleValue}
+                onChange={(e) => setTitleValue(e.target.value)}
               />
             </div>
 
@@ -126,17 +171,16 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                       <option value="" disabled hidden>
                         Pilih
                       </option>
-                      {type &&
-                        type.map((types) => (
-                          <>
-                            {/* <option disabled hidden value="">
+                      {type.map((types) => (
+                        <>
+                          {/* <option disabled hidden value="">
                               Pilih
                             </option> */}
-                            <option key={types.id} value={types.id}>
-                              {types.name}
-                            </option>
-                          </>
-                        ))}
+                          <option key={types.id} value={types.id}>
+                            {types.name}
+                          </option>
+                        </>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -160,9 +204,6 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                       {level &&
                         level.map((levels) => (
                           <>
-                            {/* <option disabled hidden value="">
-                              Pilih
-                            </option> */}
                             <option key={levels.id} value={levels.id}>
                               {levels.name}
                             </option>
@@ -178,11 +219,11 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 Harga Kelas
               </label>
               <input
-                type="Text"
+                type="number"
                 className="border w-full py-3 px-4 rounded-2xl"
                 placeholder="Number"
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
+                value={priceValue}
+                onChange={(e) => setPriceValue(e.target.value)}
               />
             </div>
             <div className="flex flex-col">
@@ -193,8 +234,8 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 type="number"
                 className="border w-full py-3 px-4 rounded-2xl"
                 placeholder="Number"
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
+                value={instructure}
+                onChange={(e) => setInstructure(e.target.value)}
               />
             </div>
             <div className="flex flex-col">
@@ -205,8 +246,8 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 type="text"
                 className="border w-full py-3 px-4 rounded-2xl"
                 placeholder="Boolean"
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
+                value={published}
+                onChange={(e) => setPublised(e.target.value)}
               />
             </div>
             <div className="flex flex-col">
@@ -219,6 +260,8 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 rows="2"
                 cols="20"
                 className="rounded-2xl"
+                value={requirement}
+                onChange={(e) => setRequirement(e.target.value)}
               ></textarea>
             </div>
             <div className="flex flex-col">
@@ -231,13 +274,15 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 rows="4"
                 cols="50"
                 className="rounded-2xl"
+                value={desc}
+                onChange={(e) => setDesc(e.target.value)}
               ></textarea>
             </div>
           </div>
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => setAddCourse(false)}>Simpan</Button>
+        <Button onClick={() => handleSimpan()}>Simpan</Button>
       </Modal.Footer>
     </Modal>
   );

@@ -13,19 +13,40 @@ import AddIcon from "../../assets/add.svg";
 import AddCourse from "../../components/Modal/AddCourse";
 import EditeCourse from "../../components/Modal/EditeCourse";
 import NavDide from "../../components/Header/Side";
+import Filter from "../../components/Modal/Filter";
 
 const ManageCourse = () => {
   const dispatch = useDispatch();
   const [pages, setPages] = useState(1);
 
   const [activeModal, setActiveModal] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [typeCourse, setTypeCourse] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [save, setSave] = useState(false);
   const [courseId, setCourseId] = useState("");
 
   const { courses } = useSelector((state) => state.course);
+  const [searchTerm, setSearchTerm] = useState("");
+  // const [pageNumber, setPageNumber] = useState();
+
+    const handleInputChange = (event) => {
+      const { value } = event.target;
+      setSearchTerm(value);
+    };
+
 
   useEffect(() => {
-    dispatch(getCourse(pages));
-  }, [dispatch, pages]);
+    if (save == true) {
+      dispatch(getCourse(pages, typeCourse, category));
+    }
+    if (typeCourse.length == 0 && category.length == 0) {
+      dispatch(getCourse(pages));
+    }
+    if (showModal == true) {
+      setSave(false);
+    }
+  }, [dispatch, pages, typeCourse, category, save, showModal]);
 
   const handleOpenModal = (modalType, courseId) => {
     setActiveModal(modalType);
@@ -75,20 +96,32 @@ const ManageCourse = () => {
                 />
               </div>
 
-              <button className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center">
+              <button
+                className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center"
+                onClick={() => setShowModal(true)}
+              >
                 <img src={FilterIcon} />
                 <p className="text-base font-Montserrat text-DARKBLUE05 font-bold">
                   Filter
                 </p>
               </button>
+              <Filter
+                showModal={showModal}
+                setShowModal={setShowModal}
+                setCategory={setCategory}
+                setTypeCourse={setTypeCourse}
+                category={category}
+                typeCourse={typeCourse}
+                setSave={setSave}
+              />
               <form className="relative">
                 <div className="flex flex-row">
                   <input
                     type="search"
                     placeholder="Cari"
                     className="w-full outline-none  px-4 py-[6px] border-2 rounded-2xl border-[#6148FF]"
-                    //   value={searchTerm}
-                    //   onChange={handleInputChange}
+                    value={searchTerm}
+                    onChange={handleInputChange}
                   />
                   <button
                     type="submit"
@@ -112,53 +145,68 @@ const ManageCourse = () => {
               </tr>
             </thead>
             <tbody className="text-left ">
-              {courses.map((data) => (
-                <tr
-                  key={data.id}
-                  className="bg-white border-b font-Montserrat text-xs "
-                >
-                  <td scope="row" className=" py-4 pl-4">
-                    {data.id}
-                  </td>
-                  <td className=" py-4 ">{data.category ?? "-"}</td>
-                  <td className=" py-4 font-bold">{data.title ?? "-"}</td>
-                  <td
-                    className={`py-4 ${
-                      data.type === "Free"
-                        ? "text-green-500 font-bold"
-                        : "text-red-700 font-bold"
-                    }`}
+              {courses
+                .filter((item) => {
+                  if (searchTerm === "") {
+                    return item;
+                  } else if (
+                    item.title
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase()) ||
+                    item.category
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase())
+                  ) {
+                    return item;
+                  }
+                })
+                .map((data) => (
+                  <tr
+                    key={data.id}
+                    className="bg-white border-b font-Montserrat text-xs "
                   >
-                    {data.type ?? "-"}
-                  </td>
-                  <td className=" py-4">{data.level ?? "-"}</td>
-                  <td className=" py-4">{data.totalPrice ?? "-"}</td>
-                  <td className="pr-4">
-                    <div className="flex flex-row gap-2 font-bold text-white">
-                      <Link
-                        as={Link}
-                        to={`/manage-modules/${data.id}`}
-                        className="p-1 bg-DARKBLUE05 rounded-xl "
-                      >
-                        Kelola
-                      </Link>
-                      <div>
-                        <button
-                          onClick={() =>
-                            handleOpenModal("editeCourse", data.id)
-                          }
+                    <td scope="row" className=" py-4 pl-4">
+                      {data.id}
+                    </td>
+                    <td className=" py-4 ">{data.category ?? "-"}</td>
+                    <td className=" py-4 font-bold">{data.title ?? "-"}</td>
+                    <td
+                      className={`py-4 ${
+                        data.type === "Free"
+                          ? "text-green-500 font-bold"
+                          : "text-red-700 font-bold"
+                      }`}
+                    >
+                      {data.type ?? "-"}
+                    </td>
+                    <td className=" py-4">{data.level ?? "-"}</td>
+                    <td className=" py-4">{data.totalPrice ?? "-"}</td>
+                    <td className="pr-4">
+                      <div className="flex flex-row gap-2 font-bold text-white">
+                        <Link
+                          as={Link}
+                          to={`/manage-modules/${data.id}`}
                           className="p-1 bg-DARKBLUE05 rounded-xl "
                         >
-                          Ubah
+                          Kelola
+                        </Link>
+                        <div>
+                          <button
+                            onClick={() =>
+                              handleOpenModal("editeCourse", data.id)
+                            }
+                            className="p-1 bg-DARKBLUE05 rounded-xl "
+                          >
+                            Ubah
+                          </button>
+                        </div>
+                        <button className="p-1 bg-red-600 rounded-xl">
+                          Hapus
                         </button>
                       </div>
-                      <button className="p-1 bg-red-600 rounded-xl">
-                        Hapus
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
           <EditeCourse

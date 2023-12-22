@@ -10,6 +10,6 @@ export const getDetailCourse = (id) => async (dispatch) => {
     const data = value;
     dispatch(setDetailCourse(data));
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
