@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import ExitIcon from "../../assets/exit.svg";
 import { getKategori, getLevel, getType } from "../../redux/Actions/AddCourses";
-import { addedCourse, filterData } from "../../redux/Actions/CourseActions";
+import { filterData } from "../../redux/Actions/CourseActions";
 
 const AddCourse = ({ addCourse, setAddCourse }) => {
   const dispatch = useDispatch();
@@ -40,22 +40,22 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
     dispatch(filterData());
     dispatch(getLevel());
     dispatch(getType());
-    if (save == true) {
-      dispatch(
-        addedCourse(
-          picture,
-          kategoriValue,
-          titleValue,
-          typeValue,
-          priceValue,
-          instructure,
-          published,
-          requirement,
-          desc,
-          levelValue
-        )
-      );
-    }
+    // // if (save == true) {
+    // //   dispatch(
+    // //     addedCourse(
+    // //       picture,
+    // //       kategoriValue,
+    // //       titleValue,
+    // //       typeValue,
+    // //       priceValue,
+    // //       instructure,
+    // //       published,
+    // //       requirement,
+    // //       desc,
+    // //       levelValue
+    // //     )
+    // //   );
+    // }
     if (addCourse == true) {
       setSave(false);
     }

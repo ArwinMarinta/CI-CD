@@ -8,8 +8,7 @@ const AddType = ({ addType, setAddType }) => {
   const dispatch = useDispatch();
   const [type, setType] = useState("");
 
-  const handleType = (e) => {
-    e.preventDefault();
+  const handleType = () => {
     dispatch(addDataType(type));
   };
   return (

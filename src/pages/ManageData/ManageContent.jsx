@@ -1,10 +1,8 @@
 import NavSide from "../../components/Header/Side";
 import Navbar from "../../components/Header/Desktop";
-import FilterIcon from "../../assets/Live_Area.svg";
-import SearchIcon from "../../assets/search.svg";
 import AddIcon from "../../assets/add.svg";
 import { useParams } from "react-router-dom";
-import HeadContent from "../../data/HeadModules";
+import HeadContent from "../../data/HeadContents";
 import AddContent from "../../components/Modal/addContent";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,29 +10,33 @@ import {
   deleteContent,
   getContentById,
 } from "../../redux/Actions/CourseActions";
+import EditeContent from "../../components/Modal/EditeContent";
 
 const ManageContent = () => {
   const { modulesId, courseId } = useParams();
   const dispatch = useDispatch();
 
   const [activeModal, setActiveModal] = useState(null);
+  const [contentId, setContentId] = useState(null);
 
   const { contents } = useSelector((state) => state.course);
 
   useEffect(() => {
     dispatch(getContentById(modulesId, courseId));
-  }, [dispatch]);
+  }, [dispatch, modulesId, courseId]);
 
   const handleDelete = (contentId) => {
     dispatch(deleteContent(contentId));
   };
 
-  const handleOpenModal = (modalType) => {
+  const handleOpenModal = (modalType, contentId) => {
     setActiveModal(modalType);
+    setContentId(contentId);
   };
 
   const handleCloseModal = () => {
     setActiveModal(null);
+    setContentId(null);
   };
   return (
     <div className="flex  ">
@@ -49,43 +51,19 @@ const ManageContent = () => {
               Data Konten Kelas
             </div>
             <div className="flex flex-row gap-3">
-              <div>
-                <button
-                  onClick={() => handleOpenModal("addContent")}
-                  className="bg-DARKBLUE05 flex flex-row justify-center items-center p-[6px] rounded-2xl gap-1 text-white font-bold font-Montserrat"
-                >
-                  <img src={AddIcon} />
-                  <p>Tambah</p>
-                </button>
-                <AddContent
-                  addContent={activeModal === "addContent"}
-                  setAddContent={handleCloseModal}
-                />
-              </div>
-
-              <button className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center">
-                <img src={FilterIcon} />
-                <p className="text-base font-Montserrat text-DARKBLUE05 font-bold">
-                  Filter
-                </p>
+              <button
+                onClick={() => handleOpenModal("addContent")}
+                className="bg-DARKBLUE05 flex flex-row justify-center items-center p-[6px] rounded-2xl gap-1 text-white font-bold font-Montserrat"
+              >
+                <img src={AddIcon} />
+                <p>Tambah</p>
               </button>
-              <form className="relative">
-                <div className="flex flex-row">
-                  <input
-                    type="search"
-                    placeholder="Cari"
-                    className="w-full outline-none  px-4 py-[6px] border-2 rounded-2xl border-[#6148FF]"
-                    //   value={searchTerm}
-                    //   onChange={handleInputChange}
-                  />
-                  <button
-                    type="submit"
-                    className="absolute bottom-1/2 right-2 translate-y-1/2 rounded-lg bg-[#6148FF] p-[2px]"
-                  >
-                    <img src={SearchIcon} />
-                  </button>
-                </div>
-              </form>
+              <AddContent
+                addContent={activeModal === "addContent"}
+                setAddContent={handleCloseModal}
+                moduleId={modulesId}
+                contentId
+              />
             </div>
           </div>
 
@@ -99,33 +77,33 @@ const ManageContent = () => {
                 ))}
               </tr>
             </thead>
-            <tbody className="text-left ">
+            <tbody className=" table-fixed overflow-x-auto w-full ">
               {contents.map((data) => (
                 <tr
-                  key={data.id}
+                  key={data.contentId}
                   className="bg-white border-b font-Montserrat text-xs "
                 >
                   <td scope="row" className=" py-4 pl-4">
-                    {data.id}
+                    {data.contentId}
                   </td>
                   <td className=" py-4 ">{data.title ?? "-"}</td>
+                  <td className=" py-4 ">{data.videoUrl ?? "-"}</td>
+                  <td className=" py-4 ">{data.duration ?? "-"} Menit</td>
 
                   <td className="pr-4">
                     <div className="flex flex-row gap-2 font-bold text-white">
                       <div>
                         <button
-                          // onClick={() => handleOpenModal("editeCourse")}
+                          onClick={() =>
+                            handleOpenModal("editeContent", data.contentId)
+                          }
                           className="p-1 bg-DARKBLUE05 rounded-xl "
                         >
                           Ubah
                         </button>
-                        {/* <EditeCourse
-                          editeCourse={activeModal === "editeCourse"}
-                          setEditeCourse={handleCloseModal}
-                        /> */}
                       </div>
                       <button
-                        onClick={() => handleDelete(data.id)}
+                        onClick={() => handleDelete(data.contentId)}
                         className="p-1 bg-red-600 rounded-xl"
                       >
                         Hapus
@@ -136,10 +114,13 @@ const ManageContent = () => {
               ))}
             </tbody>
           </table>
-          {/* <EditeCourse
-            editeCourse={activeModal === "editeCourse"}
-            setEditeCourse={handleCloseModal}
-          /> */}
+          <EditeContent
+            editeContents={activeModal === "editeContent"}
+            setEditeContent={handleCloseModal}
+            modulesId={modulesId}
+            contentId={contentId}
+            courseId={courseId}
+          />
         </div>
       </div>
     </div>

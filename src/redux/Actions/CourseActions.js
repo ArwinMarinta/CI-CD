@@ -26,10 +26,17 @@ export const getCourse = (pages, typeCourse, category) => async (dispatch) => {
     console.log(error);
   }
 };
-export const getPayment = (pages) => async (dispatch) => {
+
+export const getPayment = (pages, status) => async (dispatch, getState) => {
   try {
+    let { token } = getState().auth;
     const response = await axios.get(
-      `${VITE_API_URL}/orders/all?limit=15&page=${pages}`
+      `${VITE_API_URL}/orders/all?limit=15&page=${pages}&status=${status}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     const { data } = response;
@@ -72,11 +79,22 @@ export const addDataCategory = (picture, category) => async () => {
   }
 };
 
-export const addDataType = (type) => async () => {
+export const addDataType = (type) => async (_, getState) => {
   try {
-    await axios.post(`${VITE_API_URL}/course-types`, {
-      name: type,
-    });
+    let { token } = getState().auth;
+    await axios.post(
+      `${VITE_API_URL}/course-types`,
+      {
+        name: type,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    window.location.reload();
   } catch (error) {
     console.log(error);
   }
@@ -124,7 +142,6 @@ export const deleteContent = (contentId) => async (_, getState) => {
     console.log(error);
   }
 };
-
 export const filterData = () => async (dispatch) => {
   try {
     const response = await axios.get(`${VITE_API_URL}/course-categories`);
@@ -134,53 +151,122 @@ export const filterData = () => async (dispatch) => {
     alert(error?.message);
   }
 };
-export const addedCourse =
-  (
-    picture,
-    kategoriValue,
-    titleValue,
-    typeValue,
-    priceValue,
-    instructure,
-    published,
-    requirement,
-    desc,
-    levelValue
-  ) =>
-  async (dispatch, getState) => {
+export const addDataContent =
+  (title, videoUrl, duration, isDemo, moduleId) => async (_, getState) => {
     try {
-      console.log(token);
       let { token } = getState().auth;
-
-      const response = await axios.post(
-        `${VITE_API_URL}/courses`,
+      await axios.post(
+        `${VITE_API_URL}/course-contents`,
         {
-          title: titleValue,
-          courseCategoryId: kategoriValue,
-          courseTypeId: typeValue,
-          courseLevelId: levelValue,
-          price: priceValue,
-          courseInstructorId: instructure,
-          description: desc,
-          isPublished: published,
-          courseImage: picture,
-          requirements: requirement,
+          title,
+          videoUrl,
+          duration: Number(duration),
+          isDemo: Boolean(isDemo),
+          moduleId: Number(moduleId),
         },
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
         }
-        );
+      );
 
-      const { data } = response;
-      if (data.status === "success") {
-        console.log("success");
-      } else {
-        console.log(response.message);
-      }
+      window.location.reload();
     } catch (error) {
-      alert(error?.message);
+      console.log(error);
+      // alert(error?.message);
     }
   };
+
+export const addDataModule = (title, courseId) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.post(
+      `${VITE_API_URL}/course-modules`,
+      {
+        title,
+        courseId: Number(courseId),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    window.location.reload();
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+export const deleteDataModule = (moduleId) => async (_, getState) => {
+  try {
+    console.log(moduleId);
+    let { token } = getState().auth;
+    await axios.delete(
+      `${VITE_API_URL}/course-modules/${moduleId}`,
+
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    window.location.reload();
+  } catch (error) {
+    // alert(error?.message);
+    console.log(error.message);
+  }
+};
+
+export const deleteDataType = (typeId) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.delete(`${VITE_API_URL}/course-types/${typeId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    window.location.reload();
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const AddDataLevel = (name) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.post(
+      `${VITE_API_URL}/course-levels`,
+      {
+        name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    window.location.reload();
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const deleteDataLevel = (levelId) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.delete(`${VITE_API_URL}/course-levels/${levelId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    window.location.reload();
+  } catch (error) {
+    console.log(error.message);
+  }
+};

@@ -1,24 +1,50 @@
-import { Button, Modal } from "flowbite-react";
+import { Modal, Button } from "flowbite-react";
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { addDataContent } from "../../redux/Actions/CourseActions";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  editeContentById,
+  updateContent,
+} from "../../redux/Actions/EditeCourses";
 
-const AddContent = ({ addContent, setAddContent, moduleId }) => {
+const EditeContent = ({
+  editeContents,
+  setEditeContent,
+  modulesId,
+  courseId,
+  contentId,
+}) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [duration, setDuration] = useState();
   const [isDemo, setIsDemo] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addDataContent(title, videoUrl, duration, isDemo, moduleId));
+  const { editeContent } = useSelector((state) => state.edite);
+
+  useEffect(() => {
+    courseId &&
+      modulesId &&
+      contentId &&
+      dispatch(editeContentById(courseId, modulesId, contentId));
+  }, [dispatch, contentId, modulesId, courseId]);
+
+  useEffect(() => {
+    setTitle(editeContent.title || "");
+    setVideoUrl(editeContent.videoUrl || "");
+    setDuration(editeContent.duration || "");
+    setIsDemo(editeContent.isDemo);
+  }, [editeContent]);
+
+  const handleClik = () => {
+    dispatch(
+      updateContent(title, videoUrl, duration, isDemo, modulesId, contentId)
+    );
   };
 
   return (
-    <Modal show={addContent} onClose={() => setAddContent(false)}>
-      <Modal.Header>Tambah Konten</Modal.Header>
+    <Modal show={editeContents} onClose={() => setEditeContent(false)}>
+      <Modal.Header>Tambah Kategori Kelas</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
           <div className="flex flex-col">
@@ -33,10 +59,9 @@ const AddContent = ({ addContent, setAddContent, moduleId }) => {
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
-
           <div className="flex flex-col">
             <label className="font-Poppins text-[15px] mb-[4px]">
-              Link Video
+              Link URL
             </label>
             <input
               type="text"
@@ -47,9 +72,7 @@ const AddContent = ({ addContent, setAddContent, moduleId }) => {
             />
           </div>
           <div className="flex flex-col">
-            <label className="font-Poppins text-[15px] mb-[4px]">
-              Durasi Video
-            </label>
+            <label className="font-Poppins text-[15px] mb-[4px]">Durasi</label>
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
@@ -83,15 +106,18 @@ const AddContent = ({ addContent, setAddContent, moduleId }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleSubmit}>Tambah</Button>
+        <Button onClick={handleClik}>Tambah</Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
-AddContent.propTypes = {
-  addContent: PropTypes.bool,
-  setAddContent: PropTypes.func,
-  moduleId: PropTypes.string,
+EditeContent.propTypes = {
+  editeContents: PropTypes.bool,
+  setEditeContent: PropTypes.func,
+  modulesId: PropTypes.string,
+  courseId: PropTypes.string,
+  contentId: PropTypes.number,
 };
-export default AddContent;
+
+export default EditeContent;

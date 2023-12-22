@@ -20,13 +20,21 @@ const ManageCourse = () => {
   const [pages, setPages] = useState(1);
 
   const [activeModal, setActiveModal] = useState(null);
-  const [courseId, setCourseId] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [typeCourse, setTypeCourse] = useState([]);
   const [category, setCategory] = useState([]);
   const [save, setSave] = useState(false);
+  const [courseId, setCourseId] = useState("");
 
   const { courses } = useSelector((state) => state.course);
+  const [searchTerm, setSearchTerm] = useState("");
+  // const [pageNumber, setPageNumber] = useState();
+
+    const handleInputChange = (event) => {
+      const { value } = event.target;
+      setSearchTerm(value);
+    };
+
 
   useEffect(() => {
     if (save == true) {
@@ -112,8 +120,8 @@ const ManageCourse = () => {
                     type="search"
                     placeholder="Cari"
                     className="w-full outline-none  px-4 py-[6px] border-2 rounded-2xl border-[#6148FF]"
-                    //   value={searchTerm}
-                    //   onChange={handleInputChange}
+                    value={searchTerm}
+                    onChange={handleInputChange}
                   />
                   <button
                     type="submit"
@@ -126,7 +134,7 @@ const ManageCourse = () => {
             </div>
           </div>
 
-          <table className="table table-striped w-full text-left">
+          <table className="table table-striped w-full text-left ">
             <thead className="font-Montserrat text-base">
               <tr>
                 {Tabel.map((data) => (
@@ -137,57 +145,68 @@ const ManageCourse = () => {
               </tr>
             </thead>
             <tbody className="text-left ">
-              {courses.map((data) => (
-                <tr
-                  key={data.id}
-                  className="bg-white border-b font-Montserrat text-xs "
-                >
-                  <td scope="row" className=" py-4 pl-4">
-                    {data.id}
-                  </td>
-                  <td className=" py-4 ">{data.category ?? "-"}</td>
-                  <td className=" py-4 font-bold">{data.title ?? "-"}</td>
-                  <td
-                    className={`py-4 ${
-                      data.type === "Free"
-                        ? "text-green-500 font-bold"
-                        : "text-red-700 font-bold"
-                    }`}
+              {courses
+                .filter((item) => {
+                  if (searchTerm === "") {
+                    return item;
+                  } else if (
+                    item.title
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase()) ||
+                    item.category
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase())
+                  ) {
+                    return item;
+                  }
+                })
+                .map((data) => (
+                  <tr
+                    key={data.id}
+                    className="bg-white border-b font-Montserrat text-xs "
                   >
-                    {data.type ?? "-"}
-                  </td>
-                  <td className=" py-4">{data.level ?? "-"}</td>
-                  <td className=" py-4">{data.totalPrice ?? "-"}</td>
-                  <td className="pr-4">
-                    <div className="flex flex-row gap-2 font-bold text-white">
-                      <Link
-                        as={Link}
-                        to={`/manage-modules/${data.id}`}
-                        className="p-1 bg-DARKBLUE05 rounded-xl "
-                      >
-                        Kelola
-                      </Link>
-                      <div>
-                        <button
-                          onClick={() =>
-                            handleOpenModal("editeCourse", data.id)
-                          }
+                    <td scope="row" className=" py-4 pl-4">
+                      {data.id}
+                    </td>
+                    <td className=" py-4 ">{data.category ?? "-"}</td>
+                    <td className=" py-4 font-bold">{data.title ?? "-"}</td>
+                    <td
+                      className={`py-4 ${
+                        data.type === "Free"
+                          ? "text-green-500 font-bold"
+                          : "text-red-700 font-bold"
+                      }`}
+                    >
+                      {data.type ?? "-"}
+                    </td>
+                    <td className=" py-4">{data.level ?? "-"}</td>
+                    <td className=" py-4">{data.totalPrice ?? "-"}</td>
+                    <td className="pr-4">
+                      <div className="flex flex-row gap-2 font-bold text-white">
+                        <Link
+                          as={Link}
+                          to={`/manage-modules/${data.id}`}
                           className="p-1 bg-DARKBLUE05 rounded-xl "
                         >
-                          Ubah
+                          Kelola
+                        </Link>
+                        <div>
+                          <button
+                            onClick={() =>
+                              handleOpenModal("editeCourse", data.id)
+                            }
+                            className="p-1 bg-DARKBLUE05 rounded-xl "
+                          >
+                            Ubah
+                          </button>
+                        </div>
+                        <button className="p-1 bg-red-600 rounded-xl">
+                          Hapus
                         </button>
-                        {/* <EditeCourse
-                          editeCourse={activeModal === "editeCourse"}
-                          setEditeCourse={handleCloseModal}
-                        /> */}
                       </div>
-                      <button className="p-1 bg-red-600 rounded-xl">
-                        Hapus
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
           <EditeCourse
