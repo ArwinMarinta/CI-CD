@@ -11,7 +11,7 @@ const Dashboard = () => {
         <div className="w-full ">
           <Navbar />
         </div>
-        <div className="flex flex-col justify-center items-center container mt-16 mx-auto w-full ">
+        <div className="flex flex-col justify-center items-center container mt-10 mx-auto w-full ">
           <div className="grid grid-cols-1 lg:grid-cols-3 w-full justify-between mb-14  gap-5">
             {Data.map((datas) => (
               <div key={datas.id} className="w-full">

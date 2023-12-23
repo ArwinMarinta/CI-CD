@@ -3,7 +3,7 @@ import Navbar from "../../components/Header/Desktop";
 import AddIcon from "../../assets/add.svg";
 import { useParams } from "react-router-dom";
 import HeadContent from "../../data/HeadContents";
-import AddContent from "../../components/Modal/addContent";
+import AddContent from "../../components/Modal/AddContent";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,6 +11,7 @@ import {
   getContentById,
 } from "../../redux/Actions/CourseActions";
 import EditeContent from "../../components/Modal/EditeContent";
+import DetailContent from "../../components/Modal/DetailContent";
 
 const ManageContent = () => {
   const { modulesId, courseId } = useParams();
@@ -45,10 +46,10 @@ const ManageContent = () => {
         <div className="w-full ">
           <Navbar />
         </div>
-        <div className="flex flex-col justify-center items-center container mt-16 mx-auto">
+        <div className="flex flex-col justify-center items-center container mt-10 mx-auto">
           <div className="flex flex-row justify-between w-full mb-4 items-center">
             <div className="font-bold font-Montserrat text-xl  ">
-              Data Konten Kelas
+              Data Konten
             </div>
             <div className="flex flex-row gap-3">
               <button
@@ -62,65 +63,92 @@ const ManageContent = () => {
                 addContent={activeModal === "addContent"}
                 setAddContent={handleCloseModal}
                 moduleId={modulesId}
-                contentId
+                courseId={courseId}
               />
             </div>
           </div>
+          <div className="overflow-x-auto w-full ">
+            <table className="table table-striped w-full text-left">
+              <thead className="font-Montserrat text-base">
+                <tr>
+                  {HeadContent.map((data) => (
+                    <th
+                      key={data.id}
+                      scope="col"
+                      className="bg-LightBlue5 py-4 px-2 md:px-4"
+                    >
+                      {data.name}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className=" table-fixed overflow-x-auto w-full ">
+                {contents.map((data) => (
+                  <tr
+                    key={data.contentId}
+                    className="bg-white border-b font-Montserrat text-xs whitespace-nowrap "
+                  >
+                    <td scope="row" className=" pl-2 md:pl-4">
+                      {data.contentId}
+                    </td>
+                    <td className=" py-4 px-2 md:px-4">
+                      {data.sequence ?? "-"}
+                    </td>
+                    <td className=" py-4 px-2 md:px-4">{data.title ?? "-"}</td>
+                    <td className=" py-4 px-2 md:px-4 ">
+                      {data.videoUrl ?? "-"}
+                    </td>
+                    <td className=" py-4 px-2 md:px-4">
+                      {data.duration ?? "-"} Menit
+                    </td>
 
-          <table className="table table-striped w-full text-left">
-            <thead className="font-Montserrat text-base">
-              <tr>
-                {HeadContent.map((data) => (
-                  <th key={data.id} scope="col" className="bg-LightBlue5 py-4">
-                    {data.name}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className=" table-fixed overflow-x-auto w-full ">
-              {contents.map((data) => (
-                <tr
-                  key={data.contentId}
-                  className="bg-white border-b font-Montserrat text-xs "
-                >
-                  <td scope="row" className=" py-4 pl-4">
-                    {data.contentId}
-                  </td>
-                  <td className=" py-4 ">{data.title ?? "-"}</td>
-                  <td className=" py-4 ">{data.videoUrl ?? "-"}</td>
-                  <td className=" py-4 ">{data.duration ?? "-"} Menit</td>
-
-                  <td className="pr-4">
-                    <div className="flex flex-row gap-2 font-bold text-white">
-                      <div>
+                    <td className="pr-4 px-2 md:px-4">
+                      <div className="flex flex-row gap-2 font-bold text-white">
+                        <div>
+                          <button
+                            onClick={() =>
+                              handleOpenModal("editeContent", data.contentId)
+                            }
+                            className="p-1 bg-DARKBLUE05 rounded-md "
+                          >
+                            Ubah
+                          </button>
+                        </div>
                         <button
                           onClick={() =>
-                            handleOpenModal("editeContent", data.contentId)
+                            handleOpenModal("detailContent", data.contentId)
                           }
-                          className="p-1 bg-DARKBLUE05 rounded-xl "
+                          className="p-1 bg-DARKBLUE05 rounded-md"
                         >
-                          Ubah
+                          Detail
+                        </button>
+                        <button
+                          onClick={() => handleDelete(data.contentId)}
+                          className="p-1 bg-red-600 rounded-md"
+                        >
+                          Hapus
                         </button>
                       </div>
-                      <button
-                        onClick={() => handleDelete(data.contentId)}
-                        className="p-1 bg-red-600 rounded-xl"
-                      >
-                        Hapus
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <EditeContent
-            editeContents={activeModal === "editeContent"}
-            setEditeContent={handleCloseModal}
-            modulesId={modulesId}
-            contentId={contentId}
-            courseId={courseId}
-          />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              <EditeContent
+                editeContents={activeModal === "editeContent"}
+                setEditeContent={handleCloseModal}
+                modulesId={modulesId}
+                contentId={contentId}
+                courseId={courseId}
+              />
+              <DetailContent
+                detailContents={activeModal === "detailContent"}
+                setDetailContents={handleCloseModal}
+                modulesId={modulesId}
+                courseId={courseId}
+                contentId={contentId}
+              />
+            </table>
+          </div>
         </div>
       </div>
     </div>

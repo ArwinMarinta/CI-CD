@@ -16,6 +16,7 @@ const StatusPayment = () => {
   const dispatch = useDispatch();
   const [pages, setPages] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const [openSearch, setOpenSearch] = useState(false);
 
   const { payment } = useSelector((state) => state.course);
   const [save, setSave] = useState(false);
@@ -46,13 +47,14 @@ const StatusPayment = () => {
         <div className="w-full ">
           <Navbar />
         </div>
-        <div className="flex flex-col justify-center items-center container mt-16 mx-auto w-full ">
+        <div className="flex flex-col justify-center items-center container mt-10 mx-auto w-full ">
           <div className="font-bold font-Montserrat text-xl flex w-full text-start ">
             Status Pembayaran
           </div>
-          <div className="flex flex-row justify-between w-full mb-4 items-center">
-            <div className="font-bold font-Montserrat text-base  flex flex-row gap-4 text-DARKBLUE05">
-              <p>Pages</p>
+
+          <div className="flex flex-row gap-3 justify-between w-full  mb-4 items-center mt-5">
+            <div className=" font-bold font-Montserrat text-base justify-start self-start flex flex-row gap-4 text-DARKBLUE05">
+              <p className="text-center">Pages</p>
               <input
                 type="number"
                 className="border-2 w-14 border-black rounded-lg text-center text-base overflow-hidden"
@@ -61,7 +63,8 @@ const StatusPayment = () => {
                 onChange={(e) => setPages(e.target.value)}
               />
             </div>
-            <div className="flex flex-row gap-3">
+
+            <div className="flex flex-row gap-2">
               <button
                 className="flex flex-row p-[6px] border-[1px] border-DARKBLUE05 rounded-3xl justify-center items-center"
                 onClick={() => setShowModal(true)}
@@ -78,7 +81,41 @@ const StatusPayment = () => {
                 setStatus={setStatus}
                 status={status}
               />
-              <form className="relative">
+              <div className="hidden sm:block">
+                <form className="relative">
+                  <div className="flex flex-row">
+                    <input
+                      type="search"
+                      placeholder="Cari Pembayaran"
+                      className="w-full outline-none  px-4 py-[6px] border-2 rounded-2xl border-[#6148FF]"
+                      value={searchTerm}
+                      onChange={handleInputChange}
+                    />
+                    <button
+                      type="submit"
+                      className="absolute bottom-1/2 right-2 translate-y-1/2 rounded-lg bg-[#6148FF] p-[2px]"
+                    >
+                      <img src={SearchIcon} />
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div className="sm:hidden">
+                <button
+                  onClick={() => setOpenSearch(openSearch ? false : true)}
+                  className=" rounded-lg bg-[#6148FF] p-2"
+                >
+                  <img src={SearchIcon} />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className={`w-full ${openSearch ? "block" : "hidden"} sm:hidden`}
+          >
+            <div className="w-full">
+              <form className="relative w-full mb-4">
                 <div className="flex flex-row">
                   <input
                     type="search"
@@ -97,15 +134,16 @@ const StatusPayment = () => {
               </form>
             </div>
           </div>
+
           <div className="overflow-x-auto w-full ">
-            <table className="table table-striped w-full text-left ">
-              <thead className="font-Montserrat text-base text-left">
+            <table className="table table-striped w-full text-left">
+              <thead className="font-Montserrat text-base text-left whitespace-nowrap">
                 <tr>
                   {Tabel.map((data) => (
                     <th
                       key={data.id}
-                      scope="col"
-                      className="bg-LightBlue5 py-4"
+                      scope="row"
+                      className="bg-LightBlue5 py-4 px-2 md:px-4"
                     >
                       {data.name}
                     </th>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { addDataContent } from "../../redux/Actions/CourseActions";
 import { useDispatch } from "react-redux";
 
-const AddContent = ({ addContent, setAddContent, moduleId }) => {
+const AddContent = ({ addContent, setAddContent, moduleId, courseId }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
@@ -13,12 +13,14 @@ const AddContent = ({ addContent, setAddContent, moduleId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addDataContent(title, videoUrl, duration, isDemo, moduleId));
+    dispatch(
+      addDataContent(title, videoUrl, duration, isDemo, moduleId, courseId)
+    );
   };
 
   return (
     <Modal show={addContent} onClose={() => setAddContent(false)}>
-      <Modal.Header>Tambah Konten</Modal.Header>
+      <Modal.Header>Tambah Konten Module</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
           <div className="flex flex-col">
@@ -93,5 +95,6 @@ AddContent.propTypes = {
   addContent: PropTypes.bool,
   setAddContent: PropTypes.func,
   moduleId: PropTypes.string,
+  courseId: PropTypes.string,
 };
 export default AddContent;
