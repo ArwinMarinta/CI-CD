@@ -38,7 +38,15 @@ const EditeContent = ({
 
   const handleClik = () => {
     dispatch(
-      updateContent(title, videoUrl, duration, isDemo, modulesId, contentId)
+      updateContent(
+        title,
+        videoUrl,
+        duration,
+        isDemo,
+        modulesId,
+        contentId,
+        courseId
+      )
     );
   };
 

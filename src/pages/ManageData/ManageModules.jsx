@@ -117,12 +117,7 @@ const ManageModules = () => {
                             Ubah
                           </button>
                         </div>
-                        <button
-                          // onClick={() => handleDelete(data.moduleId)}
-                          className="p-1 bg-DARKBLUE05 rounded-md"
-                        >
-                          Detail
-                        </button>
+
                         <button
                           onClick={() => handleDelete(data.moduleId)}
                           className="p-1 bg-red-600 rounded-md"

@@ -61,10 +61,6 @@ const Side = () => {
             </Link>
           </div>
         )}
-
-        {/* <div className="">
-          <button className="text-start px-10 py-1">Keluar</button>
-        </div> */}
       </div>
     </div>
   );

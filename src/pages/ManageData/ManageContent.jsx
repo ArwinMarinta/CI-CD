@@ -11,6 +11,7 @@ import {
   getContentById,
 } from "../../redux/Actions/CourseActions";
 import EditeContent from "../../components/Modal/EditeContent";
+import DetailContent from "../../components/Modal/DetailContent";
 
 const ManageContent = () => {
   const { modulesId, courseId } = useParams();
@@ -62,7 +63,7 @@ const ManageContent = () => {
                 addContent={activeModal === "addContent"}
                 setAddContent={handleCloseModal}
                 moduleId={modulesId}
-                contentId
+                courseId={courseId}
               />
             </div>
           </div>
@@ -90,6 +91,9 @@ const ManageContent = () => {
                     <td scope="row" className=" pl-2 md:pl-4">
                       {data.contentId}
                     </td>
+                    <td className=" py-4 px-2 md:px-4">
+                      {data.sequence ?? "-"}
+                    </td>
                     <td className=" py-4 px-2 md:px-4">{data.title ?? "-"}</td>
                     <td className=" py-4 px-2 md:px-4 ">
                       {data.videoUrl ?? "-"}
@@ -111,7 +115,9 @@ const ManageContent = () => {
                           </button>
                         </div>
                         <button
-                          // onClick={() => handleDelete(data.contentId)}
+                          onClick={() =>
+                            handleOpenModal("detailContent", data.contentId)
+                          }
                           className="p-1 bg-DARKBLUE05 rounded-md"
                         >
                           Detail
@@ -127,14 +133,21 @@ const ManageContent = () => {
                   </tr>
                 ))}
               </tbody>
+              <EditeContent
+                editeContents={activeModal === "editeContent"}
+                setEditeContent={handleCloseModal}
+                modulesId={modulesId}
+                contentId={contentId}
+                courseId={courseId}
+              />
+              <DetailContent
+                detailContents={activeModal === "detailContent"}
+                setDetailContents={handleCloseModal}
+                modulesId={modulesId}
+                courseId={courseId}
+                contentId={contentId}
+              />
             </table>
-            <EditeContent
-              editeContents={activeModal === "editeContent"}
-              setEditeContent={handleCloseModal}
-              modulesId={modulesId}
-              contentId={contentId}
-              courseId={courseId}
-            />
           </div>
         </div>
       </div>

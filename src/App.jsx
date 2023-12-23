@@ -2,7 +2,6 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage/Login";
 import DashboardClass from "./pages/DashboardPage/Dashboard";
-import StatusPayment from "./pages/DashboardPage/StatusPayment";
 import ManageCourse from "./pages/ManageData/ManageCourse";
 import ManageModules from "./pages/ManageData/ManageModules";
 import ManageCategory from "./pages/ManageData/ManageCategory";
@@ -13,6 +12,9 @@ import ManageContent from "./pages/ManageData/ManageContent";
 import ManageInstructor from "./pages/ManageData/ManageInstructor";
 import Protected from "./components/Midlleware/Protecd";
 import ProtecdToken from "./components/Midlleware/NoAccessToken";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import StatusPayment from "./pages/DashboardPage/StatusPayment";
 
 function App() {
   return (
@@ -108,6 +110,19 @@ function App() {
           }
         />
       </Routes>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={500}
+        limit={1}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </BrowserRouter>
   );
 }

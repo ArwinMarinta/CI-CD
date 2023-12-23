@@ -6,8 +6,6 @@ import logo from "../../assets/Belajar_white 2.svg";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/Actions/AuthActions";
 
-// import { useEffect } from "react";
-
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,8 +13,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const [alert, setAlert] = useState("");
-  // // const [alertStatus, setAlertStatus] = useState(false);
 
   //fungsi show/hidden password
   const togglePassword = () => {
@@ -30,29 +26,8 @@ const Login = () => {
     dispatch(login(email, password, setIsLoading, navigate));
   };
 
-  // useEffect(() => {
-  //   // Fungsi untuk menyembunyikan alert setelah 3000 milidetik (3 detik)
-  //   const hideAlert = () => {
-  //     setAlert(""); // Menghapus pesan alert
-  //   };
-
-  //   // Memulai timeout ketika alertMessage berubah
-  //   if (alert) {
-  //     const timeoutId = setTimeout(hideAlert, 2500);
-
-  //     // Membersihkan timeout jika komponen di-unmount atau alertMessage berubah
-  //     return () => clearTimeout(timeoutId);
-  //   }
-  // }, [alert]);
-
   return (
     <>
-      {/* <div className="lg:hidden flex justify-center items-center bg-DARKBLUE05 w-full h-20">
-        <img src={logo} alt="logo" className="w-60 h-60" />
-      </div> */}
-      {/* <div className="hidden lg:flex justify-center items-center bg-DARKBLUE05 w-[30%] min-h-[100dvh]">
-        <img src={logo} alt="logo" />
-      </div> */}
       <div className="flex min-h-screen bg-DARKBLUE04 ">
         <div className="hidden lg:flex justify-center items-center bg-DARKBLUE05 w-[30%] min-h-[100dvh]">
           <img src={logo} alt="logo" />
@@ -111,10 +86,6 @@ const Login = () => {
             </button>
           </form>
         </div>
-
-        {/* <div className="hidden lg:flex justify-center items-center bg-DARKBLUE05 w-[30%] min-h-[100dvh]">
-          <img src={logo} alt="logo" />
-        </div> */}
       </div>
     </>
   );

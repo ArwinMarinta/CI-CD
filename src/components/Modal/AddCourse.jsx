@@ -90,8 +90,8 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
               <label className="font-Poppins text-[15px] mb-[4px]">
                 Kategori
               </label>
-              <div className=" w-full">
-                <div className=" inset-y-0 right-0 flex items-center  w-full">
+              <div className="w-full">
+                <div className="inset-y-0 right-0 flex items-center w-full">
                   <div className="relative w-full border rounded-2xl">
                     <select
                       className="appearance-none h-full w-full rounded-2xl bg-transparent  text-gray-700 py-3"
@@ -101,14 +101,11 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                       <option value="" disabled hidden>
                         Pilih
                       </option>
-                      {kategori &&
-                        kategori.map((category) => (
-                          <>
-                            <option key={category.id} value={category.id}>
-                              {category.name}
-                            </option>
-                          </>
-                        ))}
+                      {kategori.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -189,7 +186,7 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 Harga Kelas
               </label>
               <input
-                type="Text"
+                type="number"
                 className="border w-full py-3 px-4 rounded-2xl"
                 placeholder="Number"
                 value={price}

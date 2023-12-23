@@ -7,6 +7,8 @@ const initialState = {
   editeLevel: [],
   editeInstructor: [],
   editeCategory: [],
+  editePromo: [],
+  editeCourse: [],
 };
 
 const editeSlice = createSlice({
@@ -31,6 +33,12 @@ const editeSlice = createSlice({
     setEditeCategory: (state, action) => {
       state.editeCategory = action.payload;
     },
+    setEditePromo: (state, action) => {
+      state.editePromo = action.payload;
+    },
+    setEditeCourse: (state, action) => {
+      state.editeCourse = action.payload;
+    },
   },
 });
 
@@ -41,6 +49,8 @@ export const {
   setEditeLevel,
   setEditeInstructor,
   setEditeCategory,
+  setEditePromo,
+  setEditeCourse,
 } = editeSlice.actions;
 
 export default editeSlice.reducer;
