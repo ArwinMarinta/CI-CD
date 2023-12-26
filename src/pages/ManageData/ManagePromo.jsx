@@ -91,7 +91,7 @@ const ManagePromo = () => {
                     </td>
 
                     <td className=" py-4 px-2 md:px-4 whitespace-nowrap">
-                      {data.expiredAt ?? "-"}
+                      {new Date(data.expiredAt).toLocaleString() ?? "-"}
                     </td>
 
                     <td className="pr-4 whitespace-nowrap px-2 md:px-4">

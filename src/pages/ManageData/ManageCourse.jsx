@@ -16,10 +16,12 @@ import NavDide from "../../components/Header/Side";
 import Filter from "../../components/Modal/Filter";
 import PromoCourse from "../../components/Modal/PromoCourse";
 import DetailCourse from "../../components/Modal/DetailCourse";
+import Pagination from "../../components/Pagination";
 
 const ManageCourse = () => {
   const dispatch = useDispatch();
-  const [pages, setPages] = useState(1);
+  // const [pages, setPages] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const [activeModal, setActiveModal] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -39,15 +41,15 @@ const ManageCourse = () => {
 
   useEffect(() => {
     if (save == true) {
-      dispatch(getCourse(pages, typeCourse, category));
+      dispatch(getCourse(pageNumber, typeCourse, category));
     }
     if (typeCourse.length == 0 && category.length == 0) {
-      dispatch(getCourse(pages));
+      dispatch(getCourse(pageNumber));
     }
     if (showModal == true) {
       setSave(false);
     }
-  }, [dispatch, pages, typeCourse, category, save, showModal]);
+  }, [dispatch, pageNumber, typeCourse, category, save, showModal]);
 
   const handleOpenModal = (modalType, courseId) => {
     setActiveModal(modalType);
@@ -74,12 +76,16 @@ const ManageCourse = () => {
           <div className="flex flex-col md:flex-row mt-2 justify-between w-full mb-4 items-center gap-2">
             <div className="font-bold font-Montserrat text-base items-center w-full  flex flex-row gap-4 text-DARKBLUE05">
               <p>Pages</p>
-              <input
+              {/* <input
                 type="number"
                 className="border-2 w-14 border-black rounded-lg text-center text-base overflow-hidden"
                 min="1"
                 value={pages}
                 onChange={(e) => setPages(e.target.value)}
+              /> */}
+              <Pagination
+                setPageNumber={setPageNumber}
+                pageNumber={pageNumber}
               />
             </div>
 

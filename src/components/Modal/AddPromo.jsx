@@ -14,6 +14,9 @@ const AddPromo = ({ addPromo, setAddPromo }) => {
     e.preventDefault();
     dispatch(AddDataPromo(name, discount, expiredAt));
   };
+    const handleDateConversion = () => {
+      setExpiredAt(new Date(expiredAt).toISOString());
+    };
   return (
     <Modal show={addPromo} onClose={() => setAddPromo(false)}>
       <Modal.Header>Tambah Jenis Promo</Modal.Header>
@@ -46,11 +49,12 @@ const AddPromo = ({ addPromo, setAddPromo }) => {
               Berlaku Hingga
             </label>
             <input
-              type="text"
+              type="datetime-local"
               className="border w-full py-3 px-4 rounded-2xl"
               placeholder="Text"
               value={expiredAt}
               onChange={(e) => setExpiredAt(e.target.value)}
+              onBlur={handleDateConversion}
             />
           </div>
         </div>

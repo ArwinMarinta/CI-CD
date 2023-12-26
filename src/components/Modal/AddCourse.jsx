@@ -1,13 +1,14 @@
 // import React from 'react'
 import { Modal, Button } from "flowbite-react";
 import PropTypes from "prop-types";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import ExitIcon from "../../assets/exit.svg";
 import { getKategori, getLevel, getType } from "../../redux/Actions/AddCourses";
 import { FileInput, Label } from "flowbite-react";
 import {
   addDataCourse,
+  filterData,
   getDataInstructor,
 } from "../../redux/Actions/CourseActions";
 
@@ -41,6 +42,7 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
 
   useEffect(() => {
     dispatch(getKategori());
+    dispatch(filterData());
     dispatch(getLevel());
     dispatch(getType());
     dispatch(getDataInstructor());

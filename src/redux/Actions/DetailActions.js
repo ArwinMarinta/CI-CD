@@ -13,7 +13,7 @@ export const getDetailCourse = (id) => async (dispatch) => {
     dispatch(setEditeCourse(data));
     dispatch(setCourseDetail(data));
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
