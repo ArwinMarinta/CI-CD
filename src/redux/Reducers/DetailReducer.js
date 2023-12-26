@@ -2,18 +2,27 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   detailCourse: [],
+  detailContent: [],
+  courseDetail: [],
 };
 
-const courseSlice = createSlice({
-  name: "course",
+const detailSlice = createSlice({
+  name: "detail",
   initialState,
   reducers: {
     setDetailCourse: (state, action) => {
       state.detailCourse = action.payload;
     },
+    setDetailContent: (state, action) => {
+      state.detailContent = action.payload;
+    },
+    setCourseDetail: (state, action) => {
+      state.courseDetail = action.payload;
+    },
   },
 });
 
-export const { setDetailCourse } = courseSlice.actions;
+export const { setDetailCourse, setDetailContent, setCourseDetail } =
+  detailSlice.actions;
 
-export default courseSlice.reducer;
+export default detailSlice.reducer;

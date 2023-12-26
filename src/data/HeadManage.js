@@ -1,7 +1,7 @@
 const HeadManage = [
   {
     id: 1,
-    name: "Kode Kelas",
+    name: "Kode",
   },
   {
     id: 2,

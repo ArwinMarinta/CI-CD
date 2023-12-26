@@ -5,18 +5,22 @@ const HeadContents = [
   },
   {
     id: 2,
-    name: "Judul Konten",
+    name: "Urutan",
   },
   {
     id: 3,
-    name: "Video",
+    name: "Judul Konten",
   },
   {
     id: 4,
-    name: "Durasi",
+    name: "Video",
   },
   {
     id: 5,
+    name: "Durasi",
+  },
+  {
+    id: 6,
     name: "Aksi",
   },
 ];
