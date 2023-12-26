@@ -5,8 +5,12 @@ import {
   setPayment,
   setModules,
   setContents,
+  setInstructor,
   setFilter,
+  setTotalPage,
+  setPage,
 } from "../Reducers/CourseReducers";
+import { toastify } from "../../utils/toastify";
 
 export const getCourse = (pages, typeCourse, category) => async (dispatch) => {
   try {
@@ -22,6 +26,12 @@ export const getCourse = (pages, typeCourse, category) => async (dispatch) => {
 
     const { data } = response;
     dispatch(setCourse(data.value));
+    const pageArray = [];
+    for (let index = 1; index <= data.totalPage; index++) {
+      pageArray.push(index);
+    }
+    dispatch(setTotalPage(data.totalPage));
+    dispatch(setPage(pageArray));
   } catch (error) {
     console.log(error);
   }
@@ -41,43 +51,56 @@ export const getPayment = (pages, status) => async (dispatch, getState) => {
 
     const { data } = response;
     dispatch(setPayment(data.value));
+    const pageArray = [];
+    for (let index = 1; index <= data.totalPage; index++) {
+      pageArray.push(index);
+    }
+    dispatch(setTotalPage(data.totalPage));
+    dispatch(setPage(pageArray));
   } catch (error) {
     console.log(error);
   }
 };
 
-export const addDataCategory = (picture, category) => async () => {
-  try {
-    const data = true;
-    const formData = new FormData();
-    formData.append("name", category);
-    formData.append("isPublished", data);
-    formData.append("photoCategory", picture);
-    // console.log(formData);
+export const addDataCategory =
+  (name, isPublished, photoCategory) => async (_, getState) => {
+    try {
+      let { token } = getState().auth;
 
-    console.log(category);
-    console.log(picture);
-    console.log(data);
-    await axios.post(
-      `${VITE_API_URL}/course-categories`,
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("isPublished", isPublished);
+      formData.append("photoCategory", photoCategory);
+      // console.log(formData);
 
-      {
-        name: category,
-        isPublished: data,
-        photoCategory: picture,
-      },
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      console.log(name, isPublished, photoCategory);
+
+      await axios.post(
+        `${VITE_API_URL}/course-categories`,
+
+        {
+          name,
+          isPublished,
+          photoCategory,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-    console.log(formData);
-  } catch (error) {
-    console.log(error);
-  }
-};
+      window.location.reload();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toastify({
+          message: error?.response?.data?.message,
+          type: "error",
+        });
+      }
+    }
+  };
 
 export const addDataType = (type) => async (_, getState) => {
   try {
@@ -96,7 +119,12 @@ export const addDataType = (type) => async (_, getState) => {
 
     window.location.reload();
   } catch (error) {
-    console.log(error);
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
   }
 };
 
@@ -139,7 +167,12 @@ export const deleteContent = (contentId) => async (_, getState) => {
 
     window.location.reload();
   } catch (error) {
-    console.log(error);
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
   }
 };
 export const filterData = () => async (dispatch) => {
@@ -152,7 +185,8 @@ export const filterData = () => async (dispatch) => {
   }
 };
 export const addDataContent =
-  (title, videoUrl, duration, isDemo, moduleId) => async (_, getState) => {
+  (title, videoUrl, duration, isDemo, moduleId, courseId) =>
+  async (_, getState) => {
     try {
       let { token } = getState().auth;
       await axios.post(
@@ -163,6 +197,7 @@ export const addDataContent =
           duration: Number(duration),
           isDemo: Boolean(isDemo),
           moduleId: Number(moduleId),
+          courseId: Number(courseId),
         },
         {
           headers: {
@@ -173,8 +208,12 @@ export const addDataContent =
 
       window.location.reload();
     } catch (error) {
-      console.log(error);
-      // alert(error?.message);
+      if (axios.isAxiosError(error)) {
+        toastify({
+          message: error?.response?.data?.message,
+          type: "error",
+        });
+      }
     }
   };
 
@@ -196,7 +235,12 @@ export const addDataModule = (title, courseId) => async (_, getState) => {
 
     window.location.reload();
   } catch (error) {
-    alert(error.message);
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
   }
 };
 
@@ -216,8 +260,12 @@ export const deleteDataModule = (moduleId) => async (_, getState) => {
 
     window.location.reload();
   } catch (error) {
-    // alert(error?.message);
-    console.log(error.message);
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
   }
 };
 
@@ -232,7 +280,12 @@ export const deleteDataType = (typeId) => async (_, getState) => {
 
     window.location.reload();
   } catch (error) {
-    console.log(error.message);
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
   }
 };
 
@@ -252,7 +305,12 @@ export const AddDataLevel = (name) => async (_, getState) => {
     );
     window.location.reload();
   } catch (error) {
-    console.log(error.message);
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
   }
 };
 
@@ -267,6 +325,203 @@ export const deleteDataLevel = (levelId) => async (_, getState) => {
 
     window.location.reload();
   } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
+  }
+};
+
+export const getDataInstructor = () => async (dispatch, getState) => {
+  try {
+    let { token } = getState().auth;
+    const response = await axios.get(`${VITE_API_URL}/course-instructors`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const { data } = response;
+    dispatch(setInstructor(data.value));
+  } catch (error) {
     console.log(error.message);
+  }
+};
+
+export const deleteDataInstructor = (instructorId) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.delete(`${VITE_API_URL}/course-instructors/${instructorId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    window.location.reload();
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
+  }
+};
+
+export const AddDataInstructor = (name) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.post(
+      `${VITE_API_URL}/course-instructors`,
+      {
+        name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    window.location.reload();
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
+  }
+};
+
+export const deleteDataCategory = (categoryId) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.delete(`${VITE_API_URL}/course-categories/${categoryId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    window.location.reload();
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
+  }
+};
+
+export const addDataCourse =
+  (
+    title,
+    courseCategoryId,
+    courseTypeId,
+    courseLevelId,
+    price,
+    courseInstructorId,
+    description,
+    isPublished,
+    courseImage,
+    requirements
+  ) =>
+  async (_, getState) => {
+    try {
+      let { token } = getState().auth;
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("courseCategoryId", courseCategoryId);
+      formData.append("courseTypeId", courseTypeId);
+      formData.append("courseLevelId", courseLevelId);
+      formData.append("price", price);
+      formData.append("courseInstructorId", courseInstructorId);
+      formData.append("description", description);
+      formData.append("isPublished", isPublished);
+      formData.append("courseImage", courseImage);
+      formData.append(" requirements", requirements);
+
+      await axios.post(
+        `${VITE_API_URL}/courses`,
+        {
+          title,
+          courseCategoryId,
+          courseTypeId,
+          courseLevelId,
+          price,
+          courseInstructorId,
+          description,
+          isPublished,
+          courseImage,
+          requirements,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      window.location.reload();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toastify({
+          message: error?.response?.data?.message,
+          type: "error",
+        });
+      }
+    }
+  };
+
+export const AddDataPromo =
+  (name, discount, expiredAt) => async (_, getState) => {
+    try {
+      let { token } = getState().auth;
+      await axios.post(
+        `${VITE_API_URL}/course-promos`,
+        {
+          name,
+          discount: Number(discount),
+          expiredAt,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      window.location.reload();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toastify({
+          message: error?.response?.data?.message,
+          type: "error",
+        });
+      }
+    }
+  };
+
+export const deleteDataPromo = (promoId) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.delete(`${VITE_API_URL}/course-promos/${promoId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    window.location.reload();
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
   }
 };

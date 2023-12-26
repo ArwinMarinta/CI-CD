@@ -1,41 +1,42 @@
 import NavSide from "../../components/Header/Side";
 import Navbar from "../../components/Header/Desktop";
 import HeadType from "../../data/HeadType";
+import AddIcon from "../../assets/add.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getType } from "../../redux/Actions/AddCourses";
-import AddIcon from "../../assets/add.svg";
-import AddType from "../../components/Modal/AddType";
-import { deleteDataType } from "../../redux/Actions/CourseActions";
-import EditeType from "../../components/Modal/EditeType";
+import {
+  deleteDataInstructor,
+  getDataInstructor,
+} from "../../redux/Actions/CourseActions";
+import AddInstructor from "../../components/Modal/AddInstructor";
+import EditeInstructor from "../../components/Modal/EditeInstructor";
 
-const ManageType = () => {
+const ManageInstructor = () => {
   const dispatch = useDispatch();
   const [activeModal, setActiveModal] = useState(null);
-  const [typeId, setTypeId] = useState(null);
+  const [instructorId, setInstructorId] = useState("");
 
-  const { type } = useSelector((state) => state.select);
+  const { instructor } = useSelector((state) => state.course);
 
   useEffect(() => {
-    dispatch(getType());
+    dispatch(getDataInstructor());
   }, [dispatch]);
 
-  const handleOpenModal = (modalType, typeId) => {
+  const handleDelete = (instructorId) => {
+    dispatch(deleteDataInstructor(instructorId));
+  };
+
+  const handleOpenModal = (modalType, instructorId) => {
     setActiveModal(modalType);
-    setTypeId(typeId);
+    setInstructorId(instructorId);
   };
 
   const handleCloseModal = () => {
     setActiveModal(null);
-    setTypeId(null);
+    setInstructorId(null);
   };
-
-  const handleDelete = (typeId) => {
-    dispatch(deleteDataType(typeId));
-  };
-
   return (
-    <div className="flex mx-auto ">
+    <div className="flex  ">
       <NavSide />
       <div className="w-[100%] lg:w-[85%] mb-14  ">
         <div className="w-full ">
@@ -44,23 +45,23 @@ const ManageType = () => {
         <div className="flex flex-col justify-center items-center container mt-10 mx-auto">
           <div className="flex flex-row justify-between w-full mb-4 items-center">
             <div className="font-bold font-Montserrat text-xl ">
-              Data Type Kelas
+              Data Pengajar Kelas
             </div>
             <div className="flex flex-row gap-3">
               <button
-                onClick={() => handleOpenModal("addType")}
+                onClick={() => handleOpenModal("addInstructor")}
                 className="bg-DARKBLUE05 flex flex-row justify-center items-center p-[6px] rounded-2xl gap-1 text-white font-bold font-Montserrat"
               >
                 <img src={AddIcon} />
                 <p>Tambah</p>
               </button>
-              <AddType
-                addType={activeModal === "addType"}
-                setAddType={handleCloseModal}
+              <AddInstructor
+                addInstructors={activeModal === "addInstructor"}
+                setAddInstructors={handleCloseModal}
               />
             </div>
           </div>
-          {/* <div className="relative overflow-x-auto"> */}
+
           <table className="table table-striped w-full text-left">
             <thead className="font-Montserrat text-base">
               <tr>
@@ -68,7 +69,7 @@ const ManageType = () => {
                   <th
                     key={data.id}
                     scope="col"
-                    className="bg-LightBlue5 py-4 px-2 md:px-4 "
+                    className="bg-LightBlue5 py-4 px-2 md:px-4"
                   >
                     {data.name}
                   </th>
@@ -76,21 +77,23 @@ const ManageType = () => {
               </tr>
             </thead>
             <tbody className="text-left ">
-              {type.map((data) => (
+              {instructor.map((data) => (
                 <tr
                   key={data.id}
-                  className="bg-white border-b font-Montserrat text-xs font-bold "
+                  className="bg-white border-b font-Montserrat text-xs "
                 >
                   <td scope="row" className=" pl-2 md:pl-4">
                     {data.id}
                   </td>
-                  <td className=" py-4 px-2 md:px-4 ">{data.name ?? "-"}</td>
+                  <td className=" py-4 px-2 md:px-4">{data.name ?? "-"}</td>
 
-                  <td className="pr-4 px-2 md:px-4 ">
+                  <td className="pr-4 px-2 md:px-4">
                     <div className="flex flex-row gap-2 font-bold text-white">
                       <div>
                         <button
-                          onClick={() => handleOpenModal("editeType", data.id)}
+                          onClick={() =>
+                            handleOpenModal("editeInstructor", data.id)
+                          }
                           className="p-1 bg-DARKBLUE05 rounded-md "
                         >
                           Ubah
@@ -108,16 +111,15 @@ const ManageType = () => {
               ))}
             </tbody>
           </table>
-          <EditeType
-            editeTypes={activeModal === "editeType"}
-            setEditeTypes={handleCloseModal}
-            typeId={typeId}
+          <EditeInstructor
+            editeInstructors={activeModal === "editeInstructor"}
+            setEditeInstructors={handleCloseModal}
+            instructorId={instructorId}
           />
-          {/* </div> */}
         </div>
       </div>
     </div>
   );
 };
 
-export default ManageType;
+export default ManageInstructor;

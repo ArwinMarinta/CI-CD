@@ -1,81 +1,74 @@
 // import React from 'react'
 import { Modal, Button } from "flowbite-react";
 import PropTypes from "prop-types";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import ExitIcon from "../../assets/exit.svg";
 import { getKategori, getLevel, getType } from "../../redux/Actions/AddCourses";
-import { filterData } from "../../redux/Actions/CourseActions";
+import { FileInput, Label } from "flowbite-react";
+import {
+  addDataCourse,
+  filterData,
+  getDataInstructor,
+} from "../../redux/Actions/CourseActions";
 
 const AddCourse = ({ addCourse, setAddCourse }) => {
   const dispatch = useDispatch();
-  const [kategoriValue, setKategoriValue] = useState("");
-  const [typeValue, setTypeValue] = useState("");
-  const [priceValue, setPriceValue] = useState("");
-  const [instructure, setInstructure] = useState();
-  const [published, setPublised] = useState();
-  const [requirement, setRequirement] = useState("");
-  const [desc, setDesc] = useState("");
-  const [levelValue, setLevelValue] = useState("");
-  const [picture, setPicture] = useState("");
-  const fileInputRef = useRef(null);
+  const [title, setTitle] = useState("");
+  const [courseCategoryId, setCourseCategoryId] = useState("");
+  const [courseTypeId, setCourseTypeId] = useState("");
+  const [courseLevelId, setCourseLevelId] = useState("");
+  const [price, setPrice] = useState("");
+  const [courseInstructorId, setCourseInstructorId] = useState("");
+  const [description, setDescription] = useState("");
+  const [isPublished, setIsPublished] = useState("");
+  const [requirements, setRequirements] = useState("");
+  const [courseImage, setCourseImage] = useState(null);
 
-  const [titleValue, setTitleValue] = useState("");
-  const [save, setSave] = useState(false);
+  // console.log(title);
+  // console.log(courseCategoryId);
+  // console.log(courseTypeId);
+  // console.log(courseLevelId);
+  // console.log(price);
+  // console.log(courseInstructorId);
+  // console.log(description);
+  // console.log(isPublished);
+  // console.log(requirements);
+  // console.log(courseImage);
 
-  const handleSimpan = () => {
-    setAddCourse(false);
-    setSave(true);
-  };
-
-  const handleChooseFileClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const { type, level } = useSelector((state) => state.select);
-  const { filter } = useSelector((state) => state.course);
+  const { kategori, type, level, instructor } = useSelector(
+    (state) => state.select
+  );
 
   useEffect(() => {
     dispatch(getKategori());
     dispatch(filterData());
     dispatch(getLevel());
     dispatch(getType());
-    // // if (save == true) {
-    // //   dispatch(
-    // //     addedCourse(
-    // //       picture,
-    // //       kategoriValue,
-    // //       titleValue,
-    // //       typeValue,
-    // //       priceValue,
-    // //       instructure,
-    // //       published,
-    // //       requirement,
-    // //       desc,
-    // //       levelValue
-    // //     )
-    // //   );
-    // }
-    if (addCourse == true) {
-      setSave(false);
-    }
-  }, [
-    dispatch,
-    picture,
-    kategoriValue,
-    titleValue,
-    typeValue,
-    priceValue,
-    instructure,
-    published,
-    requirement,
-    desc,
-    levelValue,
-  ]);
+    dispatch(getDataInstructor());
+  }, [dispatch]);
 
-  // console.log(kategoriValue);
-  // console.log(levelValue);
-  // console.log(typeValue);
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setCourseImage(selectedFile);
+  };
+
+  const handleClick = () => {
+    dispatch(
+      addDataCourse(
+        title,
+        courseCategoryId,
+        courseTypeId,
+        courseLevelId,
+        price,
+        courseInstructorId,
+        description,
+        isPublished,
+        courseImage,
+        requirements
+      )
+    );
+  };
 
   return (
     <Modal show={addCourse} onClose={() => setAddCourse(false)}>
@@ -84,37 +77,16 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
       </Modal.Header>
       <Modal.Body>
         <div className="flex flex-col gap-5">
-          {/* <div className="w-full text-center font-Montserrat text-xl font-bold relative">
-            <p>Tambah Kelas</p>
-            <button
-              onClick={() => setAddCourse(false)}
-              className="absolute top-0 right-0 p-1 border-2 border-"
-            >
-              <img src={ExitIcon} alt="Exit Icon" />
-            </button>
-          </div> */}
           <div className="space-y-5">
-            <div className="flex flex-col ">
-              <label className="font-Poppins text-[15px] mb-[4px]">
-                Gambar Course
-              </label>
-              <div className="relative border w-full py-1 px-4 rounded-2xl overflow-hidden">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setPicture(e.target.files[0])}
-                  className="hidden"
-                  // value={picture}
-                  ref={fileInputRef}
-                />
-                <button
-                  className="bg-NEUTRAL04 text-white px-4 py-2 rounded-md"
-                  onClick={handleChooseFileClick}
-                >
-                  Choose File
-                </button>
-                <span className="ml-4 overflow-hidden ">{picture.name}</span>
+            <div>
+              <div>
+                <Label htmlFor="file-upload-helper-text" value="Upload file" />
               </div>
+              <FileInput
+                id="file-upload-helper-text"
+                helperText="SVG, PNG, JPG or GIF (MAX. 800x400px)."
+                onChange={handleFileChange}
+              />
             </div>
             <div className="flex flex-col">
               <label className="font-Poppins text-[15px] mb-[4px]">
@@ -124,19 +96,18 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 <div className="inset-y-0 right-0 flex items-center w-full">
                   <div className="relative w-full border rounded-2xl">
                     <select
-                      className="appearance-none h-full w-full rounded-2xl bg-transparent text-gray-700 py-3"
-                      value={kategoriValue}
-                      onChange={(e) => setKategoriValue(e.target.value)}
+                      className="appearance-none h-full w-full rounded-2xl bg-transparent  text-gray-700 py-3"
+                      value={courseCategoryId}
+                      onChange={(e) => setCourseCategoryId(e.target.value)}
                     >
                       <option value="" disabled hidden>
                         Pilih
                       </option>
-                      {filter.map((category) => (
+                      {kategori.map((category) => (
                         <option key={category.id} value={category.id}>
                           {category.name}
                         </option>
                       ))}
-                      {/* Additional options can be added here if needed */}
                     </select>
                   </div>
                 </div>
@@ -151,8 +122,8 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 type="text"
                 className="border w-full py-3 px-4 rounded-2xl"
                 placeholder="Text"
-                value={titleValue}
-                onChange={(e) => setTitleValue(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
 
@@ -165,22 +136,20 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                   <div className="relative w-full border rounded-2xl">
                     <select
                       className="appearance-none h-full w-full rounded-2xl bg-transparent  text-gray-700 py-3"
-                      value={typeValue}
-                      onChange={(e) => setTypeValue(e.target.value)}
+                      value={courseTypeId}
+                      onChange={(e) => setCourseTypeId(e.target.value)}
                     >
                       <option value="" disabled hidden>
                         Pilih
                       </option>
-                      {type.map((types) => (
-                        <>
-                          {/* <option disabled hidden value="">
-                              Pilih
-                            </option> */}
-                          <option key={types.id} value={types.id}>
-                            {types.name}
-                          </option>
-                        </>
-                      ))}
+                      {type &&
+                        type.map((types) => (
+                          <>
+                            <option key={types.id} value={types.id}>
+                              {types.name}
+                            </option>
+                          </>
+                        ))}
                     </select>
                   </div>
                 </div>
@@ -195,8 +164,8 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                   <div className="relative w-full border rounded-2xl">
                     <select
                       className="appearance-none h-full w-full rounded-2xl bg-transparent  text-gray-700 py-3"
-                      value={levelValue}
-                      onChange={(e) => setLevelValue(e.target.value)}
+                      value={courseLevelId}
+                      onChange={(e) => setCourseLevelId(e.target.value)}
                     >
                       <option value="" disabled hidden>
                         Pilih
@@ -222,33 +191,59 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 type="number"
                 className="border w-full py-3 px-4 rounded-2xl"
                 placeholder="Number"
-                value={priceValue}
-                onChange={(e) => setPriceValue(e.target.value)}
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
               />
             </div>
             <div className="flex flex-col">
               <label className="font-Poppins text-[15px] mb-[4px]">
-                Instructor Kelas
+                Pengajar Kelas
               </label>
-              <input
-                type="number"
-                className="border w-full py-3 px-4 rounded-2xl"
-                placeholder="Number"
-                value={instructure}
-                onChange={(e) => setInstructure(e.target.value)}
-              />
+              <div className=" w-full">
+                <div className=" inset-y-0 right-0 flex items-center  w-full">
+                  <div className="relative w-full border rounded-2xl">
+                    <select
+                      className="appearance-none h-full w-full rounded-2xl bg-transparent  text-gray-700 py-3"
+                      value={courseInstructorId}
+                      onChange={(e) => setCourseInstructorId(e.target.value)}
+                    >
+                      <option value="" disabled hidden>
+                        Pilih
+                      </option>
+                      {instructor &&
+                        instructor.map((types) => (
+                          <>
+                            <option key={types.id} value={types.id}>
+                              {types.name}
+                            </option>
+                          </>
+                        ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="flex flex-col">
               <label className="font-Poppins text-[15px] mb-[4px]">
                 Publish
               </label>
-              <input
-                type="text"
-                className="border w-full py-3 px-4 rounded-2xl"
-                placeholder="Boolean"
-                value={published}
-                onChange={(e) => setPublised(e.target.value)}
-              />
+              <div className=" w-full">
+                <div className=" inset-y-0 right-0 flex items-center  w-full">
+                  <div className="relative w-full border rounded-2xl">
+                    <select
+                      className="appearance-none h-full w-full rounded-2xl bg-transparent  text-gray-700 py-3"
+                      value={isPublished}
+                      onChange={(e) => setIsPublished(e.target.value)}
+                    >
+                      <option value="" disabled hidden>
+                        Pilih
+                      </option>
+                      <option value={true}>true</option>
+                      <option value={false}>false</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="flex flex-col">
               <label className="font-Poppins text-[15px] mb-[4px]">
@@ -260,8 +255,7 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 rows="2"
                 cols="20"
                 className="rounded-2xl"
-                value={requirement}
-                onChange={(e) => setRequirement(e.target.value)}
+                onChange={(e) => setRequirements(e.target.value)}
               ></textarea>
             </div>
             <div className="flex flex-col">
@@ -274,15 +268,14 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                 rows="4"
                 cols="50"
                 className="rounded-2xl"
-                value={desc}
-                onChange={(e) => setDesc(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
               ></textarea>
             </div>
           </div>
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => handleSimpan()}>Simpan</Button>
+        <Button onClick={handleClick}>Tambah</Button>
       </Modal.Footer>
     </Modal>
   );

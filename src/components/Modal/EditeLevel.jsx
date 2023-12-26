@@ -27,7 +27,7 @@ const EditeLevel = ({ editeLevels, setEditeLevels, levelId }) => {
 
   return (
     <Modal show={editeLevels} onClose={() => setEditeLevels(false)}>
-      <Modal.Header>Ubah Type Kelas</Modal.Header>
+      <Modal.Header>Ubah Level Kelas</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
           <div className="flex flex-col">
@@ -45,7 +45,7 @@ const EditeLevel = ({ editeLevels, setEditeLevels, levelId }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleChange}>Tambah</Button>
+        <Button onClick={handleChange}>Ubah</Button>
       </Modal.Footer>
     </Modal>
   );

@@ -29,9 +29,14 @@ export const getLevel = () => async (dispatch) => {
   }
 };
 
-export const getType = () => async (dispatch) => {
+export const getType = () => async (dispatch, getState) => {
   try {
-    const response = await axios.get(`${VITE_API_URL}/course-types`);
+    let { token } = getState().auth;
+    const response = await axios.get(`${VITE_API_URL}/course-types`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const { data } = response;
     dispatch(setType(data.value));
