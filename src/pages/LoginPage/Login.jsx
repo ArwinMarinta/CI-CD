@@ -6,8 +6,6 @@ import logo from "../../assets/Belajar_white 2.svg";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/Actions/AuthActions";
 
-// import { useEffect } from "react";
-
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,49 +13,26 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const [alert, setAlert] = useState("");
-  // // const [alertStatus, setAlertStatus] = useState(false);
 
-  //fungsi show/hidden password
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
-
-  // //animasi loading setelah button submit diklik
 
   const handleLogin = async (event) => {
     event.preventDefault();
     dispatch(login(email, password, setIsLoading, navigate));
   };
 
-  // useEffect(() => {
-  //   // Fungsi untuk menyembunyikan alert setelah 3000 milidetik (3 detik)
-  //   const hideAlert = () => {
-  //     setAlert(""); // Menghapus pesan alert
-  //   };
-
-  //   // Memulai timeout ketika alertMessage berubah
-  //   if (alert) {
-  //     const timeoutId = setTimeout(hideAlert, 2500);
-
-  //     // Membersihkan timeout jika komponen di-unmount atau alertMessage berubah
-  //     return () => clearTimeout(timeoutId);
-  //   }
-  // }, [alert]);
-
   return (
     <>
-      {/* <div className="lg:hidden flex justify-center items-center bg-DARKBLUE05 w-full h-20">
-        <img src={logo} alt="logo" className="w-60 h-60" />
-      </div> */}
-      {/* <div className="hidden lg:flex justify-center items-center bg-DARKBLUE05 w-[30%] min-h-[100dvh]">
-        <img src={logo} alt="logo" />
-      </div> */}
       <div className="flex min-h-screen bg-DARKBLUE04 ">
         <div className="hidden lg:flex justify-center items-center bg-DARKBLUE05 w-[30%] min-h-[100dvh]">
-          <img src={logo} alt="logo" />
+          <div className="flex flex-row font-bold text-5xl">
+            <p className="text-BLUE05">ILearn</p>
+            <p className="text-YELLOW05">Teach</p>
+          </div>
         </div>
-        <div className="w-[100%] lg:w-[70%] flex justify-start items-center mx-[23px] lg:px-[200px] 2xl:px-[300px] relative ">
+        <div className="w-[100%] lg:w-[70%] flex justify-center items-center mx-[23px] lg:px-[200px] 2xl:px-[300px] relative ">
           <form className="w-full" onSubmit={handleLogin}>
             <h1 className="text-[24px] font-bold text-DARKBLUE05 font-Montserrat mb-12 text-center">
               Masuk
@@ -111,10 +86,6 @@ const Login = () => {
             </button>
           </form>
         </div>
-
-        {/* <div className="hidden lg:flex justify-center items-center bg-DARKBLUE05 w-[30%] min-h-[100dvh]">
-          <img src={logo} alt="logo" />
-        </div> */}
       </div>
     </>
   );

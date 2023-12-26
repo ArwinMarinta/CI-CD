@@ -41,7 +41,7 @@ const ManageLevel = () => {
         <div className="w-full ">
           <Navbar />
         </div>
-        <div className="flex flex-col justify-center items-center container mt-16 mx-auto">
+        <div className="flex flex-col justify-center items-center container mt-10 mx-auto">
           <div className="flex flex-row justify-between w-full mb-4 items-center">
             <div className="font-bold font-Montserrat text-xl  ">
               Data Level Kelas
@@ -65,7 +65,11 @@ const ManageLevel = () => {
             <thead className="font-Montserrat text-base">
               <tr>
                 {HeadType.map((data) => (
-                  <th key={data.id} scope="col" className="bg-LightBlue5 py-4">
+                  <th
+                    key={data.id}
+                    scope="col"
+                    className="bg-LightBlue5 py-4 px-2 md:px-4"
+                  >
                     {data.name}
                   </th>
                 ))}
@@ -77,24 +81,24 @@ const ManageLevel = () => {
                   key={data.id}
                   className="bg-white border-b font-Montserrat text-xs "
                 >
-                  <td scope="row" className=" py-4 pl-4">
+                  <td scope="row" className="pl-2 md:pl-4">
                     {data.id}
                   </td>
-                  <td className=" py-4 ">{data.name ?? "-"}</td>
+                  <td className=" py-4 px-2 md:px-4 ">{data.name ?? "-"}</td>
 
-                  <td className="pr-4">
+                  <td className="pr-4 px-2 md:px-4">
                     <div className="flex flex-row gap-2 font-bold text-white">
                       <div>
                         <button
                           onClick={() => handleOpenModal("editeLevel", data.id)}
-                          className="p-1 bg-DARKBLUE05 rounded-xl "
+                          className="p-1 bg-DARKBLUE05 rounded-md "
                         >
                           Ubah
                         </button>
                       </div>
                       <button
                         onClick={() => handleClick(data.id)}
-                        className="p-1 bg-red-600 rounded-xl"
+                        className="p-1 bg-red-600 rounded-md"
                       >
                         Hapus
                       </button>
