@@ -121,7 +121,7 @@ const ManagePromo = () => {
             <EditePromo
               editePromos={activeModal === "editeCourse"}
               setEditePromos={handleCloseModal}
-              promoId={promoId}
+              promoId={Number(promoId)}
             />
           </div>
         </div>

@@ -1,7 +1,7 @@
 // import React from 'react'
 import { Modal, Button } from "flowbite-react";
 import PropTypes from "prop-types";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import ExitIcon from "../../assets/exit.svg";
 import { getKategori, getLevel, getType } from "../../redux/Actions/AddCourses";
@@ -42,7 +42,6 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
 
   useEffect(() => {
     dispatch(getKategori());
-    dispatch(filterData());
     dispatch(getLevel());
     dispatch(getType());
     dispatch(getDataInstructor());
@@ -144,11 +143,9 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                       </option>
                       {type &&
                         type.map((types) => (
-                          <>
-                            <option key={types.id} value={types.id}>
-                              {types.name}
-                            </option>
-                          </>
+                          <option key={types.id} value={types.id}>
+                            {types.name}
+                          </option>
                         ))}
                     </select>
                   </div>
@@ -172,11 +169,9 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                       </option>
                       {level &&
                         level.map((levels) => (
-                          <>
-                            <option key={levels.id} value={levels.id}>
-                              {levels.name}
-                            </option>
-                          </>
+                          <option key={levels.id} value={levels.id}>
+                            {levels.name}
+                          </option>
                         ))}
                     </select>
                   </div>
@@ -212,11 +207,9 @@ const AddCourse = ({ addCourse, setAddCourse }) => {
                       </option>
                       {instructor &&
                         instructor.map((types) => (
-                          <>
-                            <option key={types.id} value={types.id}>
-                              {types.name}
-                            </option>
-                          </>
+                          <option key={types.id} value={types.id}>
+                            {types.name}
+                          </option>
                         ))}
                     </select>
                   </div>

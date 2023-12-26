@@ -78,7 +78,7 @@ const EditePromo = ({ editePromos, setEditePromos, promoId }) => {
             />
           </div>
         </div>
-      </Modal.Body> 
+      </Modal.Body>
       <Modal.Footer>
         <Button onClick={handleChange}>Ubah</Button>
       </Modal.Footer>
@@ -89,7 +89,7 @@ const EditePromo = ({ editePromos, setEditePromos, promoId }) => {
 EditePromo.propTypes = {
   editePromos: PropTypes.bool,
   setEditePromos: PropTypes.func,
-  promoId: PropTypes.string,
+  promoId: PropTypes.number,
 };
 
 export default EditePromo;

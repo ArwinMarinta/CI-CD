@@ -58,7 +58,7 @@ const EditeInstructor = ({
 EditeInstructor.propTypes = {
   editeInstructors: PropTypes.bool,
   setEditeInstructors: PropTypes.func,
-  instructorId: PropTypes.string,
+  instructorId: PropTypes.number,
 };
 
 export default EditeInstructor;

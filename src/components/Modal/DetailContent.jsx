@@ -54,7 +54,7 @@ const DetailContent = ({
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={id}
+              defaultValue={id}
             />
           </div>
 
@@ -65,7 +65,7 @@ const DetailContent = ({
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={title}
+              defaultValue={title}
             />
           </div>
           <div className="flex flex-col">
@@ -76,7 +76,7 @@ const DetailContent = ({
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
               placeholder="Text"
-              value={sequence}
+              defaultValue={sequence}
             />
           </div>
           <div>

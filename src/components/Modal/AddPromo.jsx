@@ -14,9 +14,9 @@ const AddPromo = ({ addPromo, setAddPromo }) => {
     e.preventDefault();
     dispatch(AddDataPromo(name, discount, expiredAt));
   };
-    const handleDateConversion = () => {
-      setExpiredAt(new Date(expiredAt).toISOString());
-    };
+  const handleDateConversion = () => {
+    setExpiredAt(new Date(expiredAt).toISOString());
+  };
   return (
     <Modal show={addPromo} onClose={() => setAddPromo(false)}>
       <Modal.Header>Tambah Jenis Promo</Modal.Header>

@@ -1,11 +1,7 @@
 import Navbar from "../../components/Header/Desktop";
-
 import FilterIcon from "../../assets/Live_Area.svg";
 import SearchIcon from "../../assets/search.svg";
-// import AdminSearch from "../../assets/search_admin.svg";
-// import Payment from "../../data/StatusPembayaran";
 import Tabel from "../../data/HeadTabel";
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPayment } from "../../redux/Actions/CourseActions";
@@ -15,7 +11,6 @@ import Pagination from "../../components/Pagination";
 
 const StatusPayment = () => {
   const dispatch = useDispatch();
-  // const [pages, setPages] = useState(1);
   const [pageNumber, setPageNumber] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
@@ -54,16 +49,10 @@ const StatusPayment = () => {
             Status Pembayaran
           </div>
 
-          <div className="flex flex-row gap-3 justify-between w-full mb-4 items-center mt-1">
+          <div className="flex flex-row gap-3 justify-between w-full  mb-4 items-center mt-5">
             <div className="font-bold font-Montserrat text-base items-center w-auto flex flex-row gap-4 text-DARKBLUE05">
               <p>Pages</p>
-              {/* <input
-                type="number"
-                className="border-2 w-14 border-black rounded-lg text-center text-base overflow-hidden"
-                min="1"
-                value={pages}
-                onChange={(e) => setPages(e.target.value)}
-              /> */}
+
               <Pagination
                 setPageNumber={setPageNumber}
                 pageNumber={pageNumber}

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPromo } from "../../redux/Actions/AddCourses";
 import {
   deletPomoCourse,
+  getDetailCourse,
   updatePomoCourse,
 } from "../../redux/Actions/DetailActions";
 
@@ -14,15 +15,15 @@ const PromoCourse = ({ promoCourse, setPromoCourse, courseId }) => {
   const [promos, setPromos] = useState("");
 
   const { promo } = useSelector((state) => state.select);
-  const { detailCourse } = useSelector((state) => state.detail);
+  const { courseDetail } = useSelector((state) => state.detail);
 
   useEffect(() => {
     dispatch(getPromo());
   }, [dispatch]);
 
   useEffect(() => {
-    setPromos(detailCourse.namePromo || "Tidak ada");
-  }, [detailCourse]);
+    setPromos(courseDetail?.namePromo);
+  }, [courseDetail]);
 
   const handleUpdate = () => {
     dispatch(updatePomoCourse(promoId, courseId));
@@ -87,7 +88,6 @@ const PromoCourse = ({ promoCourse, setPromoCourse, courseId }) => {
 PromoCourse.propTypes = {
   promoCourse: PropTypes.bool,
   setPromoCourse: PropTypes.func,
-  courseId: PropTypes.string,
 };
 
 export default PromoCourse;

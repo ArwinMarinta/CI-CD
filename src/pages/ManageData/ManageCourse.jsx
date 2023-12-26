@@ -1,9 +1,6 @@
 import Navbar from "../../components/Header/Desktop";
-// import Data from "../../data/InfoData";
-// import User from "../../assets/user.svg";
 import FilterIcon from "../../assets/Live_Area.svg";
 import SearchIcon from "../../assets/search.svg";
-// import Payment from "../../data/StatusPembayaran";
 import Tabel from "../../data/HeadManage";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,9 +17,7 @@ import Pagination from "../../components/Pagination";
 
 const ManageCourse = () => {
   const dispatch = useDispatch();
-  // const [pages, setPages] = useState(1);
   const [pageNumber, setPageNumber] = useState(1);
-
   const [activeModal, setActiveModal] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [typeCourse, setTypeCourse] = useState([]);
@@ -76,13 +71,6 @@ const ManageCourse = () => {
           <div className="flex flex-col md:flex-row mt-2 justify-between w-full mb-4 items-center gap-2">
             <div className="font-bold font-Montserrat text-base items-center w-full  flex flex-row gap-4 text-DARKBLUE05">
               <p>Pages</p>
-              {/* <input
-                type="number"
-                className="border-2 w-14 border-black rounded-lg text-center text-base overflow-hidden"
-                min="1"
-                value={pages}
-                onChange={(e) => setPages(e.target.value)}
-              /> */}
               <Pagination
                 setPageNumber={setPageNumber}
                 pageNumber={pageNumber}
@@ -282,14 +270,14 @@ const ManageCourse = () => {
               </tbody>
             </table>
             <EditeCourse
-              editeCourse={activeModal === "editeCourse"}
-              setEditeCourse={handleCloseModal}
-              id={courseId}
+              editeCourses={activeModal === "editeCourse"}
+              setEditeCourses={handleCloseModal}
+              id={Number(courseId)}
             />
             <PromoCourse
               promoCourse={activeModal === "promoCourse"}
               setPromoCourse={handleCloseModal}
-              courseId={courseId}
+              courseId={Number(courseId)}
             />
             <DetailCourse
               detailCourses={activeModal === "detailCourse"}

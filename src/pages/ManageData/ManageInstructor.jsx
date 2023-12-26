@@ -114,7 +114,7 @@ const ManageInstructor = () => {
           <EditeInstructor
             editeInstructors={activeModal === "editeInstructor"}
             setEditeInstructors={handleCloseModal}
-            instructorId={instructorId}
+            instructorId={Number(instructorId)}
           />
         </div>
       </div>
