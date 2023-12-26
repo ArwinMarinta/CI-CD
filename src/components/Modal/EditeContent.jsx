@@ -38,13 +38,21 @@ const EditeContent = ({
 
   const handleClik = () => {
     dispatch(
-      updateContent(title, videoUrl, duration, isDemo, modulesId, contentId)
+      updateContent(
+        title,
+        videoUrl,
+        duration,
+        isDemo,
+        modulesId,
+        contentId,
+        courseId
+      )
     );
   };
 
   return (
     <Modal show={editeContents} onClose={() => setEditeContent(false)}>
-      <Modal.Header>Tambah Kategori Kelas</Modal.Header>
+      <Modal.Header>Ubah Konten Module</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
           <div className="flex flex-col">
@@ -106,7 +114,7 @@ const EditeContent = ({
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleClik}>Tambah</Button>
+        <Button onClick={handleClik}>Ubah</Button>
       </Modal.Footer>
     </Modal>
   );

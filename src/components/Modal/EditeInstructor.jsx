@@ -3,30 +3,35 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  updateDataType,
-  updateTypeById,
+  getInstructorById,
+  updateDataInstructor,
 } from "../../redux/Actions/EditeCourses";
 
-const EditeType = ({ editeTypes, setEditeTypes, typeId }) => {
+const EditeInstructor = ({
+  editeInstructors,
+  setEditeInstructors,
+  instructorId,
+}) => {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const { editeType } = useSelector((state) => state.edite);
+  const [name, setName] = useState();
+
+  const { editeInstructor } = useSelector((state) => state.edite);
 
   useEffect(() => {
-    typeId && dispatch(updateTypeById(typeId));
-  }, [dispatch, typeId]);
+    instructorId && dispatch(getInstructorById(instructorId));
+  }, [dispatch, instructorId]);
 
   useEffect(() => {
-    setName(editeType.name || "");
-  }, [editeType]);
+    setName(editeInstructor.name || "");
+  }, [editeInstructor]);
 
   const handleChange = () => {
-    dispatch(updateDataType(name, typeId));
+    dispatch(updateDataInstructor(name, instructorId));
   };
 
   return (
-    <Modal show={editeTypes} onClose={() => setEditeTypes(false)}>
-      <Modal.Header>Ubah Type Kelas</Modal.Header>
+    <Modal show={editeInstructors} onClose={() => setEditeInstructors(false)}>
+      <Modal.Header>Ubah Data Pengajar</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
           <div className="flex flex-col">
@@ -49,10 +54,11 @@ const EditeType = ({ editeTypes, setEditeTypes, typeId }) => {
     </Modal>
   );
 };
-EditeType.propTypes = {
-  editeTypes: PropTypes.bool,
-  setEditeTypes: PropTypes.func,
-  typeId: PropTypes.number,
+
+EditeInstructor.propTypes = {
+  editeInstructors: PropTypes.bool,
+  setEditeInstructors: PropTypes.func,
+  instructorId: PropTypes.number,
 };
 
-export default EditeType;
+export default EditeInstructor;
