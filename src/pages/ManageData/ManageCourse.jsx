@@ -26,6 +26,7 @@ const ManageCourse = () => {
   const [courseId, setCourseId] = useState("");
   const [openSearch, setOpenSearch] = useState(false);
 
+
   const { courses } = useSelector((state) => state.course);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -164,6 +165,7 @@ const ManageCourse = () => {
               </form>
             </div>
           </div>
+
 
           <div className="overflow-x-auto w-full ">
             <table className="table table-striped w-full text-left ">
