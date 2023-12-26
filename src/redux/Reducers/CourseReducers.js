@@ -7,6 +7,8 @@ const initialState = {
   contents: [],
   instructor: [],
   filter: [],
+  page: [],
+  totalPage: [],
 };
 
 const courseSlice = createSlice({
@@ -32,6 +34,12 @@ const courseSlice = createSlice({
     setFilter: (state, action) => {
       state.filter = action.payload;
     },
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
+    setTotalPage: (state, action) => {
+      state.totalPage = action.payload;
+    },
   },
 });
 
@@ -42,6 +50,8 @@ export const {
   setContents,
   setInstructor,
   setFilter,
+  setPage,
+  setTotalPage,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

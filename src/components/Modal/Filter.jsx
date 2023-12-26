@@ -140,8 +140,8 @@ Filter.propTypes = {
   setSave: PropTypes.func,
   showModal: PropTypes.bool,
   setTypeCourse: PropTypes.func,
-  category: PropTypes.string,
-  typeCourse: PropTypes.string,
+  category: PropTypes.array,
+  typeCourse: PropTypes.array,
   setCategory: PropTypes.func,
 };
 

@@ -15,6 +15,14 @@ const EditePromo = ({ editePromos, setEditePromos, promoId }) => {
 
   const { editePromo } = useSelector((state) => state.edite);
 
+  const handleInputChange = (e) => {
+    setExpiredAt(e.target.value);
+  };
+
+  const handleDateConversion = () => {
+    setExpiredAt(new Date(expiredAt).toISOString());
+  };
+
   useEffect(() => {
     promoId && dispatch(getDataPromoById(promoId));
   }, [dispatch, promoId]);
@@ -22,7 +30,7 @@ const EditePromo = ({ editePromos, setEditePromos, promoId }) => {
   useEffect(() => {
     setName(editePromo?.name || "");
     setDiscount(editePromo?.discount || "");
-    setExpiredAt(editePromo?.expiredAt || "");
+    setExpiredAt(new Date(editePromo.expiredAt).toLocaleString() || "");
   }, [editePromo]);
 
   const handleChange = () => {
@@ -64,8 +72,9 @@ const EditePromo = ({ editePromos, setEditePromos, promoId }) => {
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
               placeholder="Text"
-              value={expiredAt}
-              onChange={(e) => setExpiredAt(e.target.value)}
+              value={expiredAt || ""}
+              onChange={handleInputChange}
+              onBlur={handleDateConversion}
             />
           </div>
         </div>
@@ -80,7 +89,7 @@ const EditePromo = ({ editePromos, setEditePromos, promoId }) => {
 EditePromo.propTypes = {
   editePromos: PropTypes.bool,
   setEditePromos: PropTypes.func,
-  promoId: PropTypes.string,
+  promoId: PropTypes.number,
 };
 
 export default EditePromo;

@@ -71,10 +71,11 @@ const Desktop = () => {
                   className="flex flex-row justify-between font-Montserrat font-bold gap-1 text-black"
                 >
                   <div className="flex flex-row">
-                    <p className=" font-bold">iLearnTech</p>
+                    <p className="text-BLUE05">ILearn</p>
+                    <p className="text-YELLOW05">Tech</p>
                   </div>
 
-                  <IoClose className="text-2xl bg-LightBlue5" />
+                  <IoClose className="text-2xl bg-LightBlue5 rounded-md" />
                 </button>
               </div>
               <div className="flex flex-col text-base font-semibold text-white font-Montserrat ">
@@ -124,7 +125,7 @@ const Desktop = () => {
                   className="flex flex-row font-Montserrat font-semibold gap-1"
                 >
                   <img src={LeaveIcon} />
-                  <p>Keluar</p>
+                  <p className="text-RED05">Keluar</p>
                 </button>
               </div>
             </div>

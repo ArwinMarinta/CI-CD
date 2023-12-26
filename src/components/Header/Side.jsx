@@ -1,6 +1,4 @@
-import { SiCodechef } from "react-icons/si";
 import { Link } from "react-router-dom";
-// import { RiArrowDropDownLine } from "react-icons/ri";
 import { useState } from "react";
 import DownIcon from "../../assets/down.svg";
 
@@ -17,9 +15,9 @@ const Side = () => {
 
   return (
     <div className="hidden  lg:flex gap-12   flex-col bg-DARKBLUE05 w-[15%] min-h-[100dvh] py-12 font-Montserrat">
-      <div className="flex flex-row justify-center ">
-        <SiCodechef className="text-4xl" />
-        <p className="text-2xl font-bold">iLearnTech</p>
+      <div className="flex flex-row justify-center text-2xl font-bold ">
+        <p className="text-BLUE05">ILearn</p>
+        <p className="text-YELLOW05">Tech</p>
       </div>
       <div className="flex flex-col text-base font-semibold text-white font-Montserrat ">
         <Link as={Link} to="/" className="text-start  w-full px-10 py-1 ">

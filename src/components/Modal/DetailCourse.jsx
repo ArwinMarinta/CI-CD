@@ -67,7 +67,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={id}
+              defaultValue={id}
             />
           </div>
           <div className="flex flex-col">
@@ -77,7 +77,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={code}
+              defaultValue={code}
             />
           </div>
           <div className="flex flex-col">
@@ -87,7 +87,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={title}
+              defaultValue={title}
             />
           </div>
           <div className="flex flex-col">
@@ -97,7 +97,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={price}
+              defaultValue={price}
             />
           </div>
           <div className="flex flex-col">
@@ -107,7 +107,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={rating}
+              defaultValue={rating}
             />
           </div>
           <div className="flex flex-col">
@@ -117,7 +117,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={durations}
+              defaultValue={durations}
             />
           </div>
           <div className="flex flex-col">
@@ -127,7 +127,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={taken}
+              defaultValue={taken}
             />
           </div>
           <div className="flex flex-col">
@@ -137,7 +137,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={category}
+              defaultValue={category}
             />
           </div>
           <div className="flex flex-col">
@@ -145,7 +145,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={type}
+              defaultValue={type}
             />
           </div>
           <div className="flex flex-col">
@@ -153,7 +153,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={level}
+              defaultValue={level}
             />
           </div>
           <div className="flex flex-col">
@@ -163,7 +163,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={instructor}
+              defaultValue={instructor}
             />
           </div>
           <div className="flex flex-col">
@@ -173,7 +173,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={module}
+              defaultValue={module}
             />
           </div>
           <div className="flex flex-col">
@@ -181,7 +181,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={promo}
+              defaultValue={promo}
             />
           </div>
           <div className="flex flex-col">
@@ -191,7 +191,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={namePromo}
+              defaultValue={namePromo}
             />
           </div>
           <div className="flex flex-col">
@@ -199,7 +199,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={discount}
+              defaultValue={discount}
             />
           </div>
           <div className="flex flex-col">
@@ -209,7 +209,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={totalPrice}
+              defaultValue={totalPrice}
             />
           </div>
           <div className="flex flex-col">
@@ -219,7 +219,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={description}
+              defaultValue={description}
             />
           </div>
           <div className="flex flex-col">
@@ -229,7 +229,7 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             <input
               type="text"
               className="border w-full py-3 px-4 rounded-2xl"
-              value={publishedAt}
+              defaultValue={publishedAt}
             />
           </div>
           <div className="flex flex-col">

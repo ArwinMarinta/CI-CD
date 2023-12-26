@@ -14,12 +14,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  //fungsi show/hidden password
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
-
-  // //animasi loading setelah button submit diklik
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -30,9 +27,12 @@ const Login = () => {
     <>
       <div className="flex min-h-screen bg-DARKBLUE04 ">
         <div className="hidden lg:flex justify-center items-center bg-DARKBLUE05 w-[30%] min-h-[100dvh]">
-          <img src={logo} alt="logo" />
+          <div className="flex flex-row font-bold text-5xl">
+            <p className="text-BLUE05">ILearn</p>
+            <p className="text-YELLOW05">Teach</p>
+          </div>
         </div>
-        <div className="w-[100%] lg:w-[70%] flex justify-start items-center mx-[23px] lg:px-[200px] 2xl:px-[300px] relative ">
+        <div className="w-[100%] lg:w-[70%] flex justify-center items-center mx-[23px] lg:px-[200px] 2xl:px-[300px] relative ">
           <form className="w-full" onSubmit={handleLogin}>
             <h1 className="text-[24px] font-bold text-DARKBLUE05 font-Montserrat mb-12 text-center">
               Masuk

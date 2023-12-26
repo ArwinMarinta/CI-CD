@@ -11,7 +11,7 @@ import {
 import { FileInput, Label } from "flowbite-react";
 import { getDataInstructor } from "../../redux/Actions/CourseActions";
 
-const EditeCourse = ({ editeCourse, setEditeCourse, id }) => {
+const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [courseCategoryId, setCourseCategoryId] = useState("");
@@ -27,7 +27,7 @@ const EditeCourse = ({ editeCourse, setEditeCourse, id }) => {
   const { kategori, type, level, instructor } = useSelector(
     (state) => state.select
   );
-  const { detailCourse } = useSelector((state) => state.detail);
+  const { editeCourse } = useSelector((state) => state.edite);
 
   useEffect(() => {
     id && dispatch(getDetailCourse(id));
@@ -38,17 +38,17 @@ const EditeCourse = ({ editeCourse, setEditeCourse, id }) => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    setCourseCategoryId(detailCourse.category || "");
-    setCourseTypeId(detailCourse.type || "");
-    setCourseLevelId(detailCourse.level || "");
-    setCourseImage(detailCourse.imageUrl || "");
-    setTitle(detailCourse.title || "");
-    setPrice(detailCourse.totalPrice || "");
-    setCourseInstructorId(detailCourse.instructor || "");
-    setIsPublished(detailCourse.publishedAt || "");
-    setRequirements(detailCourse?.requirements || "");
-    setDescription(detailCourse.description || "");
-  }, [detailCourse]);
+    setCourseCategoryId(editeCourse.categoryId || "");
+    setCourseTypeId(editeCourse.typeId || "");
+    setCourseLevelId(editeCourse.levelId || "");
+    setCourseImage(editeCourse.imageUrl || "");
+    setTitle(editeCourse.title || "");
+    setPrice(editeCourse.totalPrice || "");
+    setCourseInstructorId(editeCourse.instructorId || "");
+    setIsPublished(editeCourse.publishedAt || "");
+    setRequirements(editeCourse?.requirements || "");
+    setDescription(editeCourse.description || "");
+  }, [editeCourse]);
 
   const requirementValues = (requirements) => {
     if (requirements.length == 0) {
@@ -81,7 +81,7 @@ const EditeCourse = ({ editeCourse, setEditeCourse, id }) => {
   };
 
   return (
-    <Modal show={editeCourse} onClose={() => setEditeCourse(false)}>
+    <Modal show={editeCourses} onClose={() => setEditeCourses(false)}>
       <>
         <Modal.Header>
           <p className="w-full flex justify-center">Ubah Data Kelas</p>
@@ -110,10 +110,11 @@ const EditeCourse = ({ editeCourse, setEditeCourse, id }) => {
                   <div className=" inset-y-0 right-0 flex items-center  w-full">
                     <div className="relative w-full border rounded-2xl">
                       <select
+                        value={courseCategoryId}
                         className="appearance-none h-full w-full rounded-2xl bg-transparent  text-gray-700 py-3"
                         onChange={(e) => setCourseCategoryId(e.target.value)}
                       >
-                        <option value={courseCategoryId} disabled hidden>
+                        <option value="" disabled hidden>
                           {courseCategoryId || "Pilih"}
                         </option>
                         {kategori &&
@@ -149,10 +150,11 @@ const EditeCourse = ({ editeCourse, setEditeCourse, id }) => {
                   <div className="inset-y-0 right-0 flex items-center w-full">
                     <div className="relative w-full border rounded-2xl">
                       <select
+                        value={courseTypeId}
                         className="appearance-none h-full w-full rounded-2xl bg-transparent text-gray-700 py-3"
                         onChange={(e) => setCourseTypeId(e.target.value)}
                       >
-                        <option disabled hidden value="">
+                        <option value="" disabled hidden>
                           {courseTypeId || "Pilih"}
                         </option>
                         {type &&
@@ -174,10 +176,11 @@ const EditeCourse = ({ editeCourse, setEditeCourse, id }) => {
                   <div className=" inset-y-0 right-0 flex items-center  w-full">
                     <div className="relative w-full border rounded-2xl">
                       <select
+                        value={courseLevelId}
                         className="appearance-none h-full w-full rounded-2xl bg-transparent  text-gray-700 py-3"
                         onChange={(e) => setCourseLevelId(e.target.value)}
                       >
-                        <option value={courseLevelId} disabled hidden>
+                        <option value="" disabled hidden>
                           {courseLevelId || "Pilih Kelas"}
                         </option>
                         {level &&
@@ -211,19 +214,18 @@ const EditeCourse = ({ editeCourse, setEditeCourse, id }) => {
                   <div className=" inset-y-0 right-0 flex items-center  w-full">
                     <div className="relative w-full border rounded-2xl">
                       <select
-                        className="appearance-none h-full w-full rounded-2xl bg-transparent  text-gray-700 py-3"
+                        value={courseInstructorId}
+                        className="appearance-none h-full w-full rounded-2xl bg-transparent text-gray-700 py-3"
                         onChange={(e) => setCourseInstructorId(e.target.value)}
                       >
-                        <option value={courseInstructorId} disabled hidden>
-                          Pilih
+                        <option value="" disabled hidden>
+                          {courseInstructorId || "pilih Pengajar"}
                         </option>
                         {instructor &&
                           instructor.map((types) => (
-                            <>
-                              <option key={types.id} value={types.id}>
-                                {types.name}
-                              </option>
-                            </>
+                            <option key={types.id} value={types.id}>
+                              {types.name}
+                            </option>
                           ))}
                       </select>
                     </div>
@@ -293,9 +295,9 @@ const EditeCourse = ({ editeCourse, setEditeCourse, id }) => {
 };
 
 EditeCourse.propTypes = {
-  editeCourse: PropTypes.bool,
-  setEditeCourse: PropTypes.func,
-  id: PropTypes.string,
+  editeCourses: PropTypes.bool,
+  setEditeCourses: PropTypes.func,
+  id: PropTypes.number,
 };
 
 export default EditeCourse;

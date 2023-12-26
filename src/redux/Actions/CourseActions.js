@@ -7,6 +7,8 @@ import {
   setContents,
   setInstructor,
   setFilter,
+  setTotalPage,
+  setPage,
 } from "../Reducers/CourseReducers";
 import { toastify } from "../../utils/toastify";
 
@@ -24,6 +26,12 @@ export const getCourse = (pages, typeCourse, category) => async (dispatch) => {
 
     const { data } = response;
     dispatch(setCourse(data.value));
+    const pageArray = [];
+    for (let index = 1; index <= data.totalPage; index++) {
+      pageArray.push(index);
+    }
+    dispatch(setTotalPage(data.totalPage));
+    dispatch(setPage(pageArray));
   } catch (error) {
     console.log(error);
   }
@@ -43,6 +51,12 @@ export const getPayment = (pages, status) => async (dispatch, getState) => {
 
     const { data } = response;
     dispatch(setPayment(data.value));
+    const pageArray = [];
+    for (let index = 1; index <= data.totalPage; index++) {
+      pageArray.push(index);
+    }
+    dispatch(setTotalPage(data.totalPage));
+    dispatch(setPage(pageArray));
   } catch (error) {
     console.log(error);
   }

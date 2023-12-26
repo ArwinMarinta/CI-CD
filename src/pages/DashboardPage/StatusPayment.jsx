@@ -1,20 +1,17 @@
 import Navbar from "../../components/Header/Desktop";
-
 import FilterIcon from "../../assets/Live_Area.svg";
 import SearchIcon from "../../assets/search.svg";
-// import AdminSearch from "../../assets/search_admin.svg";
-// import Payment from "../../data/StatusPembayaran";
 import Tabel from "../../data/HeadTabel";
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPayment } from "../../redux/Actions/CourseActions";
 import NavSide from "../../components/Header/Side";
 import FilterPayment from "../../components/Modal/FilterPayment";
+import Pagination from "../../components/Pagination";
 
 const StatusPayment = () => {
   const dispatch = useDispatch();
-  const [pages, setPages] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
 
@@ -29,16 +26,16 @@ const StatusPayment = () => {
   };
   useEffect(() => {
     if (status.length === 0) {
-      dispatch(getPayment(pages));
+      dispatch(getPayment(pageNumber));
     }
     if (save === true) {
-      dispatch(getPayment(pages, status));
+      dispatch(getPayment(pageNumber, status));
       // console.log("berhasil");
     }
     if (showModal === true) {
       setSave(false);
     }
-  }, [dispatch, pages, status, showModal]);
+  }, [dispatch, pageNumber, status, showModal]);
 
   return (
     <div className="flex  ">
@@ -53,14 +50,12 @@ const StatusPayment = () => {
           </div>
 
           <div className="flex flex-row gap-3 justify-between w-full  mb-4 items-center mt-5">
-            <div className=" font-bold font-Montserrat text-base justify-start self-start flex flex-row gap-4 text-DARKBLUE05">
-              <p className="text-center">Pages</p>
-              <input
-                type="number"
-                className="border-2 w-14 border-black rounded-lg text-center text-base overflow-hidden"
-                min="1"
-                value={pages}
-                onChange={(e) => setPages(e.target.value)}
+            <div className="font-bold font-Montserrat text-base items-center w-auto flex flex-row gap-4 text-DARKBLUE05">
+              <p>Pages</p>
+
+              <Pagination
+                setPageNumber={setPageNumber}
+                pageNumber={pageNumber}
               />
             </div>
 
