@@ -370,31 +370,47 @@ export const deleteDataInstructor = (instructorId) => async (_, getState) => {
   }
 };
 
-export const AddDataInstructor = (name) => async (_, getState) => {
-  try {
-    let { token } = getState().auth;
-    await axios.post(
-      `${VITE_API_URL}/course-instructors`,
-      {
-        name,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
 
-    window.location.reload();
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      toastify({
-        message: error?.response?.data?.message,
-        type: "error",
-      });
+export const AddDataInstructor =
+  (name, email, password, confPassword, photoInstructor) =>
+  async (_, getState) => {
+    try {
+      let { token } = getState().auth;
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("confPassword", confPassword);
+      formData.append(" photoInstructor", photoInstructor);
+      await axios.post(
+        `${VITE_API_URL}/auth/instructor/register`,
+        {
+          name,
+          email,
+          password,
+          confPassword,
+          photoInstructor,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      window.location.reload();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toastify({
+          message: error?.response?.data?.message,
+          type: "error",
+        });
+      }
     }
-  }
-};
+  };
+
+
 
 export const deleteDataCategory = (categoryId) => async (_, getState) => {
   try {
@@ -525,3 +541,32 @@ export const deleteDataPromo = (promoId) => async (_, getState) => {
     }
   }
 };
+
+
+
+export const confirmCoursePremium = (paymentId) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    console.log(token);
+    await axios.put(
+      `${VITE_API_URL}/orders/confirm/${paymentId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    window.location.reload();
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
+  }
+};
+
+

@@ -1,8 +1,13 @@
 import axios from "axios";
 import { VITE_API_URL } from "../../config/config";
-import { setCourseDetail, setDetailContent } from "../Reducers/DetailReducer";
+
+
+import { setDetailContent, setDetailCourse } from "../Reducers/DetailReducer";
 import { setEditeCourse } from "../Reducers/EditeReducer";
 import { toastify } from "../../utils/toastify";
+import DetailCourse from "../../components/Modal/DetailCourse";
+
+
 
 export const getDetailCourse = (id) => async (dispatch) => {
   try {
@@ -11,7 +16,21 @@ export const getDetailCourse = (id) => async (dispatch) => {
     const { value } = response.data;
     const data = value;
     dispatch(setEditeCourse(data));
-    dispatch(setCourseDetail(data));
+
+
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getDetailCourseByID = (id) => async (dispatch) => {
+  try {
+    dispatch(setDetailCourse([]));
+    const response = await axios.get(`${VITE_API_URL}/courses/${id}`);
+
+    dispatch(setDetailCourse(response.data.value));
+
+
   } catch (error) {
     console.log(error);
   }
@@ -20,6 +39,11 @@ export const getDetailCourse = (id) => async (dispatch) => {
 export const getDetailContentById =
   (modulesId, courseId, contentId) => async (dispatch, getState) => {
     try {
+
+
+      dispatch(setDetailContent([]));
+
+
       let { token } = getState().auth;
       const response = await axios.get(
         `${VITE_API_URL}/courses/${courseId}/modules/${modulesId}/contents/${contentId}`,
@@ -47,22 +71,16 @@ export const updateDataCourse =
     description,
     isPublished,
     courseImage,
-    requirements,
+
+
+    requirement,
+
+
     id
   ) =>
   async (_, getState) => {
     try {
-      // console.log(title);
-      // console.log(courseCategoryId);
-      // console.log(courseTypeId);
-      // console.log(courseLevelId);
-      // console.log(price);
-      // console.log(courseInstructorId);
-      // console.log(description);
-      // console.log(isPublished);
-      // console.log(requirements);
-      // console.log(courseImage);
-      // console.log(id);
+
       let { token } = getState().auth;
       const formData = new FormData();
       formData.append("title", title);
@@ -74,7 +92,11 @@ export const updateDataCourse =
       formData.append("description", description);
       formData.append("isPublished", isPublished);
       formData.append("courseImage", courseImage);
-      formData.append(" requirements", requirements);
+
+
+      formData.append(" requirements", requirement);
+
+
       await axios.put(
         `${VITE_API_URL}/courses/${id}`,
         {
@@ -85,9 +107,12 @@ export const updateDataCourse =
           price,
           courseInstructorId,
           description,
-          isPublished,
+
+
+          isPublished: Boolean(isPublished),
           courseImage,
-          requirements,
+          requirements: requirement,
+
         },
         {
           headers: {

@@ -7,7 +7,7 @@ export const login =
   (email, password, setIsLoading, navigate) => async (dispatch) => {
     try {
       setIsLoading(true);
-      const response = await axios.post(`${VITE_API_URL}/auth/login-admin`, {
+      const response = await axios.post(`${VITE_API_URL}/auth/admin/login`, {
         email,
         password,
       });

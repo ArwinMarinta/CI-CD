@@ -4,7 +4,10 @@ import SearchIcon from "../../assets/search.svg";
 import Tabel from "../../data/HeadTabel";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPayment } from "../../redux/Actions/CourseActions";
+import {
+  confirmCoursePremium,
+  getPayment,
+} from "../../redux/Actions/CourseActions";
 import NavSide from "../../components/Header/Side";
 import FilterPayment from "../../components/Modal/FilterPayment";
 import Pagination from "../../components/Pagination";
@@ -36,6 +39,15 @@ const StatusPayment = () => {
       setSave(false);
     }
   }, [dispatch, pageNumber, status, showModal]);
+
+
+
+  const handleConfirm = (paymentId) => {
+    // console.log(paymentId);
+    dispatch(confirmCoursePremium(paymentId));
+  };
+
+
 
   return (
     <div className="flex  ">
@@ -160,27 +172,58 @@ const StatusPayment = () => {
                   })
                   .map((data) => (
                     <tr
-                      key={data.id}
+
+
+                      key={data.orderId}
                       className="bg-white border-b font-Montserrat text-xs "
                     >
-                      <td scope="row" className=" py-4 pl-4 ">
-                        {data.id}
+                      <td
+                        scope="row"
+                        className=" pl-2 md:pl-4 whitespace-nowrap "
+                      >
+                        {data.orderId}
                       </td>
-                      <td className=" py-4 ">{data.Kategori ?? "-"}</td>
-                      <td className=" py-4 font-bold">
-                        {data.KelasPremium ?? "-"}
+                      <td className="  py-4  px-2 md:px-4 whitespace-nowrap ">
+                        {data.username ?? "-"}
+                      </td>
+                      <td className=" py-4 font-bold   px-2 md:px-4 whitespace-nowrap">
+                        {data.courseName ?? "-"}
                       </td>
                       <td
-                        className={`py-4 ${
-                          data.status === "Success"
+                        className={`py-4   px-2 md:px-4 whitespace-nowrap ${
+                          data.orderStatus === "Success"
+
+
                             ? "text-green-500 font-bold"
                             : "text-red-700 font-bold"
                         }`}
                       >
-                        {data.status ?? "-"}
+
+
+                        {data.orderStatus ?? "-"}
                       </td>
-                      <td className=" py-4">{data.paymentMethod ?? "-"}</td>
-                      <td className=" py-4 pr-4">{data.createdAt ?? "-"}</td>
+                      <td className="  py-4  px-2 md:px-4 whitespace-nowrap">
+                        {data.paymentMethod ?? "-"}
+                      </td>
+                      <td className=" pr-4  px-2 md:px-4 whitespace-nowrap">
+                        {new Date(data.orderAt).toLocaleString() ?? "-"}
+                      </td>
+                      <td className="pr-4 px-2 md:px-4 ">
+                        <div className="flex flex-row gap-2 font-bold text-white">
+                          {data.orderStatus === "Pending" ? (
+                            <div>
+                              <button
+                                onClick={() => handleConfirm(data.orderId)}
+                                className="p-1 bg-DARKBLUE05 rounded-md "
+                              >
+                                Confirm
+                              </button>
+                            </div>
+                          ) : null}
+                        </div>
+                      </td>
+
+
                     </tr>
                   ))}
               </tbody>
