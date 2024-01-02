@@ -2,58 +2,63 @@ import { Modal, Button } from "flowbite-react";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetailCourse } from "../../redux/Actions/DetailActions";
+
+import { getDetailCourseByID } from "../../redux/Actions/DetailActions";
+
 
 const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
   const dispatch = useDispatch();
 
-  const [id, setId] = useState("");
-  const [code, setCode] = useState("");
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [rating, setRating] = useState("");
-  const [durations, setDurations] = useState("");
-  const [taken, setTaken] = useState("");
-  const [category, setCategory] = useState("");
-  const [type, setType] = useState("");
-  const [level, setLevel] = useState("");
-  const [instructor, setInstructor] = useState("");
-  const [module, setModule] = useState("");
-  const [promo, setPromo] = useState("");
-  const [namePromo, setNamePromo] = useState("");
-  const [discount, setDiscount] = useState("");
-  const [totalPrice, setTotalPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [publishedAt, setIsPublishedAt] = useState("");
-  const [image, setImage] = useState("");
 
-  const { courseDetail } = useSelector((state) => state.detail);
+  const [id, setId] = useState(null);
+  const [code, setCode] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [rating, setRating] = useState(null);
+  const [durations, setDurations] = useState(null);
+  const [taken, setTaken] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [type, setType] = useState(null);
+  const [level, setLevel] = useState(null);
+  const [instructor, setInstructor] = useState(null);
+  const [module, setModule] = useState(null);
+  const [promo, setPromo] = useState(null);
+  const [namePromo, setNamePromo] = useState(null);
+  const [discount, setDiscount] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [publishedAt, setIsPublishedAt] = useState(null);
+  const [image, setImage] = useState(null);
+  const [publish, setIsPublish] = useState(null);
+
+  const { detailCourse } = useSelector((state) => state.detail);
 
   useEffect(() => {
-    courseId & dispatch(getDetailCourse(courseId));
+    courseId & dispatch(getDetailCourseByID(courseId));
   }, [dispatch, courseId]);
 
   useEffect(() => {
-    setId(courseDetail.courseId || "");
-    setCode(courseDetail?.code);
-    setTitle(courseDetail?.title);
-    setPrice(courseDetail?.originalPrice);
-    setRating(courseDetail?.rating);
-    setDurations(courseDetail?.duration);
-    setTaken(courseDetail?.taken);
-    setCategory(courseDetail?.category);
-    setType(courseDetail?.type);
-    setLevel(courseDetail?.level);
-    setInstructor(courseDetail?.instructor);
-    setModule(courseDetail?.totalModule);
-    setPromo(courseDetail?.isPromo || "Tidak Ada promo");
-    setNamePromo(courseDetail?.namePromo || "Tidak ada Promo");
-    setDiscount(courseDetail?.discount || "Tidak Ada Diskon");
-    setTotalPrice(courseDetail?.totalPrice);
-    setDescription(courseDetail?.description);
-    setImage(courseDetail?.imageUrl);
-    setIsPublishedAt(courseDetail?.publishedAt);
-  }, [courseDetail]);
+    setId(detailCourse.courseId);
+    setCode(detailCourse?.code);
+    setTitle(detailCourse?.title);
+    setPrice(detailCourse?.originalPrice);
+    setRating(detailCourse?.rating);
+    setDurations(detailCourse?.duration);
+    setTaken(detailCourse?.taken);
+    setCategory(detailCourse?.category);
+    setType(detailCourse?.type);
+    setLevel(detailCourse?.level);
+    setInstructor(detailCourse?.instructor);
+    setModule(detailCourse?.totalModule);
+    setPromo(detailCourse?.isPromo || "Tidak Ada promo");
+    setNamePromo(detailCourse?.namePromo || "Tidak ada Promo");
+    setDiscount(detailCourse?.discount || "Tidak Ada Diskon");
+    setTotalPrice(detailCourse?.totalPrice);
+    setDescription(detailCourse?.description);
+    setImage(detailCourse?.imageUrl);
+    setIsPublishedAt(detailCourse?.publishedAt);
+    setIsPublish(detailCourse?.isPublished);
+  }, [detailCourse]);
 
   return (
     <Modal show={detailCourses} onClose={() => setDetailCourses(false)}>
@@ -233,6 +238,16 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             />
           </div>
           <div className="flex flex-col">
+
+            <label className="font-Poppins text-[15px] mb-[4px]">Publish</label>
+            <input
+              type="text"
+              className="border w-full py-3 px-4 rounded-2xl"
+              defaultValue={publish}
+            />
+          </div>
+          <div className="flex flex-col">
+
             <label className="font-Poppins text-[15px] mb-[4px]">
               Gambar Kelas
             </label>
