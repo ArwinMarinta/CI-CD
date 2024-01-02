@@ -169,10 +169,12 @@ const Dashboard = () => {
           <Navbar />
         </div>
 
+
         <div className="flex flex-col justify-center items-center container mt-10 mx-auto w-full mb-10 ">
           <div className="grid grid-cols-1 lg:grid-cols-2 w-full justify-between mb-14  gap-5">
             {Data.map((items) => (
               <div key={items.id} className="w-full">
+
 
                 <div
                   className={`flex flex-row p-6  gap-6  rounded-2xl    ${

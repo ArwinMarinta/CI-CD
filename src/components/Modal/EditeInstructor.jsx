@@ -7,8 +7,10 @@ import {
   updateDataInstructor,
 } from "../../redux/Actions/EditeCourses";
 
+
 import { FileInput, Label } from "flowbite-react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+
 
 
 const EditeInstructor = ({
@@ -18,6 +20,7 @@ const EditeInstructor = ({
 }) => {
   const dispatch = useDispatch();
 
+
   const [photoInstructor, setPhotoInstructor] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,6 +29,7 @@ const EditeInstructor = ({
   const [confPassword, setConfPassword] = useState("");
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+
   const { editeInstructor } = useSelector((state) => state.edite);
 
   useEffect(() => {
@@ -33,6 +37,7 @@ const EditeInstructor = ({
   }, [dispatch, instructorId]);
 
   useEffect(() => {
+
 
     setName(editeInstructor.name);
     setPhotoInstructor(editeInstructor.photoProfile);
@@ -63,6 +68,7 @@ const EditeInstructor = ({
       )
     );
 
+
   };
 
   return (
@@ -70,6 +76,7 @@ const EditeInstructor = ({
       <Modal.Header>Ubah Data Pengajar</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
+
 
           <div>
             <div>
@@ -85,6 +92,7 @@ const EditeInstructor = ({
             <label className="font-Poppins text-[15px] mb-[4px]">
               Nama Pengajar
 
+
             </label>
             <input
               type="text"
@@ -94,6 +102,7 @@ const EditeInstructor = ({
               onChange={(e) => setName(e.target.value)}
             />
           </div>
+
 
           <div className="flex flex-col">
             <label className="font-Poppins text-[15px] mb-[4px]">Email</label>
@@ -161,6 +170,7 @@ const EditeInstructor = ({
               </button>
             </div>
           </div>
+
 
         </div>
       </Modal.Body>

@@ -16,10 +16,12 @@ const AddPromo = ({ addPromo, setAddPromo }) => {
   };
   const handleDateConversion = () => {
 
+
     if (expiredAt) {
       const convertedDate = new Date(expiredAt);
       setExpiredAt(convertedDate.toISOString());
     }
+
 
   };
   return (

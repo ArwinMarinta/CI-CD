@@ -15,7 +15,9 @@ import PromoCourse from "../../components/Modal/PromoCourse";
 import DetailCourse from "../../components/Modal/DetailCourse";
 import Pagination from "../../components/Pagination";
 
+
 import Publish from "../../components/Modal/Publish";
+
 
 
 const ManageCourse = () => {
@@ -207,11 +209,13 @@ const ManageCourse = () => {
                       className="bg-white border-b font-Montserrat  "
                     >
 
+
                       <td
                         scope="row"
                         className="  pl-2 md:pl-4 whitespace-nowrap"
                       >
                         {data.code}
+
 
                       </td>
                       <td className=" py-4  px-2 md:px-4 whitespace-nowrap">
@@ -271,11 +275,13 @@ const ManageCourse = () => {
                             Promo
                           </button>
 
+
                           <button
                             onClick={() => handleOpenModal("Publish")}
                             className="p-1 bg-[#FF5733] rounded-md"
                           >
                             Promo
+
 
                           </button>
                         </div>
@@ -300,10 +306,12 @@ const ManageCourse = () => {
               courseId={courseId}
             />
 
+
             <Publish
               publish={activeModal === "Publish"}
               setPublish={handleCloseModal}
             />
+
 
           </div>
         </div>
