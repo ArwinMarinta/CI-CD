@@ -5,11 +5,11 @@ const HeadTabel = [
   },
   {
     id: 2,
-    name: "Kategori",
+    name: "Nama User",
   },
   {
     id: 3,
-    name: "Kelas Premium",
+    name: "Nama Kelas",
   },
   {
     id: 4,
@@ -17,11 +17,15 @@ const HeadTabel = [
   },
   {
     id: 5,
-    name: "Metode Pembayaran",
+    name: "Pembayaran",
   },
   {
     id: 6,
     name: "Tanggal bayar",
+  },
+  {
+    id: 7,
+    name: "Aksi",
   },
 ];
 

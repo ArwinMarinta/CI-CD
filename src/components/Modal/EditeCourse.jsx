@@ -23,6 +23,7 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
   const [isPublished, setIsPublished] = useState("");
   const [requirements, setRequirements] = useState("");
   const [courseImage, setCourseImage] = useState(null);
+  const [requirement, setRequirement] = useState("");
 
   const { kategori, type, level, instructor } = useSelector(
     (state) => state.select
@@ -45,17 +46,29 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
     setTitle(editeCourse.title || "");
     setPrice(editeCourse.totalPrice || "");
     setCourseInstructorId(editeCourse.instructorId || "");
-    setIsPublished(editeCourse.publishedAt || "");
+    setIsPublished(editeCourse.isPublished || "");
     setRequirements(editeCourse?.requirements || "");
     setDescription(editeCourse.description || "");
   }, [editeCourse]);
 
   const requirementValues = (requirements) => {
-    if (requirements.length == 0) {
-      return [];
+    // Check if requirements is an array
+    if (!Array.isArray(requirements) || requirements.length === 0) {
+      return "";
     }
-    return requirements.map((req) => req.requirement);
+
+    // Use map function on the array to get an array of requirement values
+    const requirementValuesArray = requirements.map((req) => req.requirement);
+
+    // Use join function to concatenate the array elements into a single string
+    const concatenatedString = requirementValuesArray.join("\n");
+
+    return concatenatedString;
   };
+
+  useEffect(() => {
+    setRequirement(requirementValues(requirements));
+  }, [requirements]);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -74,7 +87,7 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
         description,
         isPublished,
         courseImage,
-        requirements,
+        requirement,
         id
       )
     );
@@ -264,8 +277,8 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
                     rows="2"
                     cols="20"
                     className="rounded-2xl"
-                    onChange={(e) => setRequirements(e.target.value)}
-                    value={requirementValues(requirements)}
+                    onChange={(e) => setRequirement(e.target.value)}
+                    value={requirement}
                   ></textarea>
                 </>
               </div>

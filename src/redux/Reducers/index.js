@@ -4,6 +4,7 @@ import courseReducer from "./CourseReducers";
 import AddCourse from "./AddReducer";
 import DetailReducer from "./DetailReducer";
 import EditeContent from "./EditeReducer";
+import DataReducer from "./DataReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   select: AddCourse,
   detail: DetailReducer,
   edite: EditeContent,
+  data: DataReducer,
 });
