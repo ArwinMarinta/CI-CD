@@ -1,6 +1,6 @@
 import NavSide from "../../components/Header/Side";
 import Navbar from "../../components/Header/Desktop";
-import HeadType from "../../data/HeadType";
+import HeadInstructor from "../../data/HeadInstructor";
 import AddIcon from "../../assets/add.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -61,56 +61,66 @@ const ManageInstructor = () => {
               />
             </div>
           </div>
-
-          <table className="table table-striped w-full text-left">
-            <thead className="font-Montserrat text-base">
-              <tr>
-                {HeadType.map((data) => (
-                  <th
+          <div className="overflow-x-auto w-full ">
+            <table className="table table-striped w-full text-left">
+              <thead className="font-Montserrat text-base">
+                <tr>
+                  {HeadInstructor.map((data) => (
+                    <th
+                      key={data.id}
+                      scope="col"
+                      className="bg-LightBlue5 py-4 px-2 md:px-4"
+                    >
+                      {data.name}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="text-left ">
+                {instructor.map((data) => (
+                  <tr
                     key={data.id}
-                    scope="col"
-                    className="bg-LightBlue5 py-4 px-2 md:px-4"
+                    className="bg-white border-b font-Montserrat text-xs "
                   >
-                    {data.name}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="text-left ">
-              {instructor.map((data) => (
-                <tr
-                  key={data.id}
-                  className="bg-white border-b font-Montserrat text-xs "
-                >
-                  <td scope="row" className=" pl-2 md:pl-4">
-                    {data.id}
-                  </td>
-                  <td className=" py-4 px-2 md:px-4">{data.name ?? "-"}</td>
+                    <td scope="row" className=" pl-2 md:pl-4">
+                      {data.id}
+                    </td>
+                    <td className=" py-4 px-2 md:px-4">{data.name ?? "-"}</td>
+                    <td className=" py-4 px-2 md:px-4">{data.email ?? "-"}</td>
+                    <td className=" py-4 font-bold px-2 md:px-4 whitespace-nowrap">
+                      <div className="h-20 w-20 lg:h-32 lg:w-32 px-2 md:px-4 whitespace-nowrap flex items-center">
+                        <img
+                          src={data.photoProfile ?? "-"}
+                          className="h-20 w-20 lg:h-32 lg:w-32"
+                        />
+                      </div>
+                    </td>
 
-                  <td className="pr-4 px-2 md:px-4">
-                    <div className="flex flex-row gap-2 font-bold text-white">
-                      <div>
+                    <td className="pr-4 px-2 md:px-4">
+                      <div className="flex flex-row gap-2 font-bold text-white">
+                        <div>
+                          <button
+                            onClick={() =>
+                              handleOpenModal("editeInstructor", data.id)
+                            }
+                            className="p-1 bg-DARKBLUE05 rounded-md "
+                          >
+                            Ubah
+                          </button>
+                        </div>
                         <button
-                          onClick={() =>
-                            handleOpenModal("editeInstructor", data.id)
-                          }
-                          className="p-1 bg-DARKBLUE05 rounded-md "
+                          onClick={() => handleDelete(data.id)}
+                          className="p-1 bg-red-600 rounded-md"
                         >
-                          Ubah
+                          Hapus
                         </button>
                       </div>
-                      <button
-                        onClick={() => handleDelete(data.id)}
-                        className="p-1 bg-red-600 rounded-md"
-                      >
-                        Hapus
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <EditeInstructor
             editeInstructors={activeModal === "editeInstructor"}
             setEditeInstructors={handleCloseModal}
