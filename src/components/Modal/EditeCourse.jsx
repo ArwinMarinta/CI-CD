@@ -23,7 +23,9 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
   const [isPublished, setIsPublished] = useState("");
   const [requirements, setRequirements] = useState("");
   const [courseImage, setCourseImage] = useState(null);
+
   const [requirement, setRequirement] = useState("");
+
 
   const { kategori, type, level, instructor } = useSelector(
     (state) => state.select
@@ -50,12 +52,15 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
     setTitle(editeCourse.title || "");
     setPrice(editeCourse.totalPrice || "");
     setCourseInstructorId(editeCourse.instructorId || "");
+
     setIsPublished(editeCourse.isPublished || "");
+
     setRequirements(editeCourse?.requirements || "");
     setDescription(editeCourse.description || "");
   }, [editeCourse]);
 
   const requirementValues = (requirements) => {
+
     // Check if requirements is an array
     if (!Array.isArray(requirements) || requirements.length === 0) {
       return "";
@@ -74,6 +79,7 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
     setRequirement(requirementValues(requirements));
   }, [requirements]);
 
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setCourseImage(selectedFile);
@@ -91,7 +97,9 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
         description,
         isPublished,
         courseImage,
+
         requirement,
+
         id
       )
     );
@@ -281,8 +289,10 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
                     rows="2"
                     cols="20"
                     className="rounded-2xl"
+
                     onChange={(e) => setRequirement(e.target.value)}
                     value={requirement}
+
                   ></textarea>
                 </>
               </div>
