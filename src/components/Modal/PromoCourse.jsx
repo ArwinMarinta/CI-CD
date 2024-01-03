@@ -25,9 +25,9 @@ const PromoCourse = ({ promoCourse, setPromoCourse, courseId }) => {
   }, [dispatch]);
 
   useEffect(() => {
-
     setPromos(detailCourse?.namePromo);
   }, [detailCourse]);
+
 
 
   const handleUpdate = () => {
