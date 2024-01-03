@@ -44,27 +44,23 @@ const Dashboard = () => {
   const isCourseInstructorAvailable =
     courseInstructor && courseInstructor.length > 0;
 
-  const allPopularCourses = isTopCourseAvailable
-    ? [...popularPremium, ...popularFree]
-    : [];
 
   const courseData = {
-    labels: allPopularCourses.map((data) => data.title.toString()),
+    labels: isTopCourseAvailable
+      ? popularPremium.map((data) => data.title.toString())
+      : [],
+
     datasets: [
       {
-        label: "Premium",
+        label: "Diambil",
+
         data: isTopCourseAvailable
           ? popularPremium.map((data) => data.taken)
           : [],
         backgroundColor: [" #FFBE05"],
       },
-      {
-        label: "Free",
-        data: isTopCourseFreeAvailable
-          ? popularFree.map((data) => data.taken)
-          : [],
-        backgroundColor: [" #FF5733"],
-      },
+
+
     ],
   };
 
@@ -93,7 +89,9 @@ const Dashboard = () => {
         data: isCourseTypeAvailable
           ? courseType.map((data) => data.totalCourse)
           : [],
-        backgroundColor: ["#FF0000", "#00CF6C"],
+
+        backgroundColor: ["#00CF6C", "#FF0000"],
+
       },
     ],
   };
@@ -169,12 +167,10 @@ const Dashboard = () => {
           <Navbar />
         </div>
 
-
         <div className="flex flex-col justify-center items-center container mt-10 mx-auto w-full mb-10 ">
           <div className="grid grid-cols-1 lg:grid-cols-2 w-full justify-between mb-14  gap-5">
             {Data.map((items) => (
               <div key={items.id} className="w-full">
-
 
                 <div
                   className={`flex flex-row p-6  gap-6  rounded-2xl    ${
@@ -206,7 +202,9 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="w-full h-full flex flex-col justify-center gap-4">
               <div className="text-center font-Montserrat font-bold text-DARKBLUE05 lg:text-2xl">
-                Grafik Data Banyak kelas Premium Yang Diambil
+
+                Grafik Data Banyak kelas Yang Diambil
+
               </div>
               <Bar data={courseData} />
             </div>

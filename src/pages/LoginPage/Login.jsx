@@ -29,7 +29,7 @@ const Login = () => {
         <div className="hidden lg:flex justify-center items-center bg-DARKBLUE05 w-[30%] min-h-[100dvh]">
           <div className="flex flex-row font-bold text-5xl">
             <p className="text-BLUE05">ILearn</p>
-            <p className="text-YELLOW05">Teach</p>
+            <p className="text-YELLOW05">Tech</p>
           </div>
         </div>
         <div className="w-[100%] lg:w-[70%] flex justify-center items-center mx-[23px] lg:px-[200px] 2xl:px-[300px] relative ">
