@@ -40,6 +40,7 @@ export const updateContent =
   (title, videoUrl, duration, isDemo, modulesId, contentId, courseId) =>
   async (_, getState) => {
     try {
+      console.log(Boolean(isDemo));
       let { token } = getState().auth;
       await axios.put(
         `${VITE_API_URL}/course-contents/${contentId}`,

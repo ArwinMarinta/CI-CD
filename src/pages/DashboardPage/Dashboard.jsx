@@ -44,26 +44,18 @@ const Dashboard = () => {
   const isCourseInstructorAvailable =
     courseInstructor && courseInstructor.length > 0;
 
-  const allPopularCourses = isTopCourseAvailable
-    ? [...popularPremium, ...popularFree]
-    : [];
-
   const courseData = {
-    labels: allPopularCourses.map((data) => data.title.toString()),
+    labels: isTopCourseAvailable
+      ? popularPremium.map((data) => data.title.toString())
+      : [],
+
     datasets: [
       {
-        label: "Premium",
+        label: "Diambil",
         data: isTopCourseAvailable
           ? popularPremium.map((data) => data.taken)
           : [],
         backgroundColor: [" #FFBE05"],
-      },
-      {
-        label: "Free",
-        data: isTopCourseFreeAvailable
-          ? popularFree.map((data) => data.taken)
-          : [],
-        backgroundColor: [" #FF5733"],
       },
     ],
   };
@@ -202,7 +194,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="w-full h-full flex flex-col justify-center gap-4">
               <div className="text-center font-Montserrat font-bold text-DARKBLUE05 lg:text-2xl">
-                Grafik Data Banyak kelas Premium Yang Diambil
+                Grafik Data Banyak kelas Yang Diambil
               </div>
               <Bar data={courseData} />
             </div>

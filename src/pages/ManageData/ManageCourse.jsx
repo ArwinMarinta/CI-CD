@@ -24,7 +24,7 @@ const ManageCourse = () => {
   const [typeCourse, setTypeCourse] = useState([]);
   const [category, setCategory] = useState([]);
   const [save, setSave] = useState(false);
-  const [courseId, setCourseId] = useState("");
+  const [courseId, setCourseId] = useState(null);
   const [openSearch, setOpenSearch] = useState(false);
 
   const { courses } = useSelector((state) => state.course);
@@ -265,10 +265,10 @@ const ManageCourse = () => {
                             Promo
                           </button>
                           <button
-                            onClick={() => handleOpenModal("Publish")}
+                            onClick={() => handleOpenModal("Publish", data.id)}
                             className="p-1 bg-[#FF5733] rounded-md"
                           >
-                            Promo
+                            Publish
                           </button>
                         </div>
                       </td>
@@ -294,6 +294,7 @@ const ManageCourse = () => {
             <Publish
               publish={activeModal === "Publish"}
               setPublish={handleCloseModal}
+              courseId={Number(courseId)}
             />
           </div>
         </div>
