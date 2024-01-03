@@ -31,7 +31,6 @@ export const getDetailCourseByID = (id) => async (dispatch) => {
 export const getDetailContentById =
   (modulesId, courseId, contentId) => async (dispatch, getState) => {
     try {
-
       dispatch(setDetailContent([]));
 
       let { token } = getState().auth;
@@ -62,7 +61,6 @@ export const updateDataCourse =
     isPublished,
     courseImage,
     requirement,
-
     id
   ) =>
   async (_, getState) => {
@@ -80,7 +78,6 @@ export const updateDataCourse =
       formData.append("courseImage", courseImage);
       formData.append(" requirements", requirement);
 
-
       await axios.put(
         `${VITE_API_URL}/courses/${id}`,
         {
@@ -94,7 +91,6 @@ export const updateDataCourse =
           isPublished: Boolean(isPublished),
           courseImage,
           requirements: requirement,
-
         },
         {
           headers: {

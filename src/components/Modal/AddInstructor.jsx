@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AddDataInstructor } from "../../redux/Actions/CourseActions";
 
-
 import { FileInput, Label } from "flowbite-react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { FaCheckCircle } from "react-icons/fa";
@@ -65,7 +64,6 @@ const AddInstructor = ({ addInstructors, setAddInstructors }) => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-
           <div className="flex flex-col">
             <label className="font-Poppins text-[15px] mb-[4px]">Email</label>
             <input
@@ -132,8 +130,6 @@ const AddInstructor = ({ addInstructors, setAddInstructors }) => {
               </button>
             </div>
           </div>
-
-
         </div>
       </Modal.Body>
       <Modal.Footer>
