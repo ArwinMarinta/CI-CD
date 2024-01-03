@@ -1,7 +1,9 @@
 import NavSide from "../../components/Header/Side";
 import Navbar from "../../components/Header/Desktop";
 
+
 import HeadInstructor from "../../data/HeadInstructor";
+
 
 import AddIcon from "../../assets/add.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -63,6 +65,7 @@ const ManageInstructor = () => {
               />
             </div>
           </div>
+
           <div className="overflow-x-auto w-full ">
             <table className="table table-striped w-full text-left">
               <thead className="font-Montserrat text-base">
@@ -123,6 +126,7 @@ const ManageInstructor = () => {
               </tbody>
             </table>
           </div>
+
           <EditeInstructor
             editeInstructors={activeModal === "editeInstructor"}
             setEditeInstructors={handleCloseModal}

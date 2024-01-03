@@ -15,10 +15,12 @@ const AddPromo = ({ addPromo, setAddPromo }) => {
     dispatch(AddDataPromo(name, discount, expiredAt));
   };
   const handleDateConversion = () => {
+
     if (expiredAt) {
       const convertedDate = new Date(expiredAt);
       setExpiredAt(convertedDate.toISOString());
     }
+
   };
   return (
     <Modal show={addPromo} onClose={() => setAddPromo(false)}>

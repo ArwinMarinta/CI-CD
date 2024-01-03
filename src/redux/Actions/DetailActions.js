@@ -5,6 +5,7 @@ import { setEditeCourse } from "../Reducers/EditeReducer";
 import { toastify } from "../../utils/toastify";
 import DetailCourse from "../../components/Modal/DetailCourse";
 
+
 export const getDetailCourse = (id) => async (dispatch) => {
   try {
     const response = await axios.get(`${VITE_API_URL}/courses/${id}`);
@@ -12,6 +13,7 @@ export const getDetailCourse = (id) => async (dispatch) => {
     const { value } = response.data;
     const data = value;
     dispatch(setEditeCourse(data));
+
   } catch (error) {
     console.log(error.message);
   }
@@ -23,6 +25,7 @@ export const getDetailCourseByID = (id) => async (dispatch) => {
     const response = await axios.get(`${VITE_API_URL}/courses/${id}`);
 
     dispatch(setDetailCourse(response.data.value));
+
   } catch (error) {
     console.log(error);
   }
@@ -32,7 +35,6 @@ export const getDetailContentById =
   (modulesId, courseId, contentId) => async (dispatch, getState) => {
     try {
       dispatch(setDetailContent([]));
-
       let { token } = getState().auth;
       const response = await axios.get(
         `${VITE_API_URL}/courses/${courseId}/modules/${modulesId}/contents/${contentId}`,
@@ -60,9 +62,7 @@ export const updateDataCourse =
     description,
     isPublished,
     courseImage,
-
     requirement,
-
     id
   ) =>
   async (_, getState) => {
@@ -78,8 +78,8 @@ export const updateDataCourse =
       formData.append("description", description);
       formData.append("isPublished", isPublished);
       formData.append("courseImage", courseImage);
-
       formData.append(" requirements", requirement);
+
 
       await axios.put(
         `${VITE_API_URL}/courses/${id}`,
@@ -91,10 +91,10 @@ export const updateDataCourse =
           price,
           courseInstructorId,
           description,
-
           isPublished: Boolean(isPublished),
           courseImage,
           requirements: requirement,
+
         },
         {
           headers: {

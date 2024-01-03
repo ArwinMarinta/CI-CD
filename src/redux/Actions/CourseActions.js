@@ -370,6 +370,7 @@ export const deleteDataInstructor = (instructorId) => async (_, getState) => {
   }
 };
 
+
 export const AddDataInstructor =
   (name, email, password, confPassword, photoInstructor) =>
   async (_, getState) => {
@@ -408,6 +409,7 @@ export const AddDataInstructor =
       }
     }
   };
+
 
 export const deleteDataCategory = (categoryId) => async (_, getState) => {
   try {
@@ -539,6 +541,7 @@ export const deleteDataPromo = (promoId) => async (_, getState) => {
   }
 };
 
+
 export const confirmCoursePremium = (paymentId) => async (_, getState) => {
   try {
     let { token } = getState().auth;
@@ -563,6 +566,7 @@ export const confirmCoursePremium = (paymentId) => async (_, getState) => {
     }
   }
 };
+
 
 export const changePublish = (published, courseId) => async (_, getState) => {
   try {
@@ -589,3 +593,4 @@ export const changePublish = (published, courseId) => async (_, getState) => {
     }
   }
 };
+

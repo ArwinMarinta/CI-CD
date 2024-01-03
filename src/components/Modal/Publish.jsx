@@ -1,6 +1,7 @@
 import { Button, Modal } from "flowbite-react";
 import PropTypes from "prop-types";
 import { useState } from "react";
+
 import { useDispatch } from "react-redux";
 import { changePublish } from "../../redux/Actions/CourseActions";
 
@@ -13,6 +14,7 @@ const Publish = ({ publish, setPublish, courseId }) => {
   const handleChange = () => {
     dispatch(changePublish(published, courseId));
   };
+
   return (
     <Modal show={publish} onClose={() => setPublish(false)}>
       <Modal.Header>Publish dan UnPublish Kelas</Modal.Header>
@@ -27,11 +29,13 @@ const Publish = ({ publish, setPublish, courseId }) => {
                 <div className="relative w-full border rounded-2xl">
                   <select
                     className="appearance-none h-full w-full rounded-2xl bg-transparent text-gray-700 py-3"
+
                     onChange={(e) => setPublished(e.target.value)}
                     value={published}
                   >
                     <option value="" disabled hidden>
                       Silahkan Pilih Keterangan
+
                     </option>
                     <option value="true">True</option>
                     <option value="false">False</option>
@@ -43,7 +47,9 @@ const Publish = ({ publish, setPublish, courseId }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
+
         <Button onClick={handleChange}>Ubah</Button>
+
       </Modal.Footer>
     </Modal>
   );
@@ -53,6 +59,7 @@ Publish.propTypes = {
   publish: PropTypes.bool,
   setPublish: PropTypes.func,
   courseId: PropTypes.number,
+
 };
 
 export default Publish;

@@ -44,6 +44,7 @@ const Dashboard = () => {
   const isCourseInstructorAvailable =
     courseInstructor && courseInstructor.length > 0;
 
+
   const courseData = {
     labels: isTopCourseAvailable
       ? popularPremium.map((data) => data.title.toString())
@@ -52,11 +53,14 @@ const Dashboard = () => {
     datasets: [
       {
         label: "Diambil",
+
         data: isTopCourseAvailable
           ? popularPremium.map((data) => data.taken)
           : [],
         backgroundColor: [" #FFBE05"],
       },
+
+
     ],
   };
 
@@ -85,7 +89,9 @@ const Dashboard = () => {
         data: isCourseTypeAvailable
           ? courseType.map((data) => data.totalCourse)
           : [],
+
         backgroundColor: ["#00CF6C", "#FF0000"],
+
       },
     ],
   };
@@ -160,10 +166,12 @@ const Dashboard = () => {
         <div className="w-full ">
           <Navbar />
         </div>
+
         <div className="flex flex-col justify-center items-center container mt-10 mx-auto w-full mb-10 ">
           <div className="grid grid-cols-1 lg:grid-cols-2 w-full justify-between mb-14  gap-5">
             {Data.map((items) => (
               <div key={items.id} className="w-full">
+
                 <div
                   className={`flex flex-row p-6  gap-6  rounded-2xl    ${
                     items.Keterangan === "Active User"
@@ -194,7 +202,9 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="w-full h-full flex flex-col justify-center gap-4">
               <div className="text-center font-Montserrat font-bold text-DARKBLUE05 lg:text-2xl">
+
                 Grafik Data Banyak kelas Yang Diambil
+
               </div>
               <Bar data={courseData} />
             </div>
