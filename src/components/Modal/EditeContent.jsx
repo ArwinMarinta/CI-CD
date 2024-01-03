@@ -1,5 +1,5 @@
 import { Modal, Button } from "flowbite-react";
-import PropTypes from "prop-types";
+import PropTypes, { bool } from "prop-types";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -18,7 +18,7 @@ const EditeContent = ({
   const [title, setTitle] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [duration, setDuration] = useState();
-  const [isDemo, setIsDemo] = useState("");
+  const [isDemo, setIsDemo] = useState();
 
   const { editeContent } = useSelector((state) => state.edite);
 
@@ -33,7 +33,7 @@ const EditeContent = ({
     setTitle(editeContent.title || "");
     setVideoUrl(editeContent.videoUrl || "");
     setDuration(editeContent.duration || "");
-    setIsDemo(editeContent.isDemo);
+    // setIsDemo(editeContent.isDemo || "");
   }, [editeContent]);
 
   const handleClik = () => {
@@ -97,15 +97,15 @@ const EditeContent = ({
               <div className=" inset-y-0 right-0 flex items-center  w-full">
                 <div className="relative w-full border rounded-2xl">
                   <select
-                    className="appearance-none h-full w-full rounded-2xl bg-transparent  text-gray-700 py-3"
-                    value={isDemo}
+                    className="appearance-none h-full w-full rounded-2xl bg-transparent text-gray-700 py-3"
                     onChange={(e) => setIsDemo(e.target.value)}
+                    // value={String(isDemo)}
                   >
-                    <option value="" disabled hidden>
-                      Pilih
-                    </option>
-                    <option value={true}>true</option>
-                    <option value={false}>false</option>
+                    {/* <option value="" disabled hidden>
+                      "Silahkan Pilih"
+                    </option> */}
+                    <option value={true}>False</option>
+                    <option value={false}>True</option>
                   </select>
                 </div>
               </div>

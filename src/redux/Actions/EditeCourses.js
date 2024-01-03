@@ -40,6 +40,7 @@ export const updateContent =
   (title, videoUrl, duration, isDemo, modulesId, contentId, courseId) =>
   async (_, getState) => {
     try {
+      console.log(Boolean(isDemo));
       let { token } = getState().auth;
       await axios.put(
         `${VITE_API_URL}/course-contents/${contentId}`,
@@ -229,7 +230,6 @@ export const getInstructorById =
   };
 
 export const updateDataInstructor =
-
   (name, email, password, confPassword, photoInstructor, instructorId) =>
   async (_, getState) => {
     try {
@@ -240,24 +240,20 @@ export const updateDataInstructor =
       formData.append("password", password);
       formData.append("confPassword", confPassword);
       formData.append(" photoInstructor", photoInstructor);
-
       await axios.put(
         `${VITE_API_URL}/course-instructors/${instructorId}`,
         {
           name,
-
           email,
           password,
           confPassword,
           photoInstructor,
-
         },
         {
           headers: {
             Authorization: `Bearer ${token}`,
 
             "Content-Type": "multipart/form-data",
-
           },
         }
       );
@@ -298,7 +294,6 @@ export const updateDataCategori =
   (name, isPublished, photoCategory, categoryId) => async (_, getState) => {
     try {
       let { token } = getState().auth;
-
       const formData = new FormData();
       formData.append("name", name);
       formData.append("isPublished", isPublished);
@@ -317,6 +312,8 @@ export const updateDataCategori =
           },
         }
       );
+
+      window.location.reload();
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toastify({

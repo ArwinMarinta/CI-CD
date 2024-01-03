@@ -1,11 +1,9 @@
 import axios from "axios";
 import { VITE_API_URL } from "../../config/config";
-
 import { setDetailContent, setDetailCourse } from "../Reducers/DetailReducer";
 import { setEditeCourse } from "../Reducers/EditeReducer";
 import { toastify } from "../../utils/toastify";
 import DetailCourse from "../../components/Modal/DetailCourse";
-
 
 export const getDetailCourse = (id) => async (dispatch) => {
   try {
@@ -14,7 +12,6 @@ export const getDetailCourse = (id) => async (dispatch) => {
     const { value } = response.data;
     const data = value;
     dispatch(setEditeCourse(data));
-
   } catch (error) {
     console.log(error.message);
   }
@@ -26,7 +23,6 @@ export const getDetailCourseByID = (id) => async (dispatch) => {
     const response = await axios.get(`${VITE_API_URL}/courses/${id}`);
 
     dispatch(setDetailCourse(response.data.value));
-
   } catch (error) {
     console.log(error);
   }
@@ -35,7 +31,6 @@ export const getDetailCourseByID = (id) => async (dispatch) => {
 export const getDetailContentById =
   (modulesId, courseId, contentId) => async (dispatch, getState) => {
     try {
-
       dispatch(setDetailContent([]));
 
       let { token } = getState().auth;
@@ -72,7 +67,6 @@ export const updateDataCourse =
   ) =>
   async (_, getState) => {
     try {
-
       let { token } = getState().auth;
       const formData = new FormData();
       formData.append("title", title);
@@ -101,7 +95,6 @@ export const updateDataCourse =
           isPublished: Boolean(isPublished),
           courseImage,
           requirements: requirement,
-
         },
         {
           headers: {

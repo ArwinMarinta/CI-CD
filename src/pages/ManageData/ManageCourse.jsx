@@ -14,9 +14,7 @@ import Filter from "../../components/Modal/Filter";
 import PromoCourse from "../../components/Modal/PromoCourse";
 import DetailCourse from "../../components/Modal/DetailCourse";
 import Pagination from "../../components/Pagination";
-
 import Publish from "../../components/Modal/Publish";
-
 
 const ManageCourse = () => {
   const dispatch = useDispatch();
@@ -26,9 +24,8 @@ const ManageCourse = () => {
   const [typeCourse, setTypeCourse] = useState([]);
   const [category, setCategory] = useState([]);
   const [save, setSave] = useState(false);
-  const [courseId, setCourseId] = useState("");
+  const [courseId, setCourseId] = useState(null);
   const [openSearch, setOpenSearch] = useState(false);
-
 
   const { courses } = useSelector((state) => state.course);
   const [searchTerm, setSearchTerm] = useState("");
@@ -169,7 +166,6 @@ const ManageCourse = () => {
             </div>
           </div>
 
-
           <div className="overflow-x-auto w-full ">
             <table className="table table-striped w-full text-left ">
               <thead className="font-Montserrat text-xs whitespace-nowrap">
@@ -206,13 +202,11 @@ const ManageCourse = () => {
                       key={data.id}
                       className="bg-white border-b font-Montserrat  "
                     >
-
                       <td
                         scope="row"
                         className="  pl-2 md:pl-4 whitespace-nowrap"
                       >
                         {data.code}
-
                       </td>
                       <td className=" py-4  px-2 md:px-4 whitespace-nowrap">
                         {data.category ?? "-"}
@@ -270,13 +264,11 @@ const ManageCourse = () => {
                           >
                             Promo
                           </button>
-
                           <button
-                            onClick={() => handleOpenModal("Publish")}
+                            onClick={() => handleOpenModal("Publish", data.id)}
                             className="p-1 bg-[#FF5733] rounded-md"
                           >
-                            Promo
-
+                            Publish
                           </button>
                         </div>
                       </td>
@@ -299,12 +291,11 @@ const ManageCourse = () => {
               setDetailCourses={handleCloseModal}
               courseId={courseId}
             />
-
             <Publish
               publish={activeModal === "Publish"}
               setPublish={handleCloseModal}
+              courseId={Number(courseId)}
             />
-
           </div>
         </div>
       </div>

@@ -5,10 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getDetailCourseByID } from "../../redux/Actions/DetailActions";
 
-
 const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
   const dispatch = useDispatch();
-
 
   const [id, setId] = useState(null);
   const [code, setCode] = useState(null);
@@ -238,7 +236,6 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             />
           </div>
           <div className="flex flex-col">
-
             <label className="font-Poppins text-[15px] mb-[4px]">Publish</label>
             <input
               type="text"
@@ -247,7 +244,6 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
             />
           </div>
           <div className="flex flex-col">
-
             <label className="font-Poppins text-[15px] mb-[4px]">
               Gambar Kelas
             </label>

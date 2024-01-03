@@ -23,9 +23,7 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
   const [isPublished, setIsPublished] = useState("");
   const [requirements, setRequirements] = useState("");
   const [courseImage, setCourseImage] = useState(null);
-
   const [requirement, setRequirement] = useState("");
-
 
   const { kategori, type, level, instructor } = useSelector(
     (state) => state.select
@@ -41,7 +39,6 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
     if (id) {
       dispatch(getDetailCourse(id));
     }
-
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -60,7 +57,6 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
   }, [editeCourse]);
 
   const requirementValues = (requirements) => {
-
     // Check if requirements is an array
     if (!Array.isArray(requirements) || requirements.length === 0) {
       return "";
@@ -78,7 +74,6 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
   useEffect(() => {
     setRequirement(requirementValues(requirements));
   }, [requirements]);
-
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -289,10 +284,8 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
                     rows="2"
                     cols="20"
                     className="rounded-2xl"
-
                     onChange={(e) => setRequirement(e.target.value)}
                     value={requirement}
-
                   ></textarea>
                 </>
               </div>
@@ -324,9 +317,7 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
 EditeCourse.propTypes = {
   editeCourse: PropTypes.bool,
   setEditeCourse: PropTypes.func,
-
   id: PropTypes.number,
-
 };
 
 export default EditeCourse;

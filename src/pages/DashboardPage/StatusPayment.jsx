@@ -40,12 +40,10 @@ const StatusPayment = () => {
     }
   }, [dispatch, pageNumber, status, showModal]);
 
-
   const handleConfirm = (paymentId) => {
     // console.log(paymentId);
     dispatch(confirmCoursePremium(paymentId));
   };
-
 
   return (
     <div className="flex  ">
@@ -170,7 +168,6 @@ const StatusPayment = () => {
                   })
                   .map((data) => (
                     <tr
-
                       key={data.orderId}
                       className="bg-white border-b font-Montserrat text-xs "
                     >
@@ -189,12 +186,10 @@ const StatusPayment = () => {
                       <td
                         className={`py-4   px-2 md:px-4 whitespace-nowrap ${
                           data.orderStatus === "Success"
-
                             ? "text-green-500 font-bold"
                             : "text-red-700 font-bold"
                         }`}
                       >
-
                         {data.orderStatus ?? "-"}
                       </td>
                       <td className="  py-4  px-2 md:px-4 whitespace-nowrap">
@@ -217,7 +212,6 @@ const StatusPayment = () => {
                           ) : null}
                         </div>
                       </td>
-
                     </tr>
                   ))}
               </tbody>
