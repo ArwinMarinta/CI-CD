@@ -32,7 +32,6 @@ export const getDetailContentById =
   (modulesId, courseId, contentId) => async (dispatch, getState) => {
     try {
       dispatch(setDetailContent([]));
-
       let { token } = getState().auth;
       const response = await axios.get(
         `${VITE_API_URL}/courses/${courseId}/modules/${modulesId}/contents/${contentId}`,
@@ -60,9 +59,7 @@ export const updateDataCourse =
     description,
     isPublished,
     courseImage,
-
     requirement,
-
     id
   ) =>
   async (_, getState) => {
@@ -78,8 +75,8 @@ export const updateDataCourse =
       formData.append("description", description);
       formData.append("isPublished", isPublished);
       formData.append("courseImage", courseImage);
-
       formData.append(" requirements", requirement);
+
 
       await axios.put(
         `${VITE_API_URL}/courses/${id}`,
@@ -91,7 +88,6 @@ export const updateDataCourse =
           price,
           courseInstructorId,
           description,
-
           isPublished: Boolean(isPublished),
           courseImage,
           requirements: requirement,
