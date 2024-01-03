@@ -13,6 +13,7 @@ const Publish = ({ publish, setPublish, courseId }) => {
   const handleChange = () => {
     dispatch(changePublish(published, courseId));
   };
+
   return (
     <Modal show={publish} onClose={() => setPublish(false)}>
       <Modal.Header>Publish dan UnPublish Kelas</Modal.Header>
@@ -32,6 +33,7 @@ const Publish = ({ publish, setPublish, courseId }) => {
                   >
                     <option value="" disabled hidden>
                       Silahkan Pilih Keterangan
+
                     </option>
                     <option value="true">True</option>
                     <option value="false">False</option>
