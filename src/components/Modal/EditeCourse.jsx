@@ -49,9 +49,7 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
     setTitle(editeCourse.title || "");
     setPrice(editeCourse.totalPrice || "");
     setCourseInstructorId(editeCourse.instructorId || "");
-
     setIsPublished(editeCourse.isPublished || "");
-
     setRequirements(editeCourse?.requirements || "");
     setDescription(editeCourse.description || "");
   }, [editeCourse]);

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AddDataInstructor } from "../../redux/Actions/CourseActions";
 
-
 import { FileInput, Label } from "flowbite-react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { FaCheckCircle } from "react-icons/fa";
