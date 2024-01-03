@@ -44,6 +44,10 @@ const Dashboard = () => {
   const isCourseInstructorAvailable =
     courseInstructor && courseInstructor.length > 0;
 
+  const allPopularCourses = isTopCourseAvailable
+    ? [...popularPremium, ...popularFree]
+    : [];
+
   const courseData = {
     labels: isTopCourseAvailable
       ? popularPremium.map((data) => data.title.toString())
@@ -51,7 +55,7 @@ const Dashboard = () => {
 
     datasets: [
       {
-        label: "Diambil",
+        label: "Premium",
         data: isTopCourseAvailable
           ? popularPremium.map((data) => data.taken)
           : [],
