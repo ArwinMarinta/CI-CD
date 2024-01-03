@@ -9,19 +9,12 @@ import {
 import { FileInput, Label } from "flowbite-react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
-
-import { FileInput, Label } from "flowbite-react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-
-
-
 const EditeInstructor = ({
   editeInstructors,
   setEditeInstructors,
   instructorId,
 }) => {
   const dispatch = useDispatch();
-
   const [photoInstructor, setPhotoInstructor] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -30,7 +23,6 @@ const EditeInstructor = ({
   const [confPassword, setConfPassword] = useState("");
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-
   const { editeInstructor } = useSelector((state) => state.edite);
 
   useEffect(() => {
@@ -38,7 +30,6 @@ const EditeInstructor = ({
   }, [dispatch, instructorId]);
 
   useEffect(() => {
-
     setName(editeInstructor.name);
     setPhotoInstructor(editeInstructor.photoProfile);
     setEmail(editeInstructor.email);
@@ -67,7 +58,6 @@ const EditeInstructor = ({
         instructorId
       )
     );
-
   };
 
   return (
@@ -75,7 +65,6 @@ const EditeInstructor = ({
       <Modal.Header>Ubah Data Pengajar</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
-
           <div>
             <div>
               <Label htmlFor="file-upload-helper-text" value="Upload file" />
@@ -89,7 +78,6 @@ const EditeInstructor = ({
           <div className="flex flex-col">
             <label className="font-Poppins text-[15px] mb-[4px]">
               Nama Pengajar
-
             </label>
             <input
               type="text"
@@ -99,7 +87,6 @@ const EditeInstructor = ({
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-
           <div className="flex flex-col">
             <label className="font-Poppins text-[15px] mb-[4px]">Email</label>
             <input
@@ -166,7 +153,6 @@ const EditeInstructor = ({
               </button>
             </div>
           </div>
-<
         </div>
       </Modal.Body>
       <Modal.Footer>

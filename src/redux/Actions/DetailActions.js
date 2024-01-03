@@ -5,7 +5,6 @@ import { setEditeCourse } from "../Reducers/EditeReducer";
 import { toastify } from "../../utils/toastify";
 import DetailCourse from "../../components/Modal/DetailCourse";
 
-
 export const getDetailCourse = (id) => async (dispatch) => {
   try {
     const response = await axios.get(`${VITE_API_URL}/courses/${id}`);
@@ -13,7 +12,6 @@ export const getDetailCourse = (id) => async (dispatch) => {
     const { value } = response.data;
     const data = value;
     dispatch(setEditeCourse(data));
-
   } catch (error) {
     console.log(error.message);
   }
@@ -25,7 +23,6 @@ export const getDetailCourseByID = (id) => async (dispatch) => {
     const response = await axios.get(`${VITE_API_URL}/courses/${id}`);
 
     dispatch(setDetailCourse(response.data.value));
-
   } catch (error) {
     console.log(error);
   }
@@ -94,7 +91,6 @@ export const updateDataCourse =
           isPublished: Boolean(isPublished),
           courseImage,
           requirements: requirement,
-
         },
         {
           headers: {

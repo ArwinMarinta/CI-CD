@@ -169,9 +169,7 @@ export const getPopularPremium = () => async (dispatch, getState) => {
   try {
     let { token } = getState().auth;
     const response = await axios.get(
-
       `${VITE_API_URL}/courses?limit=10&page=1&popular=true&type=free&type=premium`,
-
       {
         headers: {
           Authorization: `Bearer ${token}`,

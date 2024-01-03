@@ -16,11 +16,6 @@ import DetailCourse from "../../components/Modal/DetailCourse";
 import Pagination from "../../components/Pagination";
 import Publish from "../../components/Modal/Publish";
 
-
-import Publish from "../../components/Modal/Publish";
-
-
-
 const ManageCourse = () => {
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = useState(1);
@@ -207,13 +202,11 @@ const ManageCourse = () => {
                       key={data.id}
                       className="bg-white border-b font-Montserrat  "
                     >
-
                       <td
                         scope="row"
                         className="  pl-2 md:pl-4 whitespace-nowrap"
                       >
                         {data.code}
-
                       </td>
                       <td className=" py-4  px-2 md:px-4 whitespace-nowrap">
                         {data.category ?? "-"}
@@ -271,13 +264,11 @@ const ManageCourse = () => {
                           >
                             Promo
                           </button>
-
                           <button
                             onClick={() => handleOpenModal("Publish", data.id)}
                             className="p-1 bg-[#FF5733] rounded-md"
                           >
                             Publish
-
                           </button>
                         </div>
                       </td>
@@ -300,13 +291,11 @@ const ManageCourse = () => {
               setDetailCourses={handleCloseModal}
               courseId={courseId}
             />
-
             <Publish
               publish={activeModal === "Publish"}
               setPublish={handleCloseModal}
               courseId={Number(courseId)}
             />
-
           </div>
         </div>
       </div>

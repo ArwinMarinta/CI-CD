@@ -36,7 +36,6 @@ const AddInstructor = ({ addInstructors, setAddInstructors }) => {
     dispatch(
       AddDataInstructor(name, email, password, confPassword, photoInstructor)
     );
-
   };
 
   return (
@@ -44,7 +43,6 @@ const AddInstructor = ({ addInstructors, setAddInstructors }) => {
       <Modal.Header>Tambah Data Pengajar</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
-
           <div>
             <div>
               <Label htmlFor="file-upload-helper-text" value="Upload file" />
@@ -55,7 +53,6 @@ const AddInstructor = ({ addInstructors, setAddInstructors }) => {
               onChange={handleFileChange}
             />
           </div>
-
           <div className="flex flex-col">
             <label className="font-Poppins text-[15px] mb-[4px]">
               Nama Pengajar
@@ -68,7 +65,6 @@ const AddInstructor = ({ addInstructors, setAddInstructors }) => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-
           <div className="flex flex-col">
             <label className="font-Poppins text-[15px] mb-[4px]">Email</label>
             <input
@@ -135,7 +131,6 @@ const AddInstructor = ({ addInstructors, setAddInstructors }) => {
               </button>
             </div>
           </div>
-
         </div>
       </Modal.Body>
       <Modal.Footer>
