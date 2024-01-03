@@ -240,7 +240,6 @@ export const updateDataInstructor =
       formData.append("password", password);
       formData.append("confPassword", confPassword);
       formData.append(" photoInstructor", photoInstructor);
-
       await axios.put(
         `${VITE_API_URL}/course-instructors/${instructorId}`,
         {

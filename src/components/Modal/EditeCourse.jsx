@@ -24,8 +24,6 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
   const [requirements, setRequirements] = useState("");
   const [courseImage, setCourseImage] = useState(null);
   const [requirement, setRequirement] = useState("");
- 
-
   const { kategori, type, level, instructor } = useSelector(
     (state) => state.select
   );
@@ -40,7 +38,6 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
     if (id) {
       dispatch(getDetailCourse(id));
     }
-
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -93,9 +90,7 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
         isPublished,
         courseImage,
 
-
         requirement,
-
 
         id
       )
@@ -288,7 +283,6 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
                     className="rounded-2xl"
                     onChange={(e) => setRequirement(e.target.value)}
                     value={requirement}
-
                   ></textarea>
                 </>
               </div>
@@ -321,7 +315,6 @@ EditeCourse.propTypes = {
   editeCourse: PropTypes.bool,
   setEditeCourse: PropTypes.func,
   id: PropTypes.number,
-
 };
 
 export default EditeCourse;

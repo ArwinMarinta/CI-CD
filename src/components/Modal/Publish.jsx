@@ -1,8 +1,6 @@
 import { Button, Modal } from "flowbite-react";
 import PropTypes from "prop-types";
 import { useState } from "react";
-
-
 import { useDispatch } from "react-redux";
 import { changePublish } from "../../redux/Actions/CourseActions";
 
@@ -15,7 +13,6 @@ const Publish = ({ publish, setPublish, courseId }) => {
   const handleChange = () => {
     dispatch(changePublish(published, courseId));
   };
-
 
   return (
     <Modal show={publish} onClose={() => setPublish(false)}>

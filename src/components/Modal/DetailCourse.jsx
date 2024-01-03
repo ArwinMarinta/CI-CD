@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-
 import { getDetailCourseByID } from "../../redux/Actions/DetailActions";
 
 const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
@@ -57,7 +56,6 @@ const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
     setIsPublishedAt(detailCourse?.publishedAt);
     setIsPublish(detailCourse?.isPublished);
   }, [detailCourse]);
-
 
   return (
     <Modal show={detailCourses} onClose={() => setDetailCourses(false)}>

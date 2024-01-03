@@ -16,9 +16,7 @@ const PromoCourse = ({ promoCourse, setPromoCourse, courseId }) => {
 
   const { promo } = useSelector((state) => state.select);
 
-
   const { detailCourse } = useSelector((state) => state.detail);
-
 
   useEffect(() => {
     dispatch(getPromo());
@@ -27,8 +25,6 @@ const PromoCourse = ({ promoCourse, setPromoCourse, courseId }) => {
   useEffect(() => {
     setPromos(detailCourse?.namePromo);
   }, [detailCourse]);
-
-
 
   const handleUpdate = () => {
     dispatch(updatePomoCourse(promoId, courseId));

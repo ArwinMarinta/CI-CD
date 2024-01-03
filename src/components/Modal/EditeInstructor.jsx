@@ -9,18 +9,6 @@ import {
 import { FileInput, Label } from "flowbite-react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
-
-import { FileInput, Label } from "flowbite-react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-
-
-
-
-import { FileInput, Label } from "flowbite-react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-
-
-
 const EditeInstructor = ({
   editeInstructors,
   setEditeInstructors,
@@ -34,7 +22,6 @@ const EditeInstructor = ({
   const [showPassword, setShowPassword] = useState(false);
   const [confPassword, setConfPassword] = useState("");
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
 
   const { editeInstructor } = useSelector((state) => state.edite);
 

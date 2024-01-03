@@ -44,8 +44,6 @@ const Dashboard = () => {
   const isCourseInstructorAvailable =
     courseInstructor && courseInstructor.length > 0;
 
-
-
   const courseData = {
     labels: isTopCourseAvailable
       ? popularPremium.map((data) => data.title.toString())
