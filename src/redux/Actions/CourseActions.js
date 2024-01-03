@@ -411,7 +411,6 @@ export const AddDataInstructor =
   };
 
 
-
 export const deleteDataCategory = (categoryId) => async (_, getState) => {
   try {
     let { token } = getState().auth;
@@ -551,6 +550,34 @@ export const confirmCoursePremium = (paymentId) => async (_, getState) => {
     await axios.put(
       `${VITE_API_URL}/orders/confirm/${paymentId}`,
       {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    window.location.reload();
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toastify({
+        message: error?.response?.data?.message,
+        type: "error",
+      });
+    }
+  }
+};
+
+
+
+export const changePublish = (published, courseId) => async (_, getState) => {
+  try {
+    let { token } = getState().auth;
+    await axios.put(
+      `${VITE_API_URL}/courses/${courseId}/publish`,
+      {
+        publish: published,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,

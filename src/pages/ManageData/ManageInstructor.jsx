@@ -66,7 +66,6 @@ const ManageInstructor = () => {
             </div>
           </div>
 
-
           <div className="overflow-x-auto w-full ">
             <table className="table table-striped w-full text-left">
               <thead className="font-Montserrat text-base">
@@ -127,7 +126,6 @@ const ManageInstructor = () => {
               </tbody>
             </table>
           </div>
-
 
           <EditeInstructor
             editeInstructors={activeModal === "editeInstructor"}
