@@ -4,9 +4,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { changePublish } from "../../redux/Actions/CourseActions";
 
-import { useDispatch } from "react-redux";
-import { changePublish } from "../../redux/Actions/CourseActions";
-
 const Publish = ({ publish, setPublish, courseId }) => {
   const dispatch = useDispatch();
   const [published, setPublished] = useState("");
@@ -16,7 +13,6 @@ const Publish = ({ publish, setPublish, courseId }) => {
   const handleChange = () => {
     dispatch(changePublish(published, courseId));
   };
-
   return (
     <Modal show={publish} onClose={() => setPublish(false)}>
       <Modal.Header>Publish dan UnPublish Kelas</Modal.Header>
