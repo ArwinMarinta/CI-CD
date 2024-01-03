@@ -31,7 +31,7 @@ const Publish = ({ publish, setPublish, courseId }) => {
                     value={published}
                   >
                     <option value="" disabled hidden>
-                      Silahkan Pilih Promo
+                      Silahkan Pilih Keterangan
                     </option>
                     <option value="true">True</option>
                     <option value="false">False</option>

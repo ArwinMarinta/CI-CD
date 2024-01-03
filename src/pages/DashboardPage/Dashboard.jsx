@@ -85,7 +85,7 @@ const Dashboard = () => {
         data: isCourseTypeAvailable
           ? courseType.map((data) => data.totalCourse)
           : [],
-        backgroundColor: ["#FF0000", "#00CF6C"],
+        backgroundColor: ["#00CF6C", "#FF0000"],
       },
     ],
   };

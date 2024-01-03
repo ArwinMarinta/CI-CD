@@ -252,6 +252,7 @@ export const updateDataInstructor =
         {
           headers: {
             Authorization: `Bearer ${token}`,
+
             "Content-Type": "multipart/form-data",
           },
         }
@@ -311,6 +312,8 @@ export const updateDataCategori =
           },
         }
       );
+
+      window.location.reload();
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toastify({

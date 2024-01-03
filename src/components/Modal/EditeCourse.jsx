@@ -35,7 +35,10 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
     dispatch(getKategori());
     dispatch(getLevel());
     dispatch(getType());
-    dispatch(getDetailCourse(id));
+
+    if (id) {
+      dispatch(getDetailCourse(id));
+    }
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -46,7 +49,9 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
     setTitle(editeCourse.title || "");
     setPrice(editeCourse.totalPrice || "");
     setCourseInstructorId(editeCourse.instructorId || "");
+
     setIsPublished(editeCourse.isPublished || "");
+
     setRequirements(editeCourse?.requirements || "");
     setDescription(editeCourse.description || "");
   }, [editeCourse]);
@@ -87,7 +92,9 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
         description,
         isPublished,
         courseImage,
+
         requirement,
+
         id
       )
     );

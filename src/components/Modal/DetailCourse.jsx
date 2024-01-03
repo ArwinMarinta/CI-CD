@@ -2,6 +2,7 @@ import { Modal, Button } from "flowbite-react";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { getDetailCourseByID } from "../../redux/Actions/DetailActions";
 
 const DetailCourse = ({ detailCourses, setDetailCourses, courseId }) => {
