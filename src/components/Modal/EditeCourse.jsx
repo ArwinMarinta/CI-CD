@@ -24,7 +24,7 @@ const EditeCourse = ({ editeCourses, setEditeCourses, id }) => {
   const [requirements, setRequirements] = useState("");
   const [courseImage, setCourseImage] = useState(null);
   const [requirement, setRequirement] = useState("");
-  
+
   const { kategori, type, level, instructor } = useSelector(
     (state) => state.select
   );
