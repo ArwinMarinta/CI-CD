@@ -45,6 +45,7 @@ const StatusPayment = () => {
     dispatch(confirmCoursePremium(paymentId));
   };
 
+
   return (
     <div className="flex  ">
       <NavSide />
@@ -186,6 +187,7 @@ const StatusPayment = () => {
                       <td
                         className={`py-4   px-2 md:px-4 whitespace-nowrap ${
                           data.orderStatus === "Success"
+
                             ? "text-green-500 font-bold"
                             : "text-red-700 font-bold"
                         }`}

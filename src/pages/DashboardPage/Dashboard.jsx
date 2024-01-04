@@ -52,7 +52,6 @@ const Dashboard = () => {
     datasets: [
       {
         label: "Diambil",
-
         data: isTopCourseAvailable
           ? popularPremium.map((data) => data.taken)
           : [],

@@ -564,6 +564,8 @@ export const confirmCoursePremium = (paymentId) => async (_, getState) => {
   }
 };
 
+
+
 export const changePublish = (published, courseId) => async (_, getState) => {
   try {
     let { token } = getState().auth;
@@ -589,3 +591,4 @@ export const changePublish = (published, courseId) => async (_, getState) => {
     }
   }
 };
+
