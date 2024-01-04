@@ -18,10 +18,12 @@ const EditeContent = ({
   const [title, setTitle] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [duration, setDuration] = useState();
-  const [isDemo, setIsDemo] = useState();
+  const [isDemo, setIsDemo] = useState("");
+  const [demo, setDemo] = useState("");
 
   const { editeContent } = useSelector((state) => state.edite);
 
+  console.log(isDemo);
   useEffect(() => {
     courseId &&
       modulesId &&
@@ -48,6 +50,15 @@ const EditeContent = ({
         courseId
       )
     );
+  };
+
+  const handleIsDemo = (e) => {
+    setDemo(e.target.value);
+    if (demo === true) {
+      setIsDemo(true);
+    } else {
+      setIsDemo(false);
+    }
   };
 
   return (
@@ -98,7 +109,7 @@ const EditeContent = ({
                 <div className="relative w-full border rounded-2xl">
                   <select
                     className="appearance-none h-full w-full rounded-2xl bg-transparent text-gray-700 py-3"
-                    onChange={(e) => setIsDemo(e.target.value)}
+                    onChange={handleIsDemo}
                     // value={String(isDemo)}
                   >
                     {/* <option value="" disabled hidden>

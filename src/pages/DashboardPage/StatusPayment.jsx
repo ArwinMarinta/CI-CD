@@ -197,6 +197,7 @@ const StatusPayment = () => {
                       <td className="  py-4  px-2 md:px-4 whitespace-nowrap">
                         {data.paymentMethod ?? "-"}
                       </td>
+                      n
                       <td className=" pr-4  px-2 md:px-4 whitespace-nowrap">
                         {new Date(data.orderAt).toLocaleString() ?? "-"}
                       </td>
